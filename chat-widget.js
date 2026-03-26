@@ -28,7 +28,7 @@
     '#cw-root button,#cw-root input{margin:0;padding:0;border:none;outline:none;background:none;font:inherit}',
 
     /* Greeting */
-    '#cw-greeting{position:fixed;bottom:96px;right:28px;background:#fff;',
+    '#cw-greeting{position:fixed;bottom:108px;right:28px;background:#fff;',
     'border-radius:18px 18px 5px 18px;box-shadow:0 6px 28px rgba(0,0,0,.13);',
     'padding:16px 20px;max-width:270px;z-index:9999;',
     'display:flex;align-items:flex-start;gap:10px;',
@@ -178,7 +178,7 @@
     '<div id="cw-greeting">',
     '  <div id="cw-greeting-body">',
     '    <div id="cw-greeting-label">이동원 AI 어시스턴트</div>',
-    '    <div id="cw-greeting-text">👋 안녕하세요!<br>포트폴리오에 대해 궁금한 것을 물어보세요.</div>',
+    '    <div id="cw-greeting-text">👋 궁금한 것을 물어보세요!</div>',
     '  </div>',
     '  <button id="cw-greeting-close" aria-label="닫기">&#x2715;</button>',
     '</div>',
@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.2</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.3</div>',
     '  </div>',
     '</div>'
   ].join('\n');
