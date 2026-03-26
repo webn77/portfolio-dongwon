@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.6</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.2.0</div>',
     '  </div>',
     '</div>'
   ].join('\n');
