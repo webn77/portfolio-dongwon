@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.1</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.2</div>',
     '  </div>',
     '</div>'
   ].join('\n');
@@ -275,13 +275,12 @@
     if (isOpen) {
       hideGreeting();
       if (!welcomed) {
+        welcomed = true;
+        showWelcome();          // 항상 웰컴 메시지 + 칩 먼저
         var saved = loadHistory();
         if (saved.length > 0) {
-          restoreHistory(saved);
-        } else {
-          showWelcome();
+          restoreHistory(saved); // 이전 대화는 그 아래에 이어붙임
         }
-        welcomed = true;
       }
       inputEl.focus();
     }
