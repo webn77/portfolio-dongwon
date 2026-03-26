@@ -17,7 +17,7 @@
   });
 
   var WELCOME_TEXT  = '안녕하세요, 방문자님!\n\n포트폴리오에 대해 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.';
-  var WELCOME_CHIPS = ['결제 경력이 얼마나 돼요?', '가장 큰 성과는?', '팀 리드 경험 있나요?'];
+  var WELCOME_CHIPS = ['결제 경력이 얼마나 돼요?', '가장 큰 성과는?', '팀 리드 경험 있나요?', '동원챗봇 어떻게 만들었나요?'];
   var STORAGE_KEY   = 'cw_history_v2';
   var MAX_HISTORY   = 30;
 
