@@ -28,7 +28,7 @@
     '#cw-root button,#cw-root input{margin:0;padding:0;border:none;outline:none;background:none;font:inherit}',
 
     /* Greeting */
-    '#cw-greeting{position:fixed;bottom:108px;right:28px;background:#fff;',
+    '#cw-greeting{position:fixed;bottom:120px;right:28px;background:#fff;',
     'border-radius:18px 18px 5px 18px;box-shadow:0 6px 28px rgba(0,0,0,.13);',
     'padding:16px 20px;max-width:270px;z-index:9999;',
     'display:flex;align-items:flex-start;gap:10px;',
@@ -45,7 +45,7 @@
     '#cw-fab{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;',
     'background:#7C3AED;border:none;cursor:pointer;padding:0;',
     'display:flex;align-items:center;justify-content:center;',
-    'box-shadow:0 6px 24px rgba(124,58,237,.6),0 2px 8px rgba(0,0,0,.15);z-index:9999;',
+    'box-shadow:0 4px 16px rgba(124,58,237,.45);z-index:9999;',
     'transition:transform .2s,box-shadow .2s}',
     '#cw-fab:hover{transform:scale(1.06);box-shadow:0 10px 32px rgba(124,58,237,.7)}',
     '#cw-fab svg{color:#fff;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}',
@@ -77,7 +77,7 @@
 
     /* Messages */
     '#cw-messages{flex:1;overflow-y:auto;padding:20px 20px 16px;display:flex;',
-    'flex-direction:column;gap:14px;max-height:520px;min-height:240px;background:#F8F9FB}',
+    'flex-direction:column;gap:14px;max-height:min(360px,calc(100vh - 320px));min-height:180px;background:#F8F9FB}',
     '#cw-messages::-webkit-scrollbar{width:4px}',
     '#cw-messages::-webkit-scrollbar-track{background:transparent}',
     '#cw-messages::-webkit-scrollbar-thumb{background:#E5E7EB;border-radius:2px}',
@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.4</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.5</div>',
     '  </div>',
     '</div>'
   ].join('\n');
