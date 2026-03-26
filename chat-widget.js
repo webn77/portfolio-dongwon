@@ -25,7 +25,7 @@
   /* 핵심: #cw-root *{padding:0;margin:0} 제거 — 특이도(1,0,0)이 클래스 규칙(0,1,0)을 모두 덮어써 마진이 0이 되는 버그 수정 */
   var STYLE = [
     '#cw-root *{box-sizing:border-box}',
-    '#cw-root button,#cw-root input{margin:0;padding:0;border:none;outline:none;background:none;font:inherit}',
+    '#cw-root button,#cw-root input{margin:0;padding:0;border:none;outline:none;font:inherit}',
 
     /* Greeting */
     '#cw-greeting{position:fixed;bottom:120px;right:28px;background:#fff;',
@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.5</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.6</div>',
     '  </div>',
     '</div>'
   ].join('\n');
