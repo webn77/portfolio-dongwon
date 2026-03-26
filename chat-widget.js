@@ -45,10 +45,10 @@
     '#cw-fab{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;',
     'background:#7C3AED;border:none;cursor:pointer;padding:0;',
     'display:flex;align-items:center;justify-content:center;',
-    'box-shadow:0 6px 20px rgba(124,58,237,.5);z-index:9999;',
+    'box-shadow:0 6px 24px rgba(124,58,237,.6),0 2px 8px rgba(0,0,0,.15);z-index:9999;',
     'transition:transform .2s,box-shadow .2s}',
-    '#cw-fab:hover{transform:scale(1.06);box-shadow:0 8px 28px rgba(124,58,237,.6)}',
-    '#cw-fab svg{color:#fff;display:block}',
+    '#cw-fab:hover{transform:scale(1.06);box-shadow:0 10px 32px rgba(124,58,237,.7)}',
+    '#cw-fab svg{color:#fff;display:block;filter:drop-shadow(0 1px 2px rgba(0,0,0,.2))}',
 
     /* Window */
     '#cw-window{position:fixed;bottom:100px;right:28px;width:420px;background:#fff;',
@@ -70,10 +70,10 @@
     "#cw-window .cw-name{font-size:15px;font-weight:700;color:#111827;margin-bottom:3px;letter-spacing:-.2px}",
     '#cw-window .cw-status{display:flex;align-items:center;gap:5px;font-size:12px;color:#6B7280}',
     '#cw-window .cw-status-dot{width:7px;height:7px;border-radius:50%;background:#10B981;flex-shrink:0}',
-    '#cw-window .cw-close{background:#F3F4F6;border:none;color:#4B5563;width:32px;height:32px;border-radius:50%;',
-    'cursor:pointer;padding:0;font-size:16px;display:flex;align-items:center;justify-content:center;',
-    'transition:background .15s,color .15s}',
-    '#cw-window .cw-close:hover{background:#E5E7EB;color:#111827}',
+    '#cw-window .cw-close{background:#4B5563;border:none;color:#fff;width:32px;height:32px;border-radius:50%;',
+    'cursor:pointer;padding:0;font-size:15px;display:flex;align-items:center;justify-content:center;',
+    'transition:background .15s;box-shadow:0 1px 4px rgba(0,0,0,.15)}',
+    '#cw-window .cw-close:hover{background:#374151}',
 
     /* Messages */
     '#cw-messages{flex:1;overflow-y:auto;padding:20px 20px 16px;display:flex;',
@@ -145,9 +145,9 @@
     'display:flex;align-items:center;justify-content:center;border-radius:50%;',
     'transition:color .15s,background .15s}',
     '#cw-window .cw-icon-btn:hover{color:#374151;background:#E5E7EB}',
-    '#cw-send{width:34px;height:34px;border-radius:50%;background:#7C3AED;border:none;cursor:pointer;padding:0;',
+    '#cw-send{width:36px;height:36px;border-radius:50%;background:#7C3AED;border:none;cursor:pointer;padding:0;',
     'display:flex;align-items:center;justify-content:center;flex-shrink:0;',
-    'transition:opacity .2s,transform .15s;box-shadow:0 2px 8px rgba(124,58,237,.35)}',
+    'transition:opacity .2s,transform .15s;box-shadow:0 3px 10px rgba(124,58,237,.5)}',
     '#cw-send:hover{opacity:.88;transform:scale(1.06)}',
     '#cw-send:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}',
     '#cw-send svg{color:#fff;display:block}',
@@ -216,7 +216,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.3</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-6px;">v2.1.4</div>',
     '  </div>',
     '</div>'
   ].join('\n');
