@@ -234,9 +234,6 @@
     icon.textContent = '이';
     var content = document.createElement('div');
     content.className = 'cw-bot-content';
-    var nameEl = document.createElement('div');
-    nameEl.className = 'cw-bot-name';
-    nameEl.textContent = '이동원';
     var bubble = document.createElement('div');
     bubble.className = 'cw-bubble';
     bubble.style.whiteSpace = 'pre-line';
@@ -250,7 +247,6 @@
       chip.addEventListener('click', function () { inputEl.value = label; sendMessage(); });
       chipsRow.appendChild(chip);
     });
-    content.appendChild(nameEl);
     content.appendChild(bubble);
     content.appendChild(chipsRow);
     br.appendChild(icon);
@@ -296,12 +292,8 @@
     icon.textContent = '이';
     var content = document.createElement('div');
     content.className = 'cw-bot-content';
-    var nameEl = document.createElement('div');
-    nameEl.className = 'cw-bot-name';
-    nameEl.textContent = '이동원';
     var bubble = document.createElement('div');
     bubble.className = 'cw-bubble';
-    content.appendChild(nameEl);
     content.appendChild(bubble);
     br.appendChild(icon);
     br.appendChild(content);
