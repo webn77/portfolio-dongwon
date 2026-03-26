@@ -15,7 +15,7 @@
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
 
-  var WELCOME_TEXT = '안녕하세요, 방문자님! 😊\n\n이동원의 포트폴리오 AI 어시스턴트입니다.\n\n경력, 프로젝트 성과, 강점 등 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.';
+  var WELCOME_TEXT = '안녕하세요, 방문자님!\n\n포트폴리오에 대해 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.\n\n운영시간\n■ AI: 24시간 연중무휴';
   var WELCOME_CHIPS = ['결제 경력이 얼마나 돼요?', '가장 큰 성과는?', '팀 리드 경험 있나요?'];
 
   /* ===== STYLES ===== */
@@ -71,8 +71,8 @@
     '.cw-close:hover{background:#F3F4F6;color:#374151}',
 
     /* Messages */
-    '.cw-messages{flex:1;overflow-y:auto;padding:20px 18px 12px;display:flex;',
-    'flex-direction:column;gap:16px;max-height:440px;min-height:120px;background:#fff}',
+    '.cw-messages{flex:1;overflow-y:auto;padding:20px 18px 20px;display:flex;',
+    'flex-direction:column;gap:16px;height:460px;background:#fff}',
     '.cw-messages::-webkit-scrollbar{width:4px}',
     '.cw-messages::-webkit-scrollbar-track{background:transparent}',
     '.cw-messages::-webkit-scrollbar-thumb{background:#E5E7EB;border-radius:2px}',
@@ -179,16 +179,6 @@
     '    <div class="cw-input-row">',
     '      <input id="cw-input" type="text" placeholder="AI에게 질문해 주세요." autocomplete="off" />',
     '      <div class="cw-input-actions">',
-    '        <button class="cw-icon-btn" aria-label="이모지">',
-    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"',
-    '               stroke="currentColor" stroke-width="2"',
-    '               stroke-linecap="round" stroke-linejoin="round">',
-    '            <circle cx="12" cy="12" r="10"/>',
-    '            <path d="M8 13s1.5 2 4 2 4-2 4-2"/>',
-    '            <line x1="9" y1="9" x2="9.01" y2="9"/>',
-    '            <line x1="15" y1="9" x2="15.01" y2="9"/>',
-    '          </svg>',
-    '        </button>',
     '        <button id="cw-send" aria-label="전송">',
     '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"',
     '               stroke="currentColor" stroke-width="2.5"',
