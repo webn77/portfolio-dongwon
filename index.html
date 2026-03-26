@@ -184,6 +184,28 @@
   #to-top.show{opacity:1;transform:translateY(0)}
   #to-top:hover{box-shadow:0 6px 24px rgba(74,144,217,.55);transform:translateY(-2px)}
 
+  /* MODAL */
+  #cs-modal{position:fixed;inset:0;z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+  #cs-modal.open{display:flex}
+  #cs-modal-overlay{position:fixed;inset:0;background:rgba(10,18,40,.65);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+  #cs-modal-box{position:relative;z-index:1;background:#fff;border-radius:20px;width:100%;max-width:860px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 32px 80px -12px rgba(10,18,40,.35);overflow:hidden;animation:modalIn .22s ease}
+  @keyframes modalIn{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+  #cs-modal-top{display:flex;align-items:flex-start;justify-content:space-between;padding:24px 28px 20px;border-bottom:1px solid var(--gray-100);flex-shrink:0;gap:16px}
+  #cs-modal-meta{display:flex;align-items:flex-start;gap:14px;flex:1;min-width:0}
+  #cs-modal-info{flex:1;min-width:0}
+  #cs-modal-company{display:inline-block;background:rgba(74,144,217,.08);color:var(--purple);font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;border:1px solid rgba(123,94,167,.18);margin-bottom:6px}
+  #cs-modal-title-text{font-size:18px;font-weight:800;color:var(--gray-900);line-height:1.3}
+  #cs-modal-kpis{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  #cs-modal-close{width:36px;height:36px;min-width:36px;border-radius:50%;background:var(--gray-100);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s;font-size:16px;color:var(--gray-600);line-height:1}
+  #cs-modal-close:hover{background:var(--gray-300)}
+  #cs-modal-body{overflow-y:auto;padding:0 28px 32px;flex:1;-webkit-overflow-scrolling:touch}
+  .acc-card{cursor:pointer}
+  .acc-header{padding:24px 28px;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;transition:background .2s}
+  .acc-header:hover{background:rgba(74,144,217,.04)}
+  .acc-open-icon{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;transition:background .2s}
+  .acc-card:hover .acc-open-icon{background:rgba(74,144,217,.12)}
+  @media(max-width:768px){#cs-modal{padding:12px}#cs-modal-box{max-height:96vh;border-radius:14px}#cs-modal-top{padding:18px 18px 14px}#cs-modal-body{padding:0 18px 24px}}
+
   @media(max-width:768px){
     .str-grid,.case-body,.seg-grid,.roadmap-grid,.why-grid{grid-template-columns:1fr}
     .cover-name{font-size:40px}
@@ -193,14 +215,6 @@
     .site-nav-links{display:none}
     .acc-header-left{flex-direction:column;gap:8px}
     .comp-table{font-size:12px}
-    /* AI 섹션 모바일 */
-    .ai-products-grid{grid-template-columns:1fr !important}
-    .ai-cases-grid{grid-template-columns:1fr !important}
-    .ai-stats-banner{grid-template-columns:repeat(2,1fr) !important;padding:24px 20px !important}
-    .ai-stats-banner>div{border-right:none !important;border-bottom:1px solid rgba(255,255,255,.12);padding:12px 0 !important}
-    .ai-stats-banner>div:nth-child(odd){border-right:1px solid rgba(255,255,255,.12) !important}
-    .ai-stats-banner>div:nth-last-child(-n+2){border-bottom:none}
-    .ai-card-images{grid-template-columns:1fr !important}
   }
 </style>
 </head>
@@ -215,7 +229,6 @@
       <li><a href="#timeline">경력</a></li>
       <li><a href="#strengths">강점</a></li>
       <li><a href="#cases">케이스스터디</a></li>
-      <li><a href="#ai-skills">AI·자동화</a></li>
       <li><a href="#proposal">미리디 제안</a></li>
       <li><a href="#closing">마무리</a></li>
     </ul>
@@ -415,7 +428,7 @@
 
     <!-- CS1 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">1</div>
           <div class="acc-info">
@@ -428,7 +441,7 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
@@ -521,6 +534,20 @@
             </div>
           </div>
 
+          <!-- 앱 이미지 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/moduchung-app-detail.png" alt="모두의충전 앱 — 타임특가 충전소 상세"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">충전소 상세 화면 — 타임특가 진행 중 표시</div>
+            </div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/moduchung-timespecial-card.png" alt="타임특가 진행중 / 예정 카드"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">타임특가 진행 중 · 예정 카드 UI</div>
+            </div>
+          </div>
+
           <!-- RESULT -->
           <div style="margin-bottom:20px">
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">06 · RESULT</div>
@@ -541,6 +568,15 @@
                   <span style="font-size:11px;color:var(--gray-400)">당해</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- 매출 성장 차트 -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">DATA · 타임특가 도입 후 매출 성장 추이</div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/moduchung-revenue-chart.png" alt="타임특가 도입 후 매출 성장 차트"
+                   style="width:100%;display:block;border-radius:12px">
             </div>
           </div>
 
@@ -571,12 +607,12 @@
 
     <!-- CS2 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">2</div>
           <div class="acc-info">
             <div class="acc-company-badge">스칼라데이터</div>
-            <div class="acc-title">포인트 유효기간 도입 + 멤버십 전환 Lock-in 설계</div>
+            <div class="acc-title">모두의충전 · 포인트 유효기간 도입 + 멤버십 전환 Lock-in 설계</div>
             <div class="acc-kpis">
               <span class="acc-kpi">기업 부채 2억↓</span>
               <span class="acc-kpi">멤버십 전환 1억 돌파</span>
@@ -584,41 +620,188 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>포인트 유효기간 없음 → 미사용 포인트 기업 부채 수억 원 누적. 소멸 압박 없어 재방문 동기 없음 → 비활성 유저 이탈 가속. KT 멤버십 포인트 전환이 번거로운 쿠폰 방식.</p>
-            </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>유효기간 이원화: 이벤트 포인트 90일·구매 포인트 5년. 만료 7일·1일 전 알림 → 소멸을 재방문 기회로 전환. KT CI 정보 활용 추가 인증 생략 → '전부 전환' 기능으로 UX 간소화.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>기업 부채 약 2억 원↓. 포인트 내역 페이지 앱 내 Top 5 진입. 비활성 유저 재방문 유도 성공. 멤버십 전환 누적 금액 6개월 만에 1억 원 돌파.</p>
+
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12);display:flex;align-items:flex-start;gap:14px">
+            <img src="images/moduchung-app.png" alt="모두의충전" style="width:64px;height:64px;object-fit:cover;border-radius:14px;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.1)">
+            <div>
+              <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">모두의충전 — 포인트 시스템 개선 프로젝트</div>
+              <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">EV 충전 결제 시 적립되는 포인트의 유효기간 정책 부재로 기업 부채가 수억 원 누적된 상황. 포인트를 소멸 위협이 아닌 재방문 동기로 전환하고, KT 멤버십 연동으로 포인트 활용 채널을 확장하는 프로젝트를 기획·주도했습니다.</div>
             </div>
           </div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">포인트 유효기간 정책이 없어 미사용 포인트가 장기 누적되고, 이를 기업 부채로 인식해야 하는 구조였습니다. 고객 입장에서도 소멸 압박이 없어 재방문 동기가 사라졌고, KT 멤버십으로 전환하려면 번거로운 쿠폰 발급 방식을 거쳐야 했습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">CUSTOMER · 충전 유저</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">포인트가 언제 소멸되는지 알 수 없어 사용 동기가 생기지 않는다. KT 멤버십으로 전환하려면 쿠폰을 별도로 발급받아야 하는 번거로움 때문에 포기하는 경우가 많다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">OPERATOR · 스칼라 서비스팀</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">미사용 포인트가 수억 원 규모로 누적되어 재무적으로 부채로 계상되는 구조. 포인트를 사용하지 않는 비활성 유저가 늘어날수록 재방문율이 낮아지는 악순환이 지속됐다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 포인트 유형별 현황</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">이벤트 포인트(무상 지급)와 구매 포인트(결제 적립)의 소멸 속도와 활용률이 다름을 데이터로 확인</div>
+            <div style="background:#fff;border-radius:12px;padding:20px;border:1px solid var(--gray-100)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:10px">이벤트 포인트 (무상 지급)</div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>미사용 누적</span><span style="font-weight:700;color:#dc2626">72%</span></div>
+                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:72%;background:#dc2626;border-radius:4px"></div></div>
+                    </div>
+                    <div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>6개월 내 미사용</span><span style="font-weight:700;color:#f97316">58%</span></div>
+                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:58%;background:#f97316;border-radius:4px"></div></div>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px;font-size:11px;color:var(--gray-500);line-height:1.6">→ 활성화율 낮음, 단기 소멸 정책 필요</div>
+                </div>
+                <div>
+                  <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:10px">구매 포인트 (결제 적립)</div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>미사용 누적</span><span style="font-weight:700;color:var(--blue)">41%</span></div>
+                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:41%;background:var(--blue);border-radius:4px"></div></div>
+                    </div>
+                    <div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>1년 내 사용</span><span style="font-weight:700;color:var(--purple)">59%</span></div>
+                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:59%;background:var(--purple);border-radius:4px"></div></div>
+                    </div>
+                  </div>
+                  <div style="margin-top:10px;font-size:11px;color:var(--gray-500);line-height:1.6">→ 상대적으로 활용도 높음, 장기 유효기간 적합</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3가지 설계</div>
+
+            <!-- 유효기간 이원화 -->
+            <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:8px">① 유효기간 이원화</div>
+            <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:12px;margin-bottom:14px">
+              <div style="flex:1;background:#fff;border-radius:8px;padding:14px;border-top:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;margin-bottom:6px">이벤트 포인트</div>
+                <div style="font-size:22px;font-weight:900;color:var(--gray-900);margin-bottom:4px">90일</div>
+                <div style="font-size:12px;color:var(--gray-500);line-height:1.5">무상 지급 포인트<br>단기 소멸로 빠른 재방문 유도</div>
+              </div>
+              <div style="flex:1;background:#fff;border-radius:8px;padding:14px;border-top:3px solid var(--blue)">
+                <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:6px">구매 포인트</div>
+                <div style="font-size:22px;font-weight:900;color:var(--gray-900);margin-bottom:4px">5년</div>
+                <div style="font-size:12px;color:var(--gray-500);line-height:1.5">결제 적립 포인트<br>충성 유저 장기 Lock-in 설계</div>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:var(--gray-300)">→</div>
+              <div style="flex:1.2;background:#fff;border-radius:8px;padding:14px;border-top:3px solid var(--purple)">
+                <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:6px">기대 효과</div>
+                <div style="font-size:12px;color:var(--gray-700);line-height:1.7">이벤트 포인트 소멸 →<br>재방문 트리거로 전환<br>구매 포인트 →<br>장기 충성 유도</div>
+              </div>
+            </div>
+
+            <!-- 알림 플로우 -->
+            <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:8px">② 소멸 알림 플로우 — 위협이 아닌 재방문 기회</div>
+            <div style="background:var(--gray-100);border-radius:10px;padding:14px 16px;margin-bottom:14px">
+              <div style="display:flex;align-items:center;gap:0">
+                <div style="background:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:12px;color:var(--gray-700);border:1px solid var(--gray-100)"><div style="font-weight:700;color:var(--blue);margin-bottom:2px">D-7</div>포인트<br>소멸 예정 알림</div>
+                <div style="flex:1;height:2px;background:var(--gradient);margin:0 6px"></div>
+                <div style="background:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:12px;color:var(--gray-700);border:1px solid var(--gray-100)"><div style="font-weight:700;color:#f97316;margin-bottom:2px">D-1</div>최종<br>소멸 전 알림</div>
+                <div style="flex:1;height:2px;background:var(--gradient);margin:0 6px"></div>
+                <div style="background:linear-gradient(135deg,rgba(74,144,217,.08),rgba(123,94,167,.08));border-radius:8px;padding:10px 14px;text-align:center;font-size:12px;border:1px solid rgba(74,144,217,.2)"><div style="font-weight:700;color:var(--purple);margin-bottom:2px">앱 오픈</div>포인트 사용<br>또는 충전 재방문</div>
+              </div>
+              <div style="margin-top:10px;font-size:12px;color:var(--blue);font-weight:600">📌 알림 문구 = "X포인트가 곧 소멸됩니다 → 지금 충전하면 바로 사용 가능"</div>
+            </div>
+
+            <!-- KT 멤버십 연동 -->
+            <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:8px">③ KT 멤버십 연동 — 마찰 제거</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:14px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;margin-bottom:6px">AS-IS · 기존 방식</div>
+                <p style="font-size:12px;color:var(--gray-700);line-height:1.7">쿠폰 발급 버튼 클릭 → 쿠폰 코드 복사 → KT 멤버십 앱으로 이동 → 코드 입력 → 전환 완료 (5단계, 이탈율 높음)</p>
+              </div>
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:14px;border-left:3px solid var(--blue)">
+                <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:6px">TO-BE · 개선 방식</div>
+                <p style="font-size:12px;color:var(--gray-700);line-height:1.7">KT CI 정보 자동 연동 → 추가 인증 생략 → '전부 전환' 버튼 탭 → 즉시 전환 완료 (1단계, 이탈율 최소화)</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span style="font-size:13px;font-weight:600;color:var(--gray-700)">미사용 포인트 기업 부채</span>
+                  <span style="font-size:13px;font-weight:800;color:#16a34a">약 2억↓ 감소</span>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden;margin-bottom:4px">
+                  <div style="height:100%;width:100%;background:#dc2626;opacity:.5;border-radius:6px"></div>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden">
+                  <div style="height:100%;width:60%;background:#16a34a;border-radius:6px"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:4px">
+                  <span style="font-size:11px;color:var(--gray-400)">도입 전 (누적 부채)</span>
+                  <span style="font-size:11px;color:var(--gray-400)">도입 후 (2억↓)</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span style="font-size:13px;font-weight:600;color:var(--gray-700)">KT 멤버십 전환 누적 금액</span>
+                  <span style="font-size:13px;font-weight:800;color:var(--blue)">6개월 만에 1억 돌파</span>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden">
+                  <div style="height:100%;width:100%;background:var(--gradient);border-radius:6px"></div>
+                </div>
+              </div>
+              <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray-700)">
+                <span style="font-weight:700;color:var(--blue)">+ 추가 성과</span> &nbsp;포인트 내역 페이지 앱 내 Top 5 진입 · 비활성 유저 재방문 유도 확인
+              </div>
+            </div>
+          </div>
+
           <div class="case-result">
             <label>Key Metrics</label>
             <div class="result-pills">
-              <span class="result-pill">부채 2억↓</span>
-              <span class="result-pill">멤버십 전환 1억+</span>
+              <span class="result-pill">기업 부채 2억↓</span>
+              <span class="result-pill">KT 멤버십 전환 1억+</span>
               <span class="result-pill">앱 내 Top 5 페이지</span>
+              <span class="result-pill">비활성 유저 재방문 유도</span>
+              <span class="result-pill">유효기간 이원화 (90일 / 5년)</span>
             </div>
           </div>
-          <div class="insight-box">"무제한보다 기한이 있는 방식이 고객 인지도를 높인다. 소멸을 위협이 아닌 재방문 기회로 설계하는 것이 핵심"</div>
-          <div class="miridih-link">미리디 적용 → 미리캔버스 무료→유료 전환 퍼널에서 '제약 기반 동기 설계' 적용 가능. 크레딧/포인트 정책 설계 시 Lock-in 사이클 구조 활용.</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">무제한보다 기한이 있는 방식이 고객 인지도를 높인다. 소멸을 위협이 아닌 재방문 기회로 설계하는 것이 핵심. 포인트 유형에 따라 다른 정책을 적용해야 비즈니스와 고객 경험이 함께 개선된다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 무료→유료 전환 퍼널에서 '제약 기반 동기 설계' 직접 적용 가능. AI 크레딧·무료 템플릿 한도 소진 시점을 재방문·전환 트리거로 설계하는 데 이 경험을 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS3 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">3</div>
           <div class="acc-info">
@@ -631,33 +814,154 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>차지비 계정 + BMW 충전카드 인증 분리 → 복잡한 회원가입 이탈 발생. 실물 충전카드 신청·재발급·결제 수단 변경을 앱 내에서 할 수 없음. BMW 파트너사 요구사항 + 사용자 편의성 + 운영 효율성 3가지 동시 충족 필요.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">BMW Charging — 프리미엄 EV 충전 파트너 앱</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">스칼라데이터(차지비)가 BMW Korea와 협력해 구축한 전용 EV 충전 앱 개편 프로젝트. BMW 차주 전용 충전카드 관리·지도·결제를 하나의 앱으로 통합하면서, BMW 브랜드 정체성과 실제 사용자 편의성을 동시에 설계해야 했습니다.</div>
+          </div>
+
+          <!-- 앱 UI 이미지 -->
+          <div style="display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/bmw-map-ui.png" alt="BMW Charging 앱 지도 화면"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">충전소 탐색 화면 — 최종 UI</div>
             </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>회원가입 루트 통합(차지비/BMW 계정 하나로 진입). 지도 하단 즐겨찾기 배치. 충전카드 정지·재발급·결제 수단 변경 모듈 앱 내 구현. 오프라인 사용 편의성 최우선·BMW 차량 이미지 적극 활용.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>BMW 측 높은 만족도 확보. 큰 수정 없이 성공적 오픈. 앱 리텐션·운영 효율성 동시 확보. 복잡한 이해관계자(차지비·BMW·유저) 요구사항 충돌 없이 조율.</p>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/bmw-app-flow.png" alt="BMW Charging 앱 전체 화면 흐름"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">전체 화면 흐름 — 스플래시 · 최초진입 · 홈 · 알림</div>
             </div>
           </div>
-          <div class="insight-box">"프리미엄 브랜드 파트너 프로젝트는 브랜드 정체성과 사용성을 동시에 설계해야 한다. 오프라인 현장 사용 환경을 먼저 상상하고 설계할 것"</div>
-          <div class="miridih-link">미리디 적용 → 프리미엄 브랜드 파트너사 요구사항을 충족하면서 사용자 경험을 동시에 설계한 경험: 미리디 기업 고객 맞춤형 서비스·파트너 브랜드 협업 프로젝트에 연결.</div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">차지비 계정과 BMW 충전카드 인증이 분리되어 회원가입 이탈이 높았고, 실물 충전카드 신청·재발급·결제수단 변경을 앱 안에서 처리할 수 없었습니다. BMW 브랜드 요구사항·사용자 편의성·운영 효율성을 동시에 충족해야 하는 3중 제약이 있었습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">CUSTOMER · BMW 차주</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">차지비 앱 계정과 BMW 충전카드 인증을 따로 해야 한다. 충전카드를 분실하거나 결제수단을 바꾸려면 고객센터에 전화해야 하는 번거로움이 있다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">STAKEHOLDER · BMW × 차지비 × 운영팀</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">BMW는 프리미엄 브랜드 경험을, 차지비는 운영 효율성을, 유저는 편의성을 각각 요구. 3자 요구사항을 하나의 앱에서 충돌 없이 조율해야 했다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 이해관계자별 요구사항 충돌</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">3자 요구사항을 먼저 명확히 정리하고, 충돌 지점을 파악하는 것이 설계의 출발점이었다</div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+                <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:14px">
+                  <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px">BMW Korea</div>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--gray-700);line-height:1.8">
+                    <li>→ 브랜드 비주얼 일관성</li>
+                    <li>→ BMW 차량 이미지 활용</li>
+                    <li>→ 프리미엄 UX 인상</li>
+                  </ul>
+                </div>
+                <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:14px">
+                  <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px">차지비 운영팀</div>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--gray-700);line-height:1.8">
+                    <li>→ 운영 효율성 확보</li>
+                    <li>→ CS 인입 최소화</li>
+                    <li>→ 기존 인프라 활용</li>
+                  </ul>
+                </div>
+                <div style="background:rgba(123,94,167,.06);border-radius:8px;padding:14px">
+                  <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:8px">BMW 차주 (유저)</div>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--gray-700);line-height:1.8">
+                    <li>→ 간편한 가입</li>
+                    <li>→ 충전카드 앱 관리</li>
+                    <li>→ 빠른 충전소 탐색</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3가지 설계</div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;align-items:flex-start;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;margin-top:2px">①</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">회원가입 루트 통합</div>
+                  <p style="font-size:13px;color:var(--gray-600);line-height:1.65">차지비 계정과 BMW 충전카드 인증을 하나의 진입점으로 통합. 기존 차지비 회원은 BMW 카드 연동만으로, BMW 신규 고객은 가입과 동시에 충전카드 발급까지 원스텝으로 처리.</p>
+                </div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;align-items:flex-start;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;margin-top:2px">②</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">충전카드 관리 모듈 앱 내 구현</div>
+                  <p style="font-size:13px;color:var(--gray-600);line-height:1.65">카드 정지·재발급·결제수단 변경을 앱 내에서 직접 처리 가능하도록 구현. CS 인입을 줄이면서 유저의 셀프서비스 경험을 높였습니다.</p>
+                </div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;align-items:flex-start;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff;margin-top:2px">③</div>
+                <div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:4px">오프라인 중심 UX + BMW 비주얼</div>
+                  <p style="font-size:13px;color:var(--gray-600);line-height:1.65">실외 충전소에서 한 손으로 조작하는 환경을 먼저 상상하고 설계. 즐겨찾기 충전소를 지도 하단에 고정 배치. BMW 차량 이미지를 적극 활용해 브랜드 경험 강화.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:22px;font-weight:900;color:var(--blue);margin-bottom:4px">높은 만족도</div>
+                <div style="font-size:12px;color:var(--gray-500)">BMW Korea 파트너 평가</div>
+              </div>
+              <div style="background:rgba(123,94,167,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(123,94,167,.15)">
+                <div style="font-size:22px;font-weight:900;color:var(--purple);margin-bottom:4px">수정 최소화</div>
+                <div style="font-size:12px;color:var(--gray-500)">QA 후 큰 수정 없이 오픈</div>
+              </div>
+              <div style="background:rgba(22,163,74,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(22,163,74,.15)">
+                <div style="font-size:22px;font-weight:900;color:#16a34a;margin-bottom:4px">3자 조율</div>
+                <div style="font-size:12px;color:var(--gray-500)">이해관계자 충돌 없이 완수</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-result">
+            <label>Key Metrics</label>
+            <div class="result-pills">
+              <span class="result-pill">BMW 파트너 높은 만족도</span>
+              <span class="result-pill">큰 수정 없이 성공적 오픈</span>
+              <span class="result-pill">앱 리텐션 확보</span>
+              <span class="result-pill">3자 이해관계자 조율 완료</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">오프라인 현장 사용 환경을 먼저 상상해야 한다. 프리미엄 브랜드 파트너십에서는 브랜드 정체성과 사용성이 동시에 설계되어야 하며, 이해관계자 요구사항을 사전에 명확히 정리하지 않으면 반복 수정이 발생한다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 Enterprise 고객사 맞춤형 화이트라벨 서비스·파트너 브랜드 협업 시 이해관계자 요구사항 조율 경험 직접 활용 가능. 비즈하우스 파트너사 온보딩 설계에도 연결됩니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS4 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">4</div>
           <div class="acc-info">
@@ -670,33 +974,162 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>제조사별(SK 시그넷·채비·이브이시스·클린일렉스) UI 해상도·통신·배포 프로세스 모두 상이. 8개로 분산된 소스코드. 전임 PM 3개월 진행 프로젝트 인수 후 12월 내 종료 필요. 환경부·환경공단·4개 제조사 복잡한 이해관계.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">환경부 공공급속충전기 UI 표준화 — 국가 사업 PM</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">환경부·한국환경공단 발주, 4개 제조사(SK 시그넷·채비·이브이시스·클린일렉스) 공공 급속충전기 화면 UI를 하나의 표준으로 통합하는 국가 사업. 전임 PM이 3개월 진행하던 프로젝트를 인수해 연말 감리까지 완수했습니다.</div>
+          </div>
+
+          <!-- 최종 산출물 이미지 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/ev-field-photo.png" alt="환경부 공공급속충전기 현장 설치 사진"
+                   style="width:100%;display:block;border-radius:12px;aspect-ratio:3/4;object-fit:cover">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">실제 현장 설치 충전기</div>
             </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>Resize 방식 도입 → 모든 충전기 해상도 단일 대응. 8개 소스 → 통합 소스로 구조화. 통신 부분 모듈화. 환경부/환경공단 전략 PT 직접 수행. 9개 모델 전부 대응하는 모듈화 프로그램 완성.</p>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/ev-charging-screen.png" alt="공공급속충전기 충전중 UI 화면"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">충전중 화면 — 최종 UI</div>
             </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>30대 선행 설치 후 큰 오류 없이 안정 작동. 국가 사업 감리 성공적 통과. 9개 모델 대응 모듈화로 향후 신규 모델 배포 비용 획기적 절감. 공공 인프라 표준 모델 수립.</p>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/ev-design-system.png" alt="디자인 시스템 — 초기 시안 → 최종 시안"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">디자인 시스템 — 초기→최종 시안</div>
             </div>
           </div>
-          <div class="insight-box">"현장에 직접 나가서 모델별로 테스트해야만 보이는 것들이 있다. 복잡한 이해관계자 환경에서 한 발 앞서 움직이는 것이 프로젝트를 완수하는 핵심"</div>
-          <div class="miridih-link">미리디 적용 → 다중 이해관계자 환경에서의 표준화·모듈화 경험: 미리캔버스 글로벌 확장 시 다국가 정책·UX 표준화 과제에 연결.</div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">제조사마다 해상도·통신 방식·배포 프로세스가 달라 8개로 분산된 소스코드를 하나로 통합해야 했습니다. 전임 PM 프로젝트 인수 후 12월 감리까지 마감 기한이 정해져 있었고, 환경부·환경공단·4개 제조사 등 5개 이해관계자를 동시에 조율해야 했습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">TECHNICAL · 기술 복잡도</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">제조사 4개 × 모델 9개 = 해상도/통신/배포가 모두 다름. 소스코드 8개가 따로 관리되어 변경사항 반영 시마다 8번씩 수정이 필요했다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">PROJECT · 인수 + 기한 압박</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">3개월간 진행된 프로젝트를 중간에 인수. 국가 사업 감리라는 외부 마감이 정해진 상태에서 기술 부채와 이해관계자 조율을 동시에 해결해야 했다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 8개 소스 → 1개 통합 구조</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">소스 분산의 원인은 해상도 대응 방식의 차이 — 이걸 해결하면 나머지는 따라온다</div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center">
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#dc2626;margin-bottom:8px">AS-IS · 8개 분산</div>
+                  <div style="display:flex;flex-direction:column;gap:6px">
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">SK시그넷<br><span style="color:#dc2626;font-weight:700">v1</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">SK시그넷<br><span style="color:#dc2626;font-weight:700">v2</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">채비<br><span style="color:#dc2626;font-weight:700">v1</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">채비<br><span style="color:#dc2626;font-weight:700">v2</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">이브이<br><span style="color:#dc2626;font-weight:700">v1</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">이브이<br><span style="color:#dc2626;font-weight:700">v2</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">클린<br><span style="color:#dc2626;font-weight:700">v1</span></div>
+                      <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:8px;font-size:11px;text-align:center;color:var(--gray-700)">클린<br><span style="color:#dc2626;font-weight:700">v2</span></div>
+                    </div>
+                  </div>
+                </div>
+                <div style="font-size:24px;color:var(--gradient);font-weight:900;text-align:center">→</div>
+                <div>
+                  <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">TO-BE · 1개 통합</div>
+                  <div style="background:rgba(22,163,74,.08);border-radius:8px;padding:20px;text-align:center;border:2px solid rgba(22,163,74,.2)">
+                    <div style="font-size:14px;font-weight:800;color:#16a34a;margin-bottom:6px">표준 통합 소스</div>
+                    <div style="font-size:11px;color:var(--gray-600);line-height:1.6">Resize 방식으로<br>9개 모델 단일 대응<br>통신 모듈화</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3단계 접근</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">Resize 방식 도입 — 해상도 단일 대응</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">기기마다 다른 해상도를 하나의 코드에서 자동 리사이징으로 대응. 소스 분산의 근본 원인을 기술적으로 해결하여 8개 → 1개 통합의 기반을 마련했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">통신 부분 모듈화 + 현장 테스트</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">제조사별 통신 방식 차이를 모듈로 분리. 책상이 아닌 현장에 직접 나가 각 모델을 테스트하며 실제 오류를 발견하고 수정했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">환경부·환경공단 전략 PT 직접 수행</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">기술 이슈를 비기술 의사결정자에게 설득하는 PT를 직접 준비·발표. 이해관계자 간 합의를 주도해 감리 방향을 사전에 정렬했습니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 관리자 제어 프로그램 이미지 -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">03 · TOOL · 현장 관리자용 충전기 제어 프로그램</div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/ev-admin-ui.png" alt="환경공단 충전기 제어 프로그램 UI"
+                   style="width:100%;display:block;border-radius:12px">
+            </div>
+            <div style="font-size:11px;color:var(--gray-400);margin-top:6px">충전기 상태 확인 · 재부팅 · 통신상태 모니터링 · DSP 로그 조회를 하나의 화면에서 처리</div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:20px;font-weight:900;color:var(--blue);margin-bottom:4px">감리 통과</div>
+                <div style="font-size:12px;color:var(--gray-500)">국가 사업 감리 성공</div>
+              </div>
+              <div style="background:rgba(123,94,167,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(123,94,167,.15)">
+                <div style="font-size:20px;font-weight:900;color:var(--purple);margin-bottom:4px">30대 선행</div>
+                <div style="font-size:12px;color:var(--gray-500)">오류 없이 안정 작동</div>
+              </div>
+              <div style="background:rgba(22,163,74,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(22,163,74,.15)">
+                <div style="font-size:20px;font-weight:900;color:#16a34a;margin-bottom:4px">9개 모델</div>
+                <div style="font-size:12px;color:var(--gray-500)">단일 소스로 통합</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-result">
+            <label>Key Metrics</label>
+            <div class="result-pills">
+              <span class="result-pill">국가 사업 감리 통과</span>
+              <span class="result-pill">30대 선행 안정 작동</span>
+              <span class="result-pill">9개 모델 단일 소스 통합</span>
+              <span class="result-pill">8개 소스 → 1개 표준화</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">현장에 직접 나가야만 보이는 것들이 있다. 복잡한 이해관계자 환경에서는 기술 문제보다 의사결정 정렬이 먼저다. 표준화의 핵심은 공통 원인을 찾아서 그것만 해결하는 것.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 글로벌 확장 시 다국가 정책·UX 표준화 과제에 연결. 다중 이해관계자 환경에서 표준을 만들고 설득하는 경험을 그대로 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS5 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">5</div>
           <div class="acc-info">
@@ -709,41 +1142,150 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>전용 상품권 수단 부재로 B2B 제휴 판매·비대면 선물하기 수요 흡수 불가. 외부 솔루션 사용 시 비용 부담·관리 제약·법적 준수 과제 동시 발생. 런칭 후 B2B 채널별 전략 부재.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 20px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px">'신규' 컬리모바일상품권 서비스 기획 및 구축</div>
+            <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:6px">2023.05 ~ 2023.12</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">비대면 선물 시장 확대에 대응하여 컬리 브랜드 가치와 선불충전금(컬리캐시) 시스템을 결합한 '컬리 모바일 상품권' 서비스를 신규 기획하여 런칭했습니다.</div>
+          </div>
+
+          <!-- 앱 화면 이미지 2장 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center">
+              <img src="images/kurly-mypage.png" alt="마이페이지 상품권 탭 노출"
+                   style="width:100%;height:100%;object-fit:contain">
             </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>상품권 번호 생성·상태 관리 엔진 내재화. 소비자보호원 표준약관 준수 출금 기능 구현. BigQuery·Looker로 고객 행동 분석 → 선물용·본인 사용 세분화. 마이페이지 노출 타이밍 최적화.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>상품권 판매량 1년 만에 5.7배↑. 컬리캐시 1억 원 달성. 알림톡 기반 선물 플로우·외부 채널 유통 완성. 법적 리스크 선제 해소.</p>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden;aspect-ratio:9/16;display:flex;align-items:center;justify-content:center">
+              <img src="images/kurly-gift-alimtalk.png" alt="컬리상품권 선물 알림톡"
+                   style="width:100%;height:100%;object-fit:contain">
             </div>
           </div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:0 0 24px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:14px">전용 상품권 수단이 부재하여 B2B 제휴 판매나 비대면 선물하기 수요를 흡수하지 못했으며, <strong>다양한 이벤트 및 마케팅 상황에서 사용할 도구가 부족</strong>했습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">CUSTOMER · 컬리 유저</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">컬리상품권을 원하는 수요가 있었으나 상품권 자체가 없었다. 컬리에서 선물을 하려면 외부 플랫폼을 이용하거나 포기해야 했다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">BUSINESS · 컬리페이</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">외부 솔루션 사용 시 비용 부담·관리 제약 발생. 신유형 상품권에 대한 법적 가이드라인(소비자보호원 표준약관) 준수가 추가 과제였다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">02 · SOLUTION · 3가지 설계</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">번호 생성·상태 관리 엔진 내재화</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">상품권 번호 생성 및 상태 관리 엔진을 내재화하여 외부 솔루션 비용 절감. 소비자보호원 표준약관을 준수하며 잔액의 60% 사용 후 출금 가능하도록 기능 구현.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">알림톡 기반 선물 플로우 + B2B 유통 구조 설계</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">B2C와 동일한 경험 제공을 위해 알림톡 기반 선물 플로우를 구축. 선물하기 서비스 부재 상황에서 판매 후 선물 전달 기능을 별도 구축하고, B2B 유통 채널(복지몰·기프티콘)도 구성.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">이해관계자 협업 — 법무팀 + 개발팀</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">법무팀과 신유형 상품권 가이드라인에 맞춘 표준약관을 검토·제작. 개발팀과 알림톡 기반 발송을 위한 상품권 번호 관리 솔루션을 직접 구축했습니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 플로우차트 이미지 -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">03 · FLOW · 화면 설계서 (V1.001)</div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kurly-flow-diagram.png" alt="컬리 상품권 플로우 차트"
+                   style="width:100%;display:block;border-radius:12px">
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:flex;flex-direction:column;gap:14px">
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span style="font-size:13px;font-weight:600;color:var(--gray-700)">상품권 판매량</span>
+                  <span style="font-size:13px;font-weight:800;color:var(--blue)">1년 만에 5.7배↑</span>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden;margin-bottom:4px">
+                  <div style="height:100%;width:17.5%;background:var(--gray-300);border-radius:6px"></div>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden">
+                  <div style="height:100%;width:100%;background:var(--gradient);border-radius:6px"></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;margin-top:4px">
+                  <span style="font-size:11px;color:var(--gray-400)">런칭 초기</span>
+                  <span style="font-size:11px;color:var(--gray-400)">1년 후 (5.7배)</span>
+                </div>
+              </div>
+              <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+                  <span style="font-size:13px;font-weight:600;color:var(--gray-700)">컬리캐시 누적 충전액</span>
+                  <span style="font-size:13px;font-weight:800;color:var(--purple)">1억 원 달성</span>
+                </div>
+                <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden">
+                  <div style="height:100%;width:100%;background:linear-gradient(90deg,var(--purple),var(--pink));border-radius:6px"></div>
+                </div>
+              </div>
+              <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray-700)">
+                법적 요건을 충족한 상품권 시스템 성공적 런칭 · 알림톡 기반 선물 플로우 및 B2B 유통 구조 완성 · 표준약관 준수 + 시스템 내재화로 법적 리스크 해소 및 운영 비용 절감
+              </div>
+            </div>
+          </div>
+
+          <!-- Looker 차트 — 판매 추이 -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">DATA · Looker 판매 추이 (30d)</div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kurly-looker-chart.png" alt="컬리상품권 Looker 판매 추이 차트"
+                   style="width:100%;display:block;border-radius:12px">
+            </div>
+            <div style="font-size:11px;color:var(--gray-400);margin-top:6px">마이페이지 상품권 탭 노출 후 재방문 고객 유입 급증 — 1년 만에 판매량 5.7배 성장의 핵심 트리거</div>
+          </div>
+
+
           <div class="case-result">
             <label>Key Metrics</label>
             <div class="result-pills">
-              <span class="result-pill">판매 5.7배↑</span>
+              <span class="result-pill">판매량 5.7배↑ (1년)</span>
               <span class="result-pill">컬리캐시 1억 달성</span>
-              <span class="result-pill">B2B 채널 완성</span>
+              <span class="result-pill">B2B 유통 채널 완성</span>
+              <span class="result-pill">법적 리스크 선제 해소</span>
+              <span class="result-pill">알림톡 선물 플로우 구축</span>
             </div>
           </div>
-          <div class="insight-box">"법적 요건을 초기 설계부터 기능으로 구현해야 나중에 수정이 없다. 상품권은 '상품'으로 접근한 판매 전략이 필요하다 — 할인율보다 노출 위치와 문구가 핵심"</div>
-          <div class="miridih-link">미리디 적용 → 데이터 기반 성장 실험·B2B·B2C 통합 운영 경험: 미리디 유료 전환 퍼널 최적화·비즈하우스 법인 고객 확대 전략에 직접 연결.</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">기존 고객의 결제 습관(신용카드)과 신규 서비스(계좌 결제 필요) 간 괴리를 사전에 고려하지 못해 초기 사용률이 낮았습니다. 상품권은 선물하기 인프라가 없으면 활용도가 떨어지며, 법적 요건을 초기 설계부터 기능으로 구현해야 나중에 수정 작업이 없습니다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 유료 전환 퍼널 최적화에 직접 연결. 선물하기·B2B 유통 구조 설계 경험과 법적 요건 내재화 노하우를 비즈하우스 법인 고객 확대 및 크레딧 시스템 설계에 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS6 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">6</div>
           <div class="acc-info">
@@ -756,33 +1298,147 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>실물 상품권은 제작 원가·인쇄 공정·재고 관리 등 모바일과 전혀 다른 운영 프로세스 필요. 온라인과 실물 잔액 분리 시 사용자 경험 단절. 물류·재고 관리의 운영 리소스 최소화 필요.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">컬리페이 — 실물 상품권 온·오프라인 통합 설계</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">모바일 상품권 성공 이후, 오프라인 실물 카드형 상품권을 추가 출시한 프로젝트. 인쇄·재고·물류라는 완전히 새로운 운영 영역을 설계하면서, 디지털과 실물 잔액을 하나의 QR 시스템으로 통합했습니다.</div>
+          </div>
+
+          <!-- 실물 상품권 이미지 -->
+          <div style="display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kurly-physical-card-hd.png" alt="컬리상품권 실물 카드 라인업"
+                   style="width:100%;display:block;border-radius:12px">
             </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>카드 제작부터 물류비까지 원가 분석하여 수익 구조 설계. 인편배송 전문업체 제니엘과 제휴·API 연동·재고 관리 위탁. QR코드 기반 검증 로직으로 모바일·실물 잔액 동기화 구현.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>온·오프라인 결합형 비즈니스 모델 성공적 출시. 매출원 다변화. 제니엘 API로 주문·재고·배송 자동화. QR 기반 일관된 고객 경험 제공.</p>
+            <div style="background:#4B1D8B;border-radius:12px;overflow:hidden">
+              <img src="images/kurly-physical-card-banner2.jpg" alt="컬리상품권 실물카드 — 최고의 선물"
+                   style="width:100%;display:block;border-radius:12px">
             </div>
           </div>
-          <div class="insight-box">"온라인과 오프라인을 하나의 시스템으로 연결할 때 고객 신뢰가 높아진다"</div>
-          <div class="miridih-link">미리디 적용 → 온·오프라인 결합 비즈니스 설계 경험: 미리디 비즈하우스의 인쇄 커머스·실물 굿즈 연계 서비스 확장에 직접 연결.</div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">실물 상품권은 모바일과 전혀 다른 운영 세계입니다. 카드 인쇄·재고·배송·분실 처리까지 내부 노하우가 없는 상태에서 설계해야 했고, 디지털과 실물 잔액이 분리되면 고객 경험이 단절된다는 문제도 해결해야 했습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">CUSTOMER · 실물 상품권 수령자</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">실물 카드를 받았는데 앱에서 잔액 확인이 안 되거나 별도 등록 절차가 필요하면 불편하다. 카드 잔액과 앱 잔액이 따로 관리되면 사용하다 혼란이 생긴다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">OPERATOR · 컬리페이 운영팀</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">인쇄 원가·재고·물류를 전혀 모르는 상태에서 수익 구조를 설계해야 한다. 재고 관리를 내부에서 직접 하면 운영 리소스가 과다하게 투입될 수 있다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 실물 상품권 운영 구조 파악</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">먼저 원가 구조를 파악해야 수익성 있는 비즈니스 설계가 가능하다</div>
+            <div style="background:#fff;border-radius:12px;padding:18px;border:1px solid var(--gray-100)">
+              <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px">
+                <div style="background:var(--gray-100);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">카드 인쇄</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900)">단가 분석</div>
+                </div>
+                <div style="background:var(--gray-100);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">재고 보관</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900)">위탁 가능</div>
+                </div>
+                <div style="background:var(--gray-100);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">인편 배송</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--gray-900)">전문사 제휴</div>
+                </div>
+                <div style="background:var(--gray-100);border-radius:8px;padding:12px;text-align:center">
+                  <div style="font-size:11px;color:var(--gray-500);margin-bottom:4px">잔액 통합</div>
+                  <div style="font-size:13px;font-weight:700;color:var(--blue)">QR 동기화</div>
+                </div>
+              </div>
+              <div style="padding:10px 12px;background:rgba(74,144,217,.06);border-radius:8px;font-size:12px;color:var(--blue);font-weight:600">
+                → 핵심 결론: 재고·배송은 외부 위탁(제니엘), 잔액 통합은 QR 기반으로 내재화
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3가지 설계</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">원가 분석 → 수익 구조 설계</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">카드 제작 단가부터 물류비까지 전체 원가를 직접 분석해 마진이 나오는 가격 구조를 설계. 내부에 노하우가 없는 영역은 전문사 제휴로 해결하는 방향을 잡았습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">제니엘 제휴·API 연동·재고 위탁</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">인편배송 전문업체 제니엘과 제휴해 주문→재고→배송 전 과정을 API로 자동화. 내부 운영 리소스를 최소화하면서 배송 품질은 전문성을 확보했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">QR 기반 모바일·실물 잔액 동기화</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">실물 카드의 QR코드를 앱으로 스캔하면 잔액이 즉시 통합. 디지털과 실물을 하나의 잔액으로 연결해 고객은 어디서 쓰든 동일한 경험을 누릴 수 있습니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 화면 설계서 -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px">FLOW · 상품권 전달 화면 설계서 (Section 2)</div>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kurly-gift-send-flow.png" alt="컬리상품권 전달 화면 설계서"
+                   style="width:100%;display:block;border-radius:12px">
+            </div>
+            <div style="font-size:11px;color:var(--gray-400);margin-top:6px">상품권 전달하기 · 전달 완료 · 전달 실패 · 상품권 보관함 · 상품권 상세 (B2C)</div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:6px">온·오프라인 결합형 출시</div>
+                <p style="font-size:12px;color:var(--gray-600);line-height:1.6">국내 이커머스 최초 수준의 실물·디지털 통합 상품권 모델. 매출원 다변화에 기여.</p>
+              </div>
+              <div style="background:rgba(123,94,167,.06);border-radius:10px;padding:16px;border:1px solid rgba(123,94,167,.15)">
+                <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:6px">주문·재고·배송 자동화</div>
+                <p style="font-size:12px;color:var(--gray-600);line-height:1.6">제니엘 API 연동으로 운영 담당자 없이 전 과정 자동화. CS 인입 최소화.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-result">
+            <label>Key Metrics</label>
+            <div class="result-pills">
+              <span class="result-pill">온·오프라인 결합 출시</span>
+              <span class="result-pill">제니엘 API 연동 자동화</span>
+              <span class="result-pill">QR 잔액 동기화 구현</span>
+              <span class="result-pill">매출원 다변화</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">온라인과 오프라인을 하나의 시스템으로 연결할 때 고객 신뢰가 높아진다. 내부에 없는 역량은 제휴로 빠르게 확보하고, 고객 경험의 핵심 고리만 직접 설계하면 된다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 비즈하우스의 디자인→인쇄→배송 원스톱 경험 설계에 직접 연결. 디지털 결과물과 실물 배송을 하나의 플로우로 통합하는 설계 경험을 그대로 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS7 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">7</div>
           <div class="acc-info">
@@ -795,41 +1451,140 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>경기도 31개 지자체 각각 상이한 포인트 정책 보유. 지역화폐 플랫폼 단일화 + 각 지자체 정책 유연 수용 필요. 이후 재난지원금 200만 건 지급 시스템까지 동일 인프라로 운영 필요.</p>
-            </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>다중 포인트 시스템을 카드 포인트 형태로 설계. 사용 우선순위를 어드민에서 카드 상품별로 설정 가능하도록 구현. 엑셀 업로드 2중 체크 시스템으로 오지급 원천 차단. 공무원 기존 업무 방식 유지.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>경기지역화폐 플랫폼 현재까지 서비스 핵심 틀로 유지. 재난지원금 200만 건 VOC 0건 완수. 연간 거래액 14조 원 규모 플랫폼 안착.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">코나아이 — 경기지역화폐 통합 플랫폼 · 재난지원금 운영</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">경기도 31개 지자체의 지역화폐를 하나의 코나카드 플랫폼으로 통합하는 백오피스 기획을 주도. 이후 동일 인프라로 재난지원금 200만 건을 VOC 0건으로 운영 완수. 현재까지 연간 거래액 14조 규모 플랫폼의 핵심 틀로 유지되고 있습니다.</div>
+          </div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">경기도 31개 지자체는 각자의 포인트 정책(충전 한도·캐시백 비율·사용처·소멸 조건)을 갖고 있었습니다. 단일 플랫폼으로 통합하면서도 각 지자체 정책을 유연하게 수용해야 했고, 공무원의 기존 업무 방식도 유지해야 했습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">GOVERNMENT · 지자체 담당 공무원</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">우리 시의 정책(캐시백 5%, 사용처 제한, 충전 한도 등)이 다른 지자체와 다른데, 통합 플랫폼에 맞추려면 기존 업무 방식을 바꿔야 하나? 엑셀로 하던 지급 작업은 어떻게 되나?</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">SYSTEM · 기술 설계 과제</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">31개 지자체의 정책 조합이 모두 다름 → 단일 코드로 대응 불가. 재난지원금 대규모 일괄 지급 시 오지급 0건 보장이 필수. 휴먼 에러 방지 구조가 시스템 설계의 핵심.</p>
+              </div>
             </div>
           </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 지자체별 정책 다양성 구조</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">단일화의 핵심은 고정값이 아닌 변수로 설계하는 것 — 어드민에서 지자체별로 설정 가능한 구조</div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="overflow-x:auto">
+                <table style="width:100%;border-collapse:collapse;font-size:12px">
+                  <thead>
+                    <tr style="background:var(--gray-100)">
+                      <th style="padding:8px 12px;text-align:left;font-weight:700;color:var(--gray-700);border-radius:6px 0 0 6px">정책 항목</th>
+                      <th style="padding:8px 12px;text-align:center;color:var(--gray-600)">지자체 A</th>
+                      <th style="padding:8px 12px;text-align:center;color:var(--gray-600)">지자체 B</th>
+                      <th style="padding:8px 12px;text-align:center;color:var(--blue);font-weight:700;border-radius:0 6px 6px 0">설계 방식</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr style="border-bottom:1px solid var(--gray-100)">
+                      <td style="padding:8px 12px;color:var(--gray-700)">캐시백 비율</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">6%</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">10%</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--blue);font-weight:600">어드민 변수</td>
+                    </tr>
+                    <tr style="border-bottom:1px solid var(--gray-100)">
+                      <td style="padding:8px 12px;color:var(--gray-700)">월 충전 한도</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">50만</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">30만</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--blue);font-weight:600">어드민 변수</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:8px 12px;color:var(--gray-700)">포인트 사용 순서</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">캐시백 우선</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--gray-600)">충전금 우선</td>
+                      <td style="padding:8px 12px;text-align:center;color:var(--blue);font-weight:600">카드 상품별 설정</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3가지 핵심 설계</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">다중 포인트를 카드 포인트 형태로 통합 설계</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">각 지자체의 포인트를 카드 상품에 연결된 포인트로 추상화. 지자체 정책이 바뀌어도 어드민 설정값만 변경하면 되는 구조로 설계했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">어드민 카드 상품별 사용 우선순위 설정</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">공무원이 기존에 쓰던 엑셀 방식을 유지하면서도, 어드민에서 정책 변수를 직접 설정할 수 있도록 구현. 개발팀 없이 운영팀이 독립적으로 정책을 관리합니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">엑셀 업로드 2중 체크 시스템 — 오지급 원천 차단</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">재난지원금 대량 지급 시 담당자 업로드 → 시스템 자동 검증 → 2차 담당자 승인 후 처리. 휴먼 에러가 발생해도 지급 전 단계에서 100% 차단되는 구조를 설계했습니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(220,38,38,.15)">
+                <div style="font-size:26px;font-weight:900;color:#dc2626;margin-bottom:4px">VOC 0</div>
+                <div style="font-size:11px;color:var(--gray-500)">재난지원금 200만 건</div>
+              </div>
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:26px;font-weight:900;color:var(--blue);margin-bottom:4px">14조</div>
+                <div style="font-size:11px;color:var(--gray-500)">연간 거래액 플랫폼</div>
+              </div>
+              <div style="background:rgba(123,94,167,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(123,94,167,.15)">
+                <div style="font-size:26px;font-weight:900;color:var(--purple);margin-bottom:4px">31개</div>
+                <div style="font-size:11px;color:var(--gray-500)">지자체 통합 완료</div>
+              </div>
+            </div>
+          </div>
+
           <div class="case-result">
             <label>Key Metrics</label>
             <div class="result-pills">
-              <span class="result-pill">200만건 VOC 0</span>
-              <span class="result-pill">14조 거래액 플랫폼</span>
-              <span class="result-pill">31개 지자체 통합</span>
+              <span class="result-pill">재난지원금 200만 건 VOC 0</span>
+              <span class="result-pill">연 거래액 14조 플랫폼</span>
+              <span class="result-pill">경기도 31개 지자체 통합</span>
+              <span class="result-pill">오지급 0건 (2중 검증)</span>
             </div>
           </div>
-          <div class="insight-box">"대규모 공공 프로젝트는 휴먼 에러 방지를 위한 2중·3중 검증 설계가 안정성을 결정한다. 다양성을 수용할 수 있는 유연한 시스템 설계가 핵심"</div>
-          <div class="miridih-link">미리디 적용 → 대규모 트래픽·다중 이해관계자 환경에서의 안정적 플랫폼 운영 경험: 미리캔버스 1,600만 유저 규모 서비스 안정성 설계에 직접 연결.</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">대규모 공공 프로젝트는 휴먼 에러 방지를 위한 2중·3중 검증 설계가 안정성을 결정한다. 다양한 정책을 수용하는 시스템은 '고정값'이 아니라 '변수'로 설계해야 확장성이 생긴다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 1,600만 유저 규모의 플랫폼 안정성 설계 경험에 직접 연결. 미리디 Enterprise 다수 고객사별 정책 관리 구조, 비즈하우스 파트너 정산 시스템 설계에도 활용 가능합니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS8 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">8</div>
           <div class="acc-info">
@@ -842,33 +1597,204 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>사내 지류상품권 운영 경험 전무한 상황에서 프로젝트 투입. 실물 재고 ≠ 시스템 수량 → 정산 오류 빈번 발생. 현장 바코드 기반 즉시 처리 도구 부재 → 운영 리스크 고조.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">코나아이 — 지류상품권 통합 관리 시스템 구축</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">사내에 지류(실물 종이) 상품권 운영 경험이 전무한 상황에서 프로젝트에 투입. 현장에 직접 나가 운영 프로세스를 제로베이스로 정립하고, 번호 단위 이력 추적·보안 활성화 공정·바코드 폐기 시스템을 설계해 5개 이상 지자체 및 시중 은행에 납품했습니다.</div>
+          </div>
+
+          <!-- 지류 상품권 이미지 -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kona-giftcard-settlement.png" alt="지류 상품권 판매 상품별 정산 화면"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">백오피스 — 판매 상품별 정산 관리</div>
             </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>현장 직접 방문·운영 프로세스 제로베이스 정립. 상품권 번호 단위 실시간 이력 추적 시스템 설계. 입고 완료 후 담당자 승인 시에만 활성화되는 보안 공정(Activation) 수립. 바코드 기반 즉시 폐기 로직 구현.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>분실 사고 및 정산 오류 없이 안정적 운영. 오프라인 자산 관리의 디지털 전환 표준 수립. 현재 5개 이상 지자체 및 시중 은행에 도입·운영 중.</p>
+            <div style="background:var(--gray-100);border-radius:12px;overflow:hidden">
+              <img src="images/kona-giftcard-inventory.png" alt="지류 상품권 자체 입고 관리 화면"
+                   style="width:100%;display:block;border-radius:12px">
+              <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">백오피스 — 자체 입고 관리</div>
             </div>
           </div>
-          <div class="insight-box">"현장 시스템은 직접 현장에 나가서 프로세스를 하나하나 체크해서 만들어야 한다"</div>
-          <div class="miridih-link">미리디 적용 → 오프라인-온라인 연결 운영 시스템 설계 경험: 비즈하우스 실물 인쇄 상품의 주문·재고·배송 운영 고도화에 연결.</div>
+          <div style="background:var(--gray-100);border-radius:12px;overflow:hidden;margin-bottom:24px">
+            <img src="images/kona-giftcard-physical.png" alt="오륙도페이 지류 상품권 실물"
+                 style="width:100%;display:block;border-radius:12px;max-height:320px;object-fit:cover;object-position:center">
+            <div style="padding:8px 12px;font-size:11px;color:var(--gray-500);font-weight:600">실제 납품 사례 — 오륙도페이 (부산광역시 남구 차활성화상품권)</div>
+          </div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">지류상품권은 실물 재고와 시스템 수량이 일치하지 않으면 정산 오류가 발생합니다. 사내 경험이 없다 보니 어떤 프로세스로 관리해야 하는지 표준 자체가 없었고, 현장에서 즉시 처리할 수 있는 도구도 없었습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">OPERATOR · 상품권 운영팀</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">실물 재고가 시스템 수량과 맞지 않아 정산할 때마다 수작업으로 재확인해야 한다. 어떤 상품권이 어디 있는지 추적이 안 되어 분실 사고 시 책임 소재가 불분명하다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">SECURITY · 보안 공백</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">창고에 입고된 상품권이 활성화 전부터 사용 가능한 상태라면 도용 리스크가 있다. 폐기해야 할 상품권을 현장에서 즉시 처리할 도구도 없었다.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 지류 상품권 유통 구조</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">지자체 발주 → 대표은행 → 단위은행 → 소비자 → 가맹점 → 환전·정산의 다단계 구조를 제로베이스로 파악</div>
+
+            <!-- 유통 흐름 다이어그램 -->
+            <div style="background:#fff;border-radius:12px;padding:18px;border:1px solid var(--gray-100);margin-bottom:12px">
+              <!-- 입고 레이어 -->
+              <div style="font-size:10px;font-weight:700;color:var(--gray-400);letter-spacing:.6px;margin-bottom:8px">① 입고</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px">
+                <div style="background:rgba(26,39,68,.06);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--navy);white-space:nowrap">🏛 지자체<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(KA)</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">지자체 입고</div>
+                  <div style="height:2px;width:36px;background:var(--navy);border-radius:1px"></div>
+                  <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--navy)"></div>
+                </div>
+                <div style="background:rgba(74,144,217,.08);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">🏦 대표 은행<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(RC)</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">이송</div>
+                  <div style="height:2px;width:36px;background:var(--blue);border-radius:1px"></div>
+                  <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--blue)"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <div style="background:rgba(74,144,217,.06);border-radius:6px;padding:6px 10px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC) 상단</div>
+                  <div style="background:rgba(74,144,217,.06);border-radius:6px;padding:6px 10px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC) 하단</div>
+                </div>
+                <div style="margin-left:auto;background:rgba(123,94,167,.06);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--purple);white-space:nowrap">📋 정산 주체<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(KA)</span></div>
+              </div>
+
+              <!-- 판매·사용 레이어 -->
+              <div style="font-size:10px;font-weight:700;color:var(--gray-400);letter-spacing:.6px;margin-bottom:8px">② 판매 · 사용 · 환전</div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC)</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">판매 / 판매 취소</div>
+                  <div style="height:2px;width:48px;background:#6B7280"></div>
+                </div>
+                <div style="background:var(--gray-100);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--gray-700);white-space:nowrap">개인 / 법인</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">사용</div>
+                  <div style="height:2px;width:28px;background:#6B7280"></div>
+                </div>
+                <div style="background:rgba(22,163,74,.06);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:#16a34a;white-space:nowrap;border:1px solid rgba(22,163,74,.15)">🏪 가맹점</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px;margin-left:4px">
+                  <div style="font-size:9px;color:var(--blue);font-weight:600">환전 →</div>
+                  <div style="height:2px;width:36px;background:var(--blue)"></div>
+                </div>
+                <div style="background:rgba(74,144,217,.08);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">대표 은행 (RC)</div>
+              </div>
+            </div>
+
+            <!-- 번호 체계 -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px">상품권 번호 체계 — 20자리 일련번호</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 2fr 1fr;gap:4px;margin-bottom:8px">
+                <div style="background:rgba(26,39,68,.06);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--navy)">1~5</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">지역</div>
+                </div>
+                <div style="background:rgba(74,144,217,.07);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--blue)">6~7</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">연도</div>
+                </div>
+                <div style="background:rgba(123,94,167,.07);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--purple)">8~11</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">권종</div>
+                </div>
+                <div style="background:rgba(22,163,74,.07);border-radius:6px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,.15)">
+                  <div style="font-size:10px;font-weight:700;color:#16a34a">12~19</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">일렬 번호</div>
+                </div>
+                <div style="background:rgba(239,68,68,.06);border-radius:6px;padding:8px;text-align:center;border:1px solid rgba(239,68,68,.12)">
+                  <div style="font-size:10px;font-weight:700;color:#dc2626">20</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">CD</div>
+                </div>
+              </div>
+              <div style="font-size:11px;color:var(--gray-400)">번호 단위 이력 추적 → 입고·활성화·유통·폐기 전 상태를 고유 번호로 실시간 관리</div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 4가지 설계</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">현장 직접 방문 → 운영 프로세스 제로베이스 정립</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">상품권 창고와 판매처를 직접 방문해 실물이 어떻게 이동하는지 관찰. 책상에서는 알 수 없는 프로세스 공백을 현장에서 발견하고 표준 운영 절차를 만들었습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">번호 단위 실시간 이력 추적 시스템</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">상품권 한 장 한 장을 고유 번호로 추적. 입고부터 폐기까지 모든 상태 변경이 시스템에 기록되어 실물 재고와 시스템 수량이 항상 일치하는 구조를 만들었습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">Activation 보안 공정 수립</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">입고 완료 후 담당자가 승인해야만 상품권이 활성화되는 단계 구분. 입고와 유통 사이 보안 공백을 제도적으로 차단했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">④</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">바코드 기반 현장 즉시 폐기 로직</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">현장에서 바코드 스캔 한 번으로 상품권을 즉시 폐기 처리. 수작업 없이 실시간으로 시스템 수량과 동기화됩니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+              <div style="background:rgba(22,163,74,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(22,163,74,.15)">
+                <div style="font-size:20px;font-weight:900;color:#16a34a;margin-bottom:4px">오류 0</div>
+                <div style="font-size:12px;color:var(--gray-500)">정산 오류 · 분실 사고</div>
+              </div>
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:20px;font-weight:900;color:var(--blue);margin-bottom:4px">5개+</div>
+                <div style="font-size:12px;color:var(--gray-500)">지자체 + 시중 은행 도입</div>
+              </div>
+              <div style="background:rgba(123,94,167,.06);border-radius:10px;padding:16px;text-align:center;border:1px solid rgba(123,94,167,.15)">
+                <div style="font-size:20px;font-weight:900;color:var(--purple);margin-bottom:4px">표준 수립</div>
+                <div style="font-size:12px;color:var(--gray-500)">오프라인 자산 디지털 전환</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-result">
+            <label>Key Metrics</label>
+            <div class="result-pills">
+              <span class="result-pill">정산 오류 0건</span>
+              <span class="result-pill">5개+ 지자체 및 시중 은행 도입</span>
+              <span class="result-pill">분실 사고 0건</span>
+              <span class="result-pill">오프라인 자산 디지털 전환 표준</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">현장 시스템은 반드시 현장에서 만들어야 한다. 경험이 없을 때 가장 먼저 해야 할 것은 현장에 나가는 것. 실물 자산은 '상태'가 아니라 '이력'으로 관리해야 신뢰할 수 있다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 비즈하우스 실물 인쇄 상품의 주문·재고·배송 운영 고도화에 직접 연결. 오프라인 자산 관리를 디지털 시스템으로 전환한 경험을 인쇄 파트너 정산·재고 관리에 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- CS9 -->
     <div class="acc-card">
-      <div class="acc-header" onclick="toggleAcc(this)">
+      <div class="acc-header" onclick="openModal(this)">
         <div class="acc-header-left">
           <div class="acc-num">9</div>
           <div class="acc-info">
@@ -881,26 +1807,122 @@
             </div>
           </div>
         </div>
-        <div class="acc-toggle"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6L8 10L12 6" stroke="#9CA3AF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="acc-open-icon"><svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="#6B7280" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       </div>
       <div class="acc-body">
         <div class="acc-content">
-          <div class="case-body">
-            <div class="case-col">
-              <label>Problem</label>
-              <p>외주 개발로 만들어진 백오피스 — 유연하지 않은 구조로 리소스 과다 투입. 정산·통계·전시·결제·상품·배송 기능이 파편화. 부서 간 업무 비효율·데이터 추출을 매번 개발팀에 요청하는 구조.</p>
-            </div>
-            <div class="case-col">
-              <label>Solution</label>
-              <p>전사 이해관계자 심층 인터뷰 → 파편화된 프로세스 표준화. 회원·결제·상품·정산/통계·서비스 파트로 IA 재수립. 일·주·월·년 단위 시계열 통계 시각화. 운영 DB 직접 접근 차단 → 성능 안정화. 다중 매입사 정산 통합 UI.</p>
-            </div>
-            <div class="case-col">
-              <label>Result</label>
-              <p>부서 간 협업 효율성 극대화. 시스템 관리 생산성 획기적 향상. 개발팀 데이터 추출 리소스 획기적 절감. 신규 비즈니스 확장 시 운영 공수를 최소화하는 핵심 인프라로 안착.</p>
+          <!-- 서비스 소개 -->
+          <div style="background:linear-gradient(135deg,rgba(26,39,68,.03) 0%,rgba(74,144,217,.06) 100%);border-radius:12px;padding:14px 18px;margin:20px 0 24px;border:1px solid rgba(74,144,217,.12)">
+            <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:5px">코나아이 — 전사 백오피스 통합 재설계</div>
+            <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">외주로 만들어진 백오피스가 비즈니스 성장을 따라가지 못하는 상황에서, 전사 이해관계자 인터뷰를 통해 IA를 재수립하고 통계 시각화·정산 통합 UI 등 핵심 기능을 재설계한 프로젝트. 이후 신규 비즈니스 확장 공수를 획기적으로 줄이는 핵심 인프라로 안착했습니다.</div>
+          </div>
+
+          <!-- 01 PROBLEM -->
+          <div style="margin:20px 0 28px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">외주 개발로 만들어진 백오피스는 기능이 파편화되어 있어, 부서마다 각자의 방식으로 데이터를 관리했습니다. 운영팀이 데이터를 뽑으려면 매번 개발팀에 요청해야 했고, 새로운 비즈니스를 추가할 때마다 백오피스를 처음부터 만들어야 하는 상황이 반복됐습니다.</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">INTERNAL TEAM · 운영·정산팀</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">데이터 추출이 필요할 때마다 개발팀에 요청 → 개발팀도, 운영팀도 비효율. 정산·통계·배송 기능이 파편화되어 부서 간 연계 작업 시 수작업이 반복된다.</p>
+              </div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">SCALABILITY · 확장성 부재</div>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.8">신규 비즈니스(새 지자체·새 상품 추가)마다 백오피스를 처음부터 개발해야 한다. 운영 DB에 직접 접근하는 관행으로 성능 이슈도 반복 발생했다.</p>
+              </div>
             </div>
           </div>
-          <div class="insight-box">"많은 개선보다 확장성에 초점을 두고 만들어야 한다. 기술 부채는 일찍 해결할수록 좋다"</div>
-          <div class="miridih-link">미리디 적용 → 전사 운영 시스템 설계 경험: 미리디 내부 운영 어드민·비즈하우스 파트너 포털 고도화에 직접 연결.</div>
+
+          <!-- 02 ANALYSIS -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 전사 이해관계자 인터뷰</div>
+            <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">IA 재수립 전, 부서별 실제 Pain Point를 직접 인터뷰로 파악했다</div>
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+                <div style="background:var(--gray-100);border-radius:8px;padding:14px">
+                  <div style="font-size:11px;font-weight:700;color:var(--gray-600);margin-bottom:8px">인터뷰 대상 부서</div>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--gray-700);line-height:1.9">
+                    <li>→ 운영팀 (지자체 관리·CS)</li>
+                    <li>→ 정산팀 (매입사 정산)</li>
+                    <li>→ 마케팅팀 (통계·리포트)</li>
+                    <li>→ 개발팀 (데이터 추출 요청 수신)</li>
+                  </ul>
+                </div>
+                <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:14px">
+                  <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px">공통 Pain Point 발견</div>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:12px;color:var(--gray-700);line-height:1.9">
+                    <li>→ "데이터 뽑을 때마다 개발팀 대기"</li>
+                    <li>→ "정산 항목이 분산되어 통합 확인 불가"</li>
+                    <li>→ "신규 지자체 추가 시 2~3주 소요"</li>
+                    <li>→ "통계 그래프가 없어 직접 엑셀 작업"</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 03 SOLUTION -->
+          <div style="margin-bottom:24px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 4가지 재설계</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">IA 전면 재수립 — 5개 파트로 구조화</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">파편화된 기능을 회원·결제·상품·정산통계·서비스 5개 파트로 재분류. 각 파트가 독립적으로 운영되면서 서로 연계되는 구조를 설계했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">②</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">시계열 통계 시각화 — 개발팀 의존 제거</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">일·주·월·년 단위 시계열 통계를 어드민에서 직접 조회·다운로드 가능하도록 구현. 매번 개발팀에 요청하던 데이터 추출을 운영팀이 독립적으로 처리합니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">운영 DB 직접 접근 차단 + 성능 안정화</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">운영팀이 운영 DB에 직접 쿼리하던 관행을 차단하고 전용 읽기 레이어를 구성. 성능 이슈와 데이터 무결성 문제를 동시에 해결했습니다.</p></div>
+              </div>
+              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
+                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">④</div>
+                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">다중 매입사 정산 통합 UI</div>
+                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">여러 매입사(카드사·지자체)별로 분산된 정산 정보를 하나의 화면에서 조회·처리 가능하도록 통합. 정산팀의 월별 결산 작업 시간을 크게 단축했습니다.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 04 RESULT -->
+          <div style="margin-bottom:20px">
+            <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:16px">04 · RESULT</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+              <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:16px;border:1px solid rgba(74,144,217,.15)">
+                <div style="font-size:13px;font-weight:700;color:var(--blue);margin-bottom:6px">개발팀 데이터 요청 대폭 절감</div>
+                <p style="font-size:12px;color:var(--gray-600);line-height:1.6">운영팀 셀프 데이터 조회로 개발팀 리소스 확보. 부서 간 대기 시간 제거.</p>
+              </div>
+              <div style="background:rgba(22,163,74,.06);border-radius:10px;padding:16px;border:1px solid rgba(22,163,74,.15)">
+                <div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:6px">신규 비즈니스 확장 인프라</div>
+                <p style="font-size:12px;color:var(--gray-600);line-height:1.6">새 지자체·새 상품 추가 시 어드민 설정만으로 처리. 개발 공수 대폭 절감.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-result">
+            <label>Key Metrics</label>
+            <div class="result-pills">
+              <span class="result-pill">부서 간 협업 효율 극대화</span>
+              <span class="result-pill">개발팀 데이터 추출 리소스 대폭 절감</span>
+              <span class="result-pill">IA 5개 파트로 전면 재구조화</span>
+              <span class="result-pill">신규 비즈니스 확장 핵심 인프라</span>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px">
+            <div style="padding:16px 18px;background:var(--gray-100);border-radius:10px;border-left:3px solid var(--purple)">
+              <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.6px;margin-bottom:8px">KEY INSIGHT · 배운 점</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">많은 기능 개선보다 확장성에 초점을 두고 만들어야 한다. 기술 부채는 일찍 해결할수록 좋다. 내부 시스템 설계도 결국 사용자 인터뷰에서 시작해야 진짜 Pain Point를 잡을 수 있다.</p>
+            </div>
+            <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 내부 운영 어드민·비즈하우스 파트너 포털 고도화에 직접 연결. 파편화된 운영 시스템을 통합하고 비개발자도 독립적으로 운영할 수 있는 구조를 설계한 경험을 그대로 활용할 수 있습니다.</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -953,6 +1975,79 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- 사용자층 현황 → 전환율 문제 연결 -->
+  <div class="section-tag">USER ANALYSIS</div>
+  <h3 style="font-size:22px;font-weight:800;margin:8px 0 8px">1,600만 유저에게 왕관 팝업 하나 — 이게 0.6%의 이유입니다</h3>
+  <p style="font-size:15px;color:var(--gray-500);margin-bottom:24px">공식 통계와 실제 결제 유저가 다릅니다. 세그먼트를 분리해야 전환 트리거도 달라집니다.</p>
+
+  <!-- 현황 데이터 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow)">
+      <div style="font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:.8px;margin-bottom:12px">공식 가입자 통계 (인구통계 기반)</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--navy);min-width:52px">46%</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--gray-800)">학생</div>
+            <div style="font-size:11px;color:var(--gray-400)">가입자 기준 최대 세그먼트</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--purple);min-width:52px">74%</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--gray-800)">여성</div>
+            <div style="font-size:11px;color:var(--gray-400)">10~20대 58%</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="font-size:22px;font-weight:900;color:var(--blue);min-width:52px">2,800</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--gray-800)">기업 고객</div>
+            <div style="font-size:11px;color:var(--gray-400)">한국 사업체 700만 대비 0.04%</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow)">
+      <div style="font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:.8px;margin-bottom:12px">실제 결제 유저 vs 공식 통계의 괴리</div>
+      <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #dc2626">
+        <div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:4px">많이 쓰는 유저 ≠ 돈 내는 유저</div>
+        <div style="font-size:12.5px;color:var(--gray-600);line-height:1.65">학생 46%이지만 실제 결제는 소상공인·마케터·크리에이터. FAQ 질문 1위가 저작권인 것은 상업적 사용자가 많다는 신호입니다.</div>
+      </div>
+      <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:14px;border-left:3px solid #f97316">
+        <div style="font-size:12px;font-weight:700;color:#f97316;margin-bottom:4px">전환 트리거가 단일화되어 있다</div>
+        <div style="font-size:12.5px;color:var(--gray-600);line-height:1.65">유료 전환 시도 = 왕관 팝업 하나. 세그먼트마다 다른 Pain Point가 있는데, 동일한 메시지로 1,600만 전체에게 전환을 유도 중.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전환율 비교 -->
+  <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:24px">
+    <div style="font-size:11px;font-weight:700;color:var(--gray-400);letter-spacing:.8px;margin-bottom:14px">유료 전환율 — Canva와의 격차 원인</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div style="text-align:center;padding:16px;background:var(--gray-100);border-radius:10px">
+        <div style="font-size:28px;font-weight:900;color:var(--gray-400)">0.6%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--gray-500);margin-top:4px">미리캔버스</div>
+        <div style="font-size:11px;color:var(--gray-400);margin-top:2px">1,600만 가입 → 유료 ~10만명 추정</div>
+      </div>
+      <div style="text-align:center;padding:16px;background:rgba(74,144,217,.05);border-radius:10px;border:1px solid rgba(74,144,217,.15)">
+        <div style="font-size:28px;font-weight:900;color:var(--blue)">9~10%</div>
+        <div style="font-size:12px;font-weight:700;color:var(--blue);margin-top:4px">Canva 글로벌</div>
+        <div style="font-size:11px;color:var(--gray-400);margin-top:2px">1억 7천만 가입 → 유료 1,700만+</div>
+      </div>
+    </div>
+    <div style="background:rgba(26,39,68,.03);border-radius:8px;padding:12px 16px;font-size:13px;color:var(--gray-700);line-height:1.7;border-left:3px solid var(--navy)">
+      <strong>격차 원인:</strong> 세그먼트 미분류 + 전환 트리거 단일화. 소상공인에겐 비즈하우스 연결이, K팝 팬에겐 소량 인쇄 원클릭이, 기업팀에겐 ROI 비교가 각각 필요한데, 지금은 세 그룹 모두에게 같은 왕관 팝업이 표시됩니다.
+    </div>
+  </div>
+
+  <!-- 세그먼트 재정의 화살표 -->
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:24px">
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,var(--gray-200),var(--blue))"></div>
+    <div style="background:var(--gradient);border-radius:20px;padding:8px 20px;font-size:12px;font-weight:800;color:#fff;white-space:nowrap">인구통계 → 행동 기반 세그먼트 재정의</div>
+    <div style="flex:1;height:2px;background:linear-gradient(90deg,var(--blue),var(--gray-200))"></div>
+  </div>
 
   <div class="section-tag">SEGMENTS</div>
   <h3 style="font-size:22px;font-weight:800;margin:8px 0 8px">고객 3종류 — 결제 이유도, 필요한 경험도 다릅니다</h3>
@@ -1014,6 +2109,72 @@
       <div class="prop-diff">Canva: 기업 워크플로우 밖에서 작동<br>미리디: MCP → Slack·HR시스템에서 직접 주문</div>
     </div>
 
+  </div>
+
+  <!-- 비즈하우스 오프라인 연결고리 -->
+  <div class="section-tag">OFFLINE BRIDGE</div>
+  <h3 style="font-size:22px;font-weight:800;margin:8px 0 8px">Canva는 파일을 줍니다. 미리디는 실물을 줍니다.</h3>
+  <p style="font-size:15px;color:var(--gray-500);margin-bottom:24px">비즈하우스 연결은 Canva가 가질 수 없는 구조입니다 — 단, 지금은 마찰이 있습니다</p>
+
+  <!-- AS-IS → TO-BE 플로우 -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+
+    <!-- AS-IS -->
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow);border-top:3px solid #dc2626">
+      <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:14px">AS-IS · 현재 구조 — 마찰 존재</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:rgba(26,39,68,.05);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--navy)">미리캔버스 에디터</div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓ 인쇄물 제작 버튼</div>
+        <div style="background:rgba(26,39,68,.05);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--navy)">인쇄 유형 선택 · 규격 자동 적용</div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓</div>
+        <div style="background:rgba(220,38,38,.07);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:700;color:#dc2626;border:1px solid rgba(220,38,38,.2)">⚠ 비즈하우스 별도 로그인<br><span style="font-size:11px;font-weight:400">(동일 이메일 조건 → 이탈 발생)</span></div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓</div>
+        <div style="background:rgba(26,39,68,.05);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--navy)">결제 → 배송</div>
+      </div>
+    </div>
+
+    <!-- TO-BE -->
+    <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow);border-top:3px solid #16a34a">
+      <div style="font-size:11px;font-weight:700;color:#16a34a;letter-spacing:.8px;margin-bottom:14px">TO-BE · SSO 통합 후 — 마찰 제거</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="background:rgba(26,39,68,.05);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:var(--navy)">미리캔버스 에디터</div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓ AI 작업 완성 감지</div>
+        <div style="background:rgba(22,163,74,.07);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:#16a34a;border:1px solid rgba(22,163,74,.2)">인쇄 원클릭 추천 · 규격 자동 세팅</div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓ SSO — 로그인 없이 바로</div>
+        <div style="background:rgba(22,163,74,.07);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:600;color:#16a34a;border:1px solid rgba(22,163,74,.2)">비즈하우스 장바구니 원클릭</div>
+        <div style="text-align:center;font-size:11px;color:var(--gray-400)">↓</div>
+        <div style="background:rgba(74,144,217,.07);border-radius:8px;padding:9px 12px;font-size:12.5px;font-weight:700;color:var(--blue);border:1px solid rgba(74,144,217,.2)">결제 → 실물 배송 🚚</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Canva 비교 + 강점 -->
+  <div style="background:#fff;border-radius:14px;padding:20px;box-shadow:var(--shadow);margin-bottom:24px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
+      <div style="background:var(--gray-100);border-radius:10px;padding:14px">
+        <div style="font-size:11px;font-weight:700;color:var(--gray-500);margin-bottom:8px">Canva Print (2024.12 한국 출시)</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:12.5px;color:var(--gray-600);line-height:1.9">
+          <li>→ 디자인 후 외부 인쇄사 연결</li>
+          <li>→ 비즈하우스 같은 자체 인쇄 없음</li>
+          <li>→ 한국 오프라인 유통망 부재</li>
+          <li style="color:var(--gray-400)">→ 시장 검증만 해줬을 뿐</li>
+        </ul>
+      </div>
+      <div style="background:rgba(74,144,217,.05);border-radius:10px;padding:14px;border:1px solid rgba(74,144,217,.15)">
+        <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px">미리디 (비즈하우스 보유)</div>
+        <ul style="list-style:none;padding:0;margin:0;font-size:12.5px;color:var(--gray-700);line-height:1.9">
+          <li>→ 누적 주문 400만건</li>
+          <li>→ 소상공인 70% — 실수요 이미 검증</li>
+          <li>→ 인쇄 파트너 프린트허브 보유</li>
+          <li style="color:var(--blue);font-weight:700">→ 에디터→인쇄→배송 원스톱</li>
+        </ul>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,rgba(26,39,68,.04),rgba(74,144,217,.06));border-radius:10px;padding:14px;border-left:3px solid var(--navy)">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">Canva Print 출시는 위협이 아닌 시장 검증입니다</div>
+      <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">인쇄 시장이 크다는 것을 Canva가 증명해줬습니다. 미리디가 해야 할 일은 Canva가 못 파는 깊이 — <strong>설계부터 실물 배송까지의 원스톱 경험</strong>을 파는 것입니다. SSO 통합 하나만으로도 비즈하우스 전환율이 즉시 개선됩니다.</div>
+    </div>
   </div>
 
   <div class="section-tag">MCP + LLM</div>
@@ -1079,215 +2240,6 @@ HR 담당자가 Slack에서:
 </div>
 </section>
 
-<!-- AI SKILLS & AUTOMATION -->
-<section id="ai-skills" class="section" style="background:#fff">
-<div class="page">
-  <div class="section-tag">AI · AUTOMATION</div>
-  <h2 class="section-title">AI를 도구가 아닌 무기로 씁니다</h2>
-  <p class="section-sub">기획 문서 작성부터 RAG 기반 챗봇 개발까지 — PM이 직접 만든 AI 작업물</p>
-
-  <!-- 직접 만든 AI 프로덕트 -->
-  <h3 style="font-size:18px;font-weight:800;margin-bottom:20px;color:var(--navy)">🛠 직접 만든 AI 프로덕트</h3>
-  <div class="ai-products-grid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-bottom:56px">
-
-    <div style="background:linear-gradient(135deg,#1a2744 0%,#253870 100%);border-radius:var(--radius);padding:32px;color:#fff;position:relative;overflow:hidden">
-      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(123,94,167,.3);border-radius:50%;filter:blur(30px)"></div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:rgba(255,255,255,.6);margin-bottom:12px">PROJECT 01</div>
-      <div style="font-size:20px;font-weight:900;margin-bottom:8px">이동원 AI 어시스턴트</div>
-      <div style="font-size:13px;color:rgba(255,255,255,.75);line-height:1.7;margin-bottom:20px">이 포트폴리오 우하단 챗봇. 이력서·케이스스터디를 RAG로 학습시켜 방문자 질문에 실시간 답변. PM이 직접 설계하고 코드로 구현.</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">Claude API</span>
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">RAG · ChromaDB</span>
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">FastAPI</span>
-        <span style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px">Python</span>
-      </div>
-      <div style="font-size:12px;color:rgba(255,255,255,.5)">👇 우하단 버튼으로 직접 대화해보세요</div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,#f0fdf4 0%,#dcfce7 100%);border-radius:var(--radius);padding:32px;position:relative;overflow:hidden;border:1px solid rgba(16,185,129,.15)">
-      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(16,185,129,.15);border-radius:50%;filter:blur(30px)"></div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#059669;margin-bottom:12px">PROJECT 02</div>
-      <div style="font-size:20px;font-weight:900;margin-bottom:8px;color:var(--navy)">24시간 자율 실행 에이전트</div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.7;margin-bottom:20px">맥 미니 M4에 상시 구동 중인 OpenClaw 에이전트. 일일 브리핑 자동 생성, Obsidian 문서 정리, Telegram 알림 발송을 자율 수행.</div>
-      <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px">
-        <span style="background:rgba(16,185,129,.12);color:#059669;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(16,185,129,.2)">OpenClaw</span>
-        <span style="background:rgba(16,185,129,.12);color:#059669;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(16,185,129,.2)">Telegram Bot</span>
-        <span style="background:rgba(16,185,129,.12);color:#059669;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(16,185,129,.2)">Obsidian</span>
-        <span style="background:rgba(16,185,129,.12);color:#059669;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;border:1px solid rgba(16,185,129,.2)">Mac Mini M4</span>
-      </div>
-      <div style="font-size:12px;color:var(--gray-500)">✅ 현재 24시간 운영 중</div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,#fff7ed 0%,#ffedd5 100%);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;border:1px solid rgba(234,88,12,.15)">
-      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(234,88,12,.1);border-radius:50%;filter:blur(30px)"></div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#EA580C;margin-bottom:10px">PROJECT 03 · TEAM TOOL</div>
-      <div style="font-size:18px;font-weight:900;margin-bottom:6px;color:var(--navy)">모두의충전 푸시메이커</div>
-      <div style="font-size:12px;color:var(--gray-600);line-height:1.65;margin-bottom:14px">카테고리·광고성 여부만 선택하면 기본형·친절형·후킹형 등 5가지 톤의 푸시 문구를 즉시 생성. 마케팅팀이 PM 없이 셀프 발송.</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 1~2h 대기</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 30초 완성</span>
-      </div>
-      <div class="ai-card-images" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div>
-          <div style="font-size:10px;color:#EA580C;font-weight:700;margin-bottom:4px;text-align:center">카테고리 선택</div>
-          <img src="images/pushmaker-select.jpg" alt="모두의충전 푸시메이커 선택 화면" style="width:100%;border-radius:8px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.08)">
-        </div>
-        <div>
-          <div style="font-size:10px;color:#059669;font-weight:700;margin-bottom:4px;text-align:center">생성 결과물</div>
-          <img src="images/pushmaker-gpt.jpg" alt="모두의충전 푸시메이커 GPT 결과" style="width:100%;border-radius:8px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.08)">
-        </div>
-      </div>
-    </div>
-
-    <div style="background:linear-gradient(135deg,#f0f9ff 0%,#e0f2fe 100%);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden;border:1px solid rgba(14,165,233,.15)">
-      <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;background:rgba(14,165,233,.1);border-radius:50%;filter:blur(30px)"></div>
-      <div style="font-size:11px;font-weight:700;letter-spacing:1px;color:#0284C7;margin-bottom:10px">PROJECT 04 · BRAND TOOL</div>
-      <div style="font-size:18px;font-weight:900;margin-bottom:6px;color:var(--navy)">모비 만들기 (캐릭터 생성기)</div>
-      <div style="font-size:12px;color:var(--gray-600);line-height:1.65;margin-bottom:14px">모두의충전 마스코트 '모비'의 외형 일관성을 유지하며 새 장면·포즈·표정·배경 이미지를 생성. 스티커·배너·이벤트·앱 화면용 캐릭터를 팀 누구나 즉시 제작.</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 디자이너 의뢰</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 셀프 즉시 생성</span>
-      </div>
-      <div class="ai-card-images" style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
-        <div>
-          <div style="font-size:10px;color:#0284C7;font-weight:700;margin-bottom:4px;text-align:center">GPT 프롬프트</div>
-          <img src="images/mobi-maker-gpt.jpg" alt="모비 만들기 GPT 입력" style="width:100%;border-radius:8px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.08)">
-        </div>
-        <div>
-          <div style="font-size:10px;color:#059669;font-weight:700;margin-bottom:4px;text-align:center">생성 결과물</div>
-          <img src="images/mobi-result.jpg" alt="모비 캐릭터 생성 결과" style="width:100%;border-radius:8px;border:1px solid rgba(0,0,0,.08);box-shadow:0 2px 8px rgba(0,0,0,.08)">
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- 생산성 성과 요약 배너 -->
-  <div class="ai-stats-banner" style="background:linear-gradient(135deg,#1a2744 0%,#253870 100%);border-radius:var(--radius);padding:32px 40px;margin-bottom:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;text-align:center">
-    <div style="border-right:1px solid rgba(255,255,255,.12);padding:0 20px">
-      <div style="font-size:38px;font-weight:900;color:#A78BFA;line-height:1">10h+</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5">주간 절감 시간<br><span style="color:rgba(255,255,255,.35);font-size:11px">반복 업무 AI 이관</span></div>
-    </div>
-    <div style="border-right:1px solid rgba(255,255,255,.12);padding:0 20px">
-      <div style="font-size:38px;font-weight:900;color:#34D399;line-height:1">3×</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5">문서 작성 속도<br><span style="color:rgba(255,255,255,.35);font-size:11px">4h → 1.5h 평균</span></div>
-    </div>
-    <div style="border-right:1px solid rgba(255,255,255,.12);padding:0 20px">
-      <div style="font-size:38px;font-weight:900;color:#60A5FA;line-height:1">0원</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5">외주 개발 비용<br><span style="color:rgba(255,255,255,.35);font-size:11px">챗봇·에이전트 직접 구현</span></div>
-    </div>
-    <div style="padding:0 20px">
-      <div style="font-size:38px;font-weight:900;color:#FBBF24;line-height:1">24h</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.6);margin-top:6px;line-height:1.5">자율 운영 시간<br><span style="color:rgba(255,255,255,.35);font-size:11px">에이전트 무인 실행</span></div>
-    </div>
-  </div>
-
-  <!-- 업무 자동화 사례 -->
-  <h3 style="font-size:18px;font-weight:800;margin-bottom:20px;color:var(--navy)">⚡ AI로 바꾼 업무 방식 — Before / After</h3>
-  <div class="ai-cases-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:56px">
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid var(--blue)">
-      <div style="font-size:22px;margin-bottom:8px">📋</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">기획 문서 작성</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 4h</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 1.5h</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">−63%</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">PRD·기획서 초안을 Claude와 페어로 작성. 구조 잡기·리뷰·개선 반복을 AI가 주도해 사람은 판단에만 집중.</div>
-    </div>
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid var(--purple)">
-      <div style="font-size:22px;margin-bottom:8px">🔍</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">리서치 자동화</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 6h</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 2h</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">3× 빠름</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">경쟁사 분석·시장 리서치를 Perplexity + Claude로 병렬 수행. 수동 구글링 대비 인사이트 도출 속도 3배 이상.</div>
-    </div>
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid var(--pink)">
-      <div style="font-size:22px;margin-bottom:8px">💬</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">유저 인터뷰 분석</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 2일</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 30분</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">96% 단축</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">인터뷰 30건 텍스트를 AI로 패턴 추출·클러스터링. 코딩 작업 2일 → 30분으로 압축해 의사결정 속도 향상.</div>
-    </div>
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid #F59E0B">
-      <div style="font-size:22px;margin-bottom:8px">🗂</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">지식 베이스 관리</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 산재</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After RAG화</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">200+ 문서</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">15년 경험을 Obsidian + RAG로 검색 가능한 자산화. 노트 200건+ 벡터화해 언제든 즉시 인출 가능.</div>
-    </div>
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid #10B981">
-      <div style="font-size:22px;margin-bottom:8px">⚙️</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">일일 브리핑 자동화</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">Before 30분/일</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">After 0분</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">완전 자동</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">에이전트가 매일 아침 주요 뉴스·일정 수집·요약 → Telegram 자동 발송. 사람이 개입하는 순간 0.</div>
-    </div>
-
-    <div style="background:var(--gray-100);border-radius:var(--radius);padding:24px;border-left:4px solid #6366F1">
-      <div style="font-size:22px;margin-bottom:8px">🖥</div>
-      <div style="font-size:15px;font-weight:800;margin-bottom:6px">이 포트폴리오</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
-        <span style="background:#FEE2E2;color:#DC2626;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">외주 300만원+</span>
-        <span style="color:var(--gray-400);font-size:12px">→</span>
-        <span style="background:#D1FAE5;color:#059669;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">직접 구현</span>
-        <span style="background:#EDE9FE;color:#7C3AED;font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px">비용 0원</span>
-      </div>
-      <div style="font-size:13px;color:var(--gray-600);line-height:1.65">Claude Code와 협업해 디자인·개발·배포 전 과정 직접 수행. 챗봇 위젯·RAG 파이프라인까지 PM이 단독 구현.</div>
-    </div>
-
-  </div>
-
-  <!-- AI 스택 -->
-  <h3 style="font-size:18px;font-weight:800;margin-bottom:20px;color:var(--navy)">🧰 AI 툴스택</h3>
-  <div style="display:flex;flex-wrap:wrap;gap:12px">
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">🤖</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">Claude</div><div style="font-size:11px;color:var(--gray-500)">기획·코딩·분석</div></div>
-    </div>
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">⌨️</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">Claude Code</div><div style="font-size:11px;color:var(--gray-500)">개발 자동화</div></div>
-    </div>
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">🔎</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">Perplexity</div><div style="font-size:11px;color:var(--gray-500)">리서치 자동화</div></div>
-    </div>
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">🗃</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">Obsidian + RAG</div><div style="font-size:11px;color:var(--gray-500)">지식 베이스</div></div>
-    </div>
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">🐍</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">Python · FastAPI</div><div style="font-size:11px;color:var(--gray-500)">백엔드 구현</div></div>
-    </div>
-    <div style="background:#fff;border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:12px 20px;display:flex;align-items:center;gap:10px;box-shadow:var(--shadow)">
-      <span style="font-size:20px">🤖</span><div><div style="font-size:13px;font-weight:800;color:var(--navy)">OpenClaw</div><div style="font-size:11px;color:var(--gray-500)">24h 자율 에이전트</div></div>
-    </div>
-  </div>
-
-</div>
-</section>
-
 <!-- CLOSING -->
 <section id="closing">
   <div class="glow-1"></div>
@@ -1312,6 +2264,25 @@ HR 담당자가 Slack에서:
 
 <button id="to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">&#8679;</button>
 
+<!-- CASE STUDY MODAL -->
+<div id="cs-modal">
+  <div id="cs-modal-overlay" onclick="closeModal()"></div>
+  <div id="cs-modal-box">
+    <div id="cs-modal-top">
+      <div id="cs-modal-meta">
+        <div class="acc-num" id="cs-modal-num"></div>
+        <div id="cs-modal-info">
+          <div id="cs-modal-company"></div>
+          <div id="cs-modal-title-text"></div>
+          <div id="cs-modal-kpis"></div>
+        </div>
+      </div>
+      <button id="cs-modal-close" onclick="closeModal()" aria-label="닫기">✕</button>
+    </div>
+    <div id="cs-modal-body"></div>
+  </div>
+</div>
+
 <footer>
   이동원 포트폴리오 — 미리디(미리캔버스) 시니어 PM 지원 &nbsp;·&nbsp; 2026.03
 </footer>
@@ -1319,8 +2290,8 @@ HR 담당자가 Slack에서:
 <script>
 // 활성 메뉴 하이라이트
 (function() {
-  var sections = ['cover','timeline','strengths','why','cases','ai-skills','proposal','closing'];
-  var navMap = { cover:'cover', timeline:'timeline', strengths:'strengths', why:'cases', cases:'cases', 'ai-skills':'ai-skills', proposal:'proposal', closing:'closing' };
+  var sections = ['cover','timeline','strengths','why','cases','proposal','closing'];
+  var navMap = { cover:'cover', timeline:'timeline', strengths:'strengths', why:'cases', cases:'cases', proposal:'proposal', closing:'closing' };
   var links = {};
   document.querySelectorAll('.site-nav-links a').forEach(function(a) {
     var id = a.getAttribute('href').replace('#','');
@@ -1351,203 +2322,130 @@ HR 담당자가 Slack에서:
   }, { passive: true });
 })();
 
-// CS1 세그먼트 버블 차트
-(function() {
-  new Chart(document.getElementById('cs1Segment'), {
-    type: 'bubble',
-    data: {
-      datasets: [
-        {
-          label: '라이트 유저 (고객 多 · 충성도 낮음)',
-          data: [{ x: 15, y: 1.5, r: 28 }],
-          backgroundColor: 'rgba(229,231,235,0.85)',
-          borderColor: '#D1D5DB',
-          borderWidth: 1.5
-        },
-        {
-          label: '일반 유저 (고객 多 · 충성도 중간)',
-          data: [{ x: 35, y: 4, r: 24 }],
-          backgroundColor: 'rgba(156,163,175,0.7)',
-          borderColor: '#9CA3AF',
-          borderWidth: 1.5
-        },
-        {
-          label: '도심 택시 · 핵심 타겟 (5~10만원)',
-          data: [{ x: 78, y: 7.5, r: 13 }],
-          backgroundColor: 'rgba(74,144,217,0.75)',
-          borderColor: '#4A90D9',
-          borderWidth: 2
-        },
-        {
-          label: '택배·배달 · 핵심 타겟 (10~30만원)',
-          data: [{ x: 85, y: 20, r: 11 }],
-          backgroundColor: 'rgba(123,94,167,0.75)',
-          borderColor: '#7B5EA7',
-          borderWidth: 2
-        },
-        {
-          label: '트럭 헤비 (30만원+ · 전체 5%)',
-          data: [{ x: 70, y: 32, r: 8 }],
-          backgroundColor: 'rgba(107,114,128,0.65)',
-          borderColor: '#6B7280',
-          borderWidth: 1.5
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          position: 'bottom',
-          labels: { font: { size: 11 }, color: '#374151', padding: 12, boxWidth: 12 }
-        },
-        tooltip: {
-          callbacks: {
-            label: function(c) {
-              return c.dataset.label + ' · 재방문율 ' + c.parsed.x + '% / 충전금액 ' + c.parsed.y + '만원';
-            }
-          }
-        }
-      },
-      scales: {
-        x: {
-          title: { display: true, text: '충성도 · 재방문율 (%)', font: { size: 11 }, color: '#6B7280' },
-          min: 0, max: 100,
-          ticks: { font: { size: 10 }, color: '#9CA3AF', callback: function(v) { return v + '%'; } },
-          grid: { color: 'rgba(0,0,0,.04)' }
-        },
-        y: {
-          title: { display: true, text: '월 평균 충전 금액 (만원)', font: { size: 11 }, color: '#6B7280' },
-          min: 0, max: 40,
-          ticks: { font: { size: 10 }, color: '#9CA3AF', callback: function(v) { return v + '만'; } },
-          grid: { color: 'rgba(0,0,0,.04)' }
-        }
-      }
-    }
+// ── 케이스스터디 모달 ──────────────────────────────────────
+var _cs1SegChart = null, _cs1JourneyChart = null;
+
+function openModal(header) {
+  var card = header.closest ? header.closest('.acc-card') : header.parentElement;
+  var num     = card.querySelector('.acc-num').textContent.trim();
+  var company = card.querySelector('.acc-company-badge').textContent.trim();
+  var title   = card.querySelector('.acc-title').textContent.trim();
+  var kpiEls  = card.querySelectorAll('.acc-kpi');
+
+  document.getElementById('cs-modal-num').textContent = num;
+  document.getElementById('cs-modal-company').textContent = company;
+  document.getElementById('cs-modal-company').className = 'acc-company-badge';
+  document.getElementById('cs-modal-title-text').textContent = title;
+
+  var kpiHtml = '';
+  kpiEls.forEach(function(k) {
+    kpiHtml += '<span class="acc-kpi">' + k.textContent.trim() + '</span>';
   });
-})();
+  document.getElementById('cs-modal-kpis').innerHTML = kpiHtml;
 
-// CS1 고객 여정맵
-(function() {
-  var labels = ['충전 필요', '앱 탐색', '요금 확인', '충전기 방문', '충전 완료', '다음 충전', '재방문'];
-  var before = [4, 3, 2, 5, 6, 3, 3];
-  var after  = [4, 7, 9, 8, 9, 8, 9];
-  var beforePain = [1, 2, 5];
-  var afterPain  = [];
-
-  var mkColors = function(data, painIdx, base) {
-    return data.map(function(_, i) { return painIdx.includes(i) ? '#EF4444' : base; });
-  };
-  var mkRadius = function(data, painIdx) {
-    return data.map(function(_, i) { return painIdx.includes(i) ? 7 : 4; });
-  };
-
-  new Chart(document.getElementById('cs1Journey'), {
-    type: 'line',
-    data: {
-      labels: labels,
-      datasets: [
-        {
-          label: '도입 전',
-          data: before,
-          borderColor: '#9CA3AF',
-          backgroundColor: 'rgba(156,163,175,.1)',
-          borderWidth: 2,
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: mkColors(before, beforePain, '#9CA3AF'),
-          pointBorderColor: mkColors(before, beforePain, '#9CA3AF'),
-          pointRadius: mkRadius(before, beforePain),
-          pointHoverRadius: 8,
-          borderDash: [5, 4]
-        },
-        {
-          label: '타임특가 도입 후',
-          data: after,
-          borderColor: '#4A90D9',
-          backgroundColor: 'rgba(74,144,217,.08)',
-          borderWidth: 2.5,
-          fill: true,
-          tension: 0.4,
-          pointBackgroundColor: mkColors(after, afterPain, '#4A90D9'),
-          pointBorderColor: mkColors(after, afterPain, '#4A90D9'),
-          pointRadius: mkRadius(after, afterPain),
-          pointHoverRadius: 8
-        }
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          callbacks: {
-            label: function(c) { return c.dataset.label + ' · 만족도 ' + c.raw + '/10'; }
-          }
-        }
-      },
-      scales: {
-        y: {
-          min: 0, max: 10,
-          ticks: { stepSize: 5, font: { size: 10 }, color: '#9CA3AF' },
-          grid: { color: 'rgba(0,0,0,.05)' }
-        },
-        x: {
-          ticks: { font: { size: 10 }, color: '#9CA3AF', maxRotation: 0 },
-          grid: { display: false }
-        }
-      }
-    }
-  });
-})();
-
-function toggleAcc(header) {
-  var body = header.nextElementSibling;
-  var toggle = header.querySelector('.acc-toggle');
-  var isOpen = body.classList.contains('open');
-
-  document.querySelectorAll('.acc-body').forEach(function(b) { b.classList.remove('open'); });
-  document.querySelectorAll('.acc-toggle').forEach(function(t) { t.classList.remove('open'); });
-
-  if (!isOpen) {
-    body.classList.add('open');
-    toggle.classList.add('open');
-    setTimeout(function() {
-      header.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 50);
-  }
-}
-</script>
-
-
-<!-- 라이트박스 -->
-<div id="cw-lightbox" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;padding:24px;cursor:zoom-out" onclick="this.style.display='none'">
-  <img id="cw-lightbox-img" src="" alt="" style="max-width:90vw;max-height:88vh;border-radius:12px;box-shadow:0 8px 48px rgba(0,0,0,.6);object-fit:contain">
-</div>
-<script>
-(function(){
-  function initLightbox(){
-    document.querySelectorAll('#ai-skills img').forEach(function(img){
-      img.style.cursor='zoom-in';
-      img.addEventListener('click',function(e){
-        e.stopPropagation();
-        var lb=document.getElementById('cw-lightbox');
-        document.getElementById('cw-lightbox-img').src=this.src;
-        lb.style.display='flex';
-      });
+  // acc-body 바로 다음 형제 (accordion body)
+  var body     = header.nextElementSibling;
+  var content  = body ? body.querySelector('.acc-content') : null;
+  var modalBody = document.getElementById('cs-modal-body');
+  if (content) {
+    modalBody.innerHTML = content.innerHTML;
+    // 모달 내 canvas ID 충돌 방지
+    modalBody.querySelectorAll('canvas[id]').forEach(function(c) {
+      c.id = 'modal-' + c.id;
     });
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initLightbox);
-  else initLightbox();
-})();
+
+  document.getElementById('cs-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  modalBody.scrollTop = 0;
+
+  // CS1 차트 렌더링
+  var segEl     = modalBody.querySelector('#modal-cs1Segment');
+  var journeyEl = modalBody.querySelector('#modal-cs1Journey');
+  if (segEl || journeyEl) {
+    setTimeout(function() { _initCS1Charts(segEl, journeyEl); }, 60);
+  }
+}
+
+function closeModal() {
+  document.getElementById('cs-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('cs-modal-body').innerHTML = '';
+  if (_cs1SegChart)     { _cs1SegChart.destroy();     _cs1SegChart = null; }
+  if (_cs1JourneyChart) { _cs1JourneyChart.destroy(); _cs1JourneyChart = null; }
+}
+
+function _initCS1Charts(segEl, journeyEl) {
+  if (segEl && !_cs1SegChart) {
+    _cs1SegChart = new Chart(segEl, {
+      type: 'bubble',
+      data: {
+        datasets: [
+          { label: '라이트 유저 (고객 多 · 충성도 낮음)',      data: [{ x: 15, y: 1.5, r: 28 }], backgroundColor: 'rgba(156,163,175,.45)', borderColor: '#9CA3AF', borderWidth: 1.5 },
+          { label: '일반 유저 (중간 충전 빈도)',                data: [{ x: 40, y: 8, r: 18 }],   backgroundColor: 'rgba(74,144,217,.35)', borderColor: '#4A90D9', borderWidth: 1.5 },
+          { label: '핵심 타겟: 도심 택시·택배·배달 (고충성)',  data: [{ x: 78, y: 28, r: 22 }],  backgroundColor: 'rgba(123,94,167,.55)', borderColor: '#7B5EA7', borderWidth: 2 },
+          { label: '프리미엄 비즈 유저 (고단가·저빈도)',        data: [{ x: 60, y: 35, r: 12 }],  backgroundColor: 'rgba(232,124,160,.45)', borderColor: '#E87CA0', borderWidth: 1.5 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: true, position: 'bottom', labels: { font: { size: 11 }, color: '#374151', padding: 12, boxWidth: 12 } },
+          tooltip: { callbacks: { label: function(c) { return c.dataset.label + ' · 재방문율 ' + c.parsed.x + '% / 충전금액 ' + c.parsed.y + '만원'; } } }
+        },
+        scales: {
+          x: { title: { display: true, text: '충성도 · 재방문율 (%)', font: { size: 11 }, color: '#6B7280' }, min: 0, max: 100,
+               ticks: { font: { size: 10 }, color: '#9CA3AF', callback: function(v) { return v + '%'; } }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y: { title: { display: true, text: '월 평균 충전 금액 (만원)', font: { size: 11 }, color: '#6B7280' }, min: 0, max: 40,
+               ticks: { font: { size: 10 }, color: '#9CA3AF', callback: function(v) { return v + '만'; } }, grid: { color: 'rgba(0,0,0,.04)' } }
+        }
+      }
+    });
+  }
+  if (journeyEl && !_cs1JourneyChart) {
+    var labels = ['충전 필요', '앱 탐색', '요금 확인', '충전기 방문', '충전 완료', '다음 충전', '재방문'];
+    var before = [4, 3, 2, 5, 6, 3, 3];
+    var after  = [4, 7, 9, 8, 9, 8, 9];
+    var beforePain = [1, 2, 5];
+    var mkColors = function(data, pi, base) { return data.map(function(_, i) { return pi.includes(i) ? '#EF4444' : base; }); };
+    var mkRadius = function(data, pi) { return data.map(function(_, i) { return pi.includes(i) ? 7 : 4; }); };
+    _cs1JourneyChart = new Chart(journeyEl, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          { label: '도입 전', data: before, borderColor: '#9CA3AF', backgroundColor: 'rgba(156,163,175,.1)', borderWidth: 2, fill: true, tension: 0.4,
+            pointBackgroundColor: mkColors(before, beforePain, '#9CA3AF'), pointBorderColor: mkColors(before, beforePain, '#9CA3AF'),
+            pointRadius: mkRadius(before, beforePain), pointHoverRadius: 8, borderDash: [5,4] },
+          { label: '타임특가 도입 후', data: after, borderColor: '#4A90D9', backgroundColor: 'rgba(74,144,217,.08)', borderWidth: 2.5, fill: true, tension: 0.4,
+            pointBackgroundColor: mkColors(after, [], '#4A90D9'), pointBorderColor: mkColors(after, [], '#4A90D9'),
+            pointRadius: mkRadius(after, []), pointHoverRadius: 8 }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: function(c) { return c.dataset.label + ' · 만족도 ' + c.raw + '/10'; } } }
+        },
+        scales: {
+          y: { min: 0, max: 10, ticks: { stepSize: 5, font: { size: 10 }, color: '#9CA3AF' }, grid: { color: 'rgba(0,0,0,.05)' } },
+          x: { ticks: { font: { size: 10 }, color: '#9CA3AF', maxRotation: 0 }, grid: { display: false } }
+        }
+      }
+    });
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
 </script>
 
+
 <!-- 이동원 AI 챗봇 위젯 -->
-<script src="chat-widget.js?v=2.1.6"
-        data-api="https://adaptation-stretch-premises-ready.trycloudflare.com"
+<script src="chat-widget.js"
+        data-api="https://dongwon-chatbot.webn77.workers.dev"
         data-section-map='{"career":"#timeline","projects":"#cases","strengths":"#strengths","philosophy":"#why","motivation":"#proposal","intro":"#cover"}'></script>
 
 </body>
