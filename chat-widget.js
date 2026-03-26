@@ -40,10 +40,26 @@
     '#cw-fab:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(74,144,217,.55)}',
     '#cw-fab svg{color:#fff;display:block}',
 
+    /* Greeting bubble */
+    '#cw-greeting{position:fixed;bottom:90px;right:24px;background:#fff;',
+    'border-radius:16px 16px 4px 16px;',
+    'box-shadow:0 8px 30px rgba(26,39,68,.18);',
+    'padding:12px 14px;max-width:240px;z-index:9998;',
+    'display:flex;align-items:flex-start;gap:8px;',
+    'animation:cwPopIn .35s cubic-bezier(.34,1.56,.64,1) forwards}',
+    '#cw-greeting.cw-hidden{display:none}',
+    "#cw-greeting-text{font-size:13px;line-height:1.55;color:#1a2744;",
+    "font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;flex:1}",
+    '#cw-greeting-close{background:none;border:none;cursor:pointer;color:#9CA3AF;',
+    'font-size:13px;padding:0;line-height:1;flex-shrink:0;margin-top:1px;transition:color .15s}',
+    '#cw-greeting-close:hover{color:#6B7280}',
+    '@keyframes cwPopIn{from{opacity:0;transform:scale(.85) translateY(8px)}',
+    'to{opacity:1;transform:scale(1) translateY(0)}}',
+
     /* Window */
-    '#cw-window{position:fixed;bottom:92px;right:24px;width:340px;background:#fff;',
-    'border-radius:16px;',
-    'box-shadow:0 20px 60px -10px rgba(26,39,68,.22),0 4px 20px rgba(26,39,68,.10);',
+    '#cw-window{position:fixed;bottom:92px;right:24px;width:380px;background:#fff;',
+    'border-radius:20px;',
+    'box-shadow:0 24px 64px -12px rgba(26,39,68,.26),0 4px 24px rgba(26,39,68,.10);',
     'z-index:9998;display:flex;flex-direction:column;overflow:hidden;',
     "font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;",
     'transition:opacity .25s,transform .25s;transform-origin:bottom right}',
@@ -51,35 +67,41 @@
 
     /* Header */
     '.cw-header{background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 60%,#E87CA0 100%);',
-    'padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0}',
-    '.cw-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);',
+    'padding:16px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}',
+    '.cw-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.25);',
     'border:2px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;',
-    'font-size:15px;font-weight:800;color:#fff;flex-shrink:0}',
-    '.cw-title{flex:1;font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px}',
+    'font-size:16px;font-weight:800;color:#fff;flex-shrink:0}',
+    '.cw-title{flex:1;font-size:15px;font-weight:700;color:#fff;letter-spacing:-.2px}',
     '.cw-close{background:rgba(255,255,255,.2);border:none;color:#fff;width:28px;height:28px;',
     'border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;',
     'justify-content:center;transition:background .2s;flex-shrink:0;line-height:1}',
     '.cw-close:hover{background:rgba(255,255,255,.35)}',
 
+    /* Notice banner */
+    '.cw-notice{background:#F0F4FF;border-bottom:1px solid #E0E7FF;padding:10px 16px;',
+    'font-size:12px;color:#4A5568;display:flex;align-items:center;gap:7px;',
+    'flex-shrink:0;line-height:1.5}',
+    '.cw-notice-icon{font-size:15px;flex-shrink:0}',
+
     /* Chips */
-    '.cw-suggestions{padding:10px 12px 8px;display:flex;gap:6px;flex-wrap:wrap;',
+    '.cw-suggestions{padding:10px 14px 8px;display:flex;gap:6px;flex-wrap:wrap;',
     'border-bottom:1px solid #F3F4F6;flex-shrink:0}',
-    '.cw-chip{font-size:11px;font-weight:600;padding:5px 10px;border-radius:20px;',
+    '.cw-chip{font-size:11px;font-weight:600;padding:5px 11px;border-radius:20px;',
     'border:1.5px solid #7B5EA7;color:#7B5EA7;background:transparent;cursor:pointer;',
     "transition:background .15s,color .15s;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;white-space:nowrap}",
     '.cw-chip:hover{background:#7B5EA7;color:#fff}',
 
     /* Messages */
-    '.cw-messages{flex:1;overflow-y:auto;padding:14px 12px;display:flex;',
-    'flex-direction:column;gap:10px;max-height:360px;min-height:80px}',
+    '.cw-messages{flex:1;overflow-y:auto;padding:16px 14px;display:flex;',
+    'flex-direction:column;gap:12px;max-height:400px;min-height:100px}',
     '.cw-messages::-webkit-scrollbar{width:4px}',
     '.cw-messages::-webkit-scrollbar-track{background:transparent}',
     '.cw-messages::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:2px}',
     '.cw-msg-row{display:flex;flex-direction:column}',
     '.cw-msg-row.user{align-items:flex-end}',
     '.cw-msg-row.bot{align-items:flex-start}',
-    '.cw-bubble{max-width:84%;padding:9px 13px;border-radius:14px;',
-    'font-size:13px;line-height:1.6;word-break:break-word}',
+    '.cw-bubble{max-width:82%;padding:10px 14px;border-radius:16px;',
+    'font-size:13.5px;line-height:1.65;word-break:break-word}',
     '.cw-msg-row.user .cw-bubble{',
     'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 60%,#E87CA0 100%);',
     'color:#fff;border-bottom-right-radius:4px}',
@@ -95,7 +117,7 @@
 
     /* Loading dots */
     '.cw-loading{display:flex;align-items:center;gap:5px;padding:10px 13px;',
-    'background:#F3F4F6;border-radius:14px;border-bottom-left-radius:4px;width:fit-content}',
+    'background:#F3F4F6;border-radius:16px;border-bottom-left-radius:4px;width:fit-content}',
     '.cw-dot{width:6px;height:6px;border-radius:50%;background:#9CA3AF;',
     'animation:cwBounce 1.2s infinite ease-in-out}',
     '.cw-dot:nth-child(2){animation-delay:.2s}',
@@ -103,21 +125,21 @@
     '@keyframes cwBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}',
 
     /* Input */
-    '.cw-input-row{display:flex;align-items:center;gap:8px;padding:10px 12px;',
-    'border-top:1px solid #F3F4F6;flex-shrink:0}',
-    "#cw-input{flex:1;border:1.5px solid #E5E7EB;border-radius:22px;padding:8px 14px;",
-    "font-size:13px;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;",
-    'outline:none;color:#111827;background:#FAFAFA;transition:border-color .2s}',
+    '.cw-input-row{display:flex;align-items:center;gap:8px;padding:12px 14px;',
+    'border-top:1px solid #F3F4F6;background:#FAFBFF;flex-shrink:0}',
+    "#cw-input{flex:1;border:1.5px solid #E5E7EB;border-radius:24px;padding:9px 16px;",
+    "font-size:13.5px;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;",
+    'outline:none;color:#111827;background:#fff;transition:border-color .2s,box-shadow .2s}',
     '#cw-input::placeholder{color:#9CA3AF}',
-    '#cw-input:focus{border-color:#7B5EA7;background:#fff}',
-    '#cw-send{width:36px;height:36px;border-radius:50%;',
+    '#cw-input:focus{border-color:#7B5EA7;background:#fff;box-shadow:0 0 0 3px rgba(123,94,167,.12)}',
+    '#cw-send{width:38px;height:38px;border-radius:50%;',
     'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 60%,#E87CA0 100%);',
     'border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;',
     'flex-shrink:0;transition:opacity .2s,transform .15s}',
     '#cw-send:hover{opacity:.88;transform:scale(1.06)}',
     '#cw-send:disabled{opacity:.45;cursor:default;transform:none}',
     '#cw-send svg{color:#fff;display:block}',
-    '@media(max-width:400px){#cw-window{width:calc(100vw - 16px);right:8px}}'
+    '@media(max-width:440px){#cw-window{width:calc(100vw - 16px);right:8px;bottom:88px}}'
   ].join('');
 
   var styleEl = document.createElement('style');
@@ -130,6 +152,10 @@
   var root = document.createElement('div');
   root.id = 'cw-root';
   root.innerHTML = [
+    '<div id="cw-greeting">',
+    '  <span id="cw-greeting-text">👋 안녕하세요!<br>이동원 포트폴리오 챗봇입니다.<br>궁금한 것을 물어보세요!</span>',
+    '  <button id="cw-greeting-close" aria-label="닫기">&#x2715;</button>',
+    '</div>',
     '<button id="cw-fab" aria-label="채팅 열기">',
     '  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"',
     '       stroke="currentColor" stroke-width="2"',
@@ -142,6 +168,10 @@
     '    <div class="cw-avatar">이</div>',
     '    <span class="cw-title">이동원에게 물어보기</span>',
     '    <button class="cw-close" aria-label="닫기">&#x2715;</button>',
+    '  </div>',
+    '  <div class="cw-notice">',
+    '    <span class="cw-notice-icon">💬</span>',
+    '    포트폴리오 챗봇입니다. 궁금한 것을 물어보세요!',
     '  </div>',
     '  <div class="cw-suggestions">',
     '    <button class="cw-chip">결제 경력이 얼마나 돼요?</button>',
@@ -169,22 +199,29 @@
   /* =========================================
      LOGIC
      ========================================= */
-  var fab        = document.getElementById('cw-fab');
-  var win        = document.getElementById('cw-window');
-  var closeBtn   = win.querySelector('.cw-close');
-  var messagesEl = document.getElementById('cw-messages');
-  var inputEl    = document.getElementById('cw-input');
-  var sendBtn    = document.getElementById('cw-send');
-  var chips      = win.querySelectorAll('.cw-chip');
+  var fab         = document.getElementById('cw-fab');
+  var win         = document.getElementById('cw-window');
+  var closeBtn    = win.querySelector('.cw-close');
+  var messagesEl  = document.getElementById('cw-messages');
+  var inputEl     = document.getElementById('cw-input');
+  var sendBtn     = document.getElementById('cw-send');
+  var chips       = win.querySelectorAll('.cw-chip');
+  var greeting    = document.getElementById('cw-greeting');
+  var greetClose  = document.getElementById('cw-greeting-close');
 
   var isOpen = false;
   var isBusy = false;
+
+  /* Greeting bubble */
+  function hideGreeting() { greeting.classList.add('cw-hidden'); }
+  greetClose.addEventListener('click', function(e) { e.stopPropagation(); hideGreeting(); });
+  setTimeout(hideGreeting, 8000);
 
   /* Toggle */
   function toggleWindow() {
     isOpen = !isOpen;
     win.classList.toggle('cw-hidden', !isOpen);
-    if (isOpen) inputEl.focus();
+    if (isOpen) { hideGreeting(); inputEl.focus(); }
   }
   fab.addEventListener('click', toggleWindow);
   closeBtn.addEventListener('click', toggleWindow);
