@@ -15,7 +15,7 @@
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
 
-  var WELCOME_TEXT = '안녕하세요, 방문자님!\n\n포트폴리오에 대해 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.\n\n운영시간\n■ AI: 24시간 연중무휴';
+  var WELCOME_TEXT = '안녕하세요, 방문자님!\n\n포트폴리오에 대해 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.';
   var WELCOME_CHIPS = ['결제 경력이 얼마나 돼요?', '가장 큰 성과는?', '팀 리드 경험 있나요?'];
 
   /* ===== STYLES ===== */
@@ -119,9 +119,9 @@
 
     /* Input */
     '.cw-input-wrap{background:#fff;border-top:1px solid #F0F0F5;flex-shrink:0}',
-    '.cw-input-row{display:flex;align-items:center;gap:8px;padding:12px 14px}',
+    '.cw-input-row{display:flex;align-items:center;gap:10px;padding:14px 18px}',
     "#cw-input{flex:1;border:none;outline:none;font-size:14px;font-family:'Pretendard',sans-serif;",
-    'color:#111827;background:transparent;padding:4px 0}',
+    'color:#111827;background:transparent;padding:6px 0}',
     '#cw-input::placeholder{color:#9CA3AF}',
     '.cw-input-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}',
     '.cw-icon-btn{background:none;border:none;cursor:pointer;color:#9CA3AF;padding:6px;',
@@ -200,7 +200,7 @@
     '      </div>',
     '    </div>',
     '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
-    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-4px;">v1.5.1</div>',
+    '    <div class="cw-disclaimer" style="opacity:.5;margin-top:-4px;">v1.5.2</div>',
     '  </div>',
     '</div>'
   ].join('\n');
