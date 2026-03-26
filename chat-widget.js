@@ -1,11 +1,5 @@
 /**
- * chat-widget.js — 이동원 포트폴리오 챗봇 위젯
- *
- * 삽입 방법:
- *   <script src="chat-widget.js"
- *           data-api="https://your-api.com"
- *           data-section-map='{"career":"#timeline","projects":"#cases",...}'>
- *   </script>
+ * chat-widget.js — 이동원 포트폴리오 챗봇 위젯 (채널톡 스타일)
  */
 (function () {
   'use strict';
@@ -21,132 +15,132 @@
     return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
 
+  var WELCOME_TEXT = '안녕하세요, 방문자님! 😊\n\n이동원의 포트폴리오 AI 어시스턴트입니다.\n\n경력, 프로젝트 성과, 강점 등 궁금한 점을 남겨주시면 빠르게 안내해 드리겠습니다.';
+  var WELCOME_CHIPS = ['결제 경력이 얼마나 돼요?', '가장 큰 성과는?', '팀 리드 경험 있나요?'];
+
   /* ===== STYLES ===== */
   var STYLE = [
     '#cw-root *{box-sizing:border-box;margin:0;padding:0}',
 
     /* Greeting */
     '#cw-greeting{position:fixed;bottom:96px;right:28px;background:#fff;',
-    'border-radius:20px 20px 6px 20px;box-shadow:0 8px 32px rgba(0,0,0,.14);',
-    'padding:16px 18px;max-width:260px;z-index:9999;',
+    'border-radius:18px 18px 5px 18px;box-shadow:0 6px 28px rgba(0,0,0,.13);',
+    'padding:15px 18px;max-width:260px;z-index:9999;',
     'display:flex;align-items:flex-start;gap:10px;',
     'animation:cwPopIn .35s cubic-bezier(.34,1.56,.64,1) forwards}',
     '#cw-greeting.cw-hidden{display:none}',
     '#cw-greeting-body{flex:1}',
-    "#cw-greeting-name{font-size:12px;font-weight:700;color:#6B7280;margin-bottom:5px;font-family:'Pretendard',sans-serif}",
-    "#cw-greeting-text{font-size:14px;line-height:1.6;color:#111827;font-family:'Pretendard',sans-serif}",
+    "#cw-greeting-label{font-size:11.5px;font-weight:700;color:#8B5CF6;margin-bottom:5px;font-family:'Pretendard',sans-serif}",
+    "#cw-greeting-text{font-size:13.5px;line-height:1.6;color:#111827;font-family:'Pretendard',sans-serif}",
     '#cw-greeting-close{background:none;border:none;cursor:pointer;color:#D1D5DB;',
-    'font-size:14px;padding:0;line-height:1;flex-shrink:0;margin-top:1px;transition:color .15s}',
+    'font-size:13px;padding:0;line-height:1;flex-shrink:0;margin-top:1px;transition:color .15s}',
     '#cw-greeting-close:hover{color:#9CA3AF}',
 
     /* FAB */
-    '#cw-fab{position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;',
-    'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 100%);',
-    'border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;',
-    'box-shadow:0 6px 24px rgba(74,144,217,.55);z-index:9999;',
+    '#cw-fab{position:fixed;bottom:28px;right:28px;width:58px;height:58px;border-radius:50%;',
+    'background:#7C3AED;border:none;cursor:pointer;',
+    'display:flex;align-items:center;justify-content:center;',
+    'box-shadow:0 6px 20px rgba(124,58,237,.5);z-index:9999;',
     'transition:transform .2s,box-shadow .2s}',
-    '#cw-fab:hover{transform:scale(1.06);box-shadow:0 8px 30px rgba(74,144,217,.65)}',
+    '#cw-fab:hover{transform:scale(1.06);box-shadow:0 8px 28px rgba(124,58,237,.6)}',
     '#cw-fab svg{color:#fff;display:block}',
 
     /* Window */
-    '#cw-window{position:fixed;bottom:104px;right:28px;width:420px;background:#F7F8FA;',
-    'border-radius:24px;',
-    'box-shadow:0 20px 60px rgba(0,0,0,.2),0 4px 16px rgba(0,0,0,.08);',
+    '#cw-window{position:fixed;bottom:100px;right:28px;width:420px;background:#fff;',
+    'border-radius:20px;',
+    'box-shadow:0 16px 56px rgba(0,0,0,.18),0 2px 12px rgba(0,0,0,.07);',
     'z-index:9998;display:flex;flex-direction:column;overflow:hidden;',
     "font-family:'Pretendard','Apple SD Gothic Neo',sans-serif;",
-    'transition:opacity .25s,transform .25s;transform-origin:bottom right}',
-    '#cw-window.cw-hidden{opacity:0;transform:scale(.9) translateY(16px);pointer-events:none}',
+    'transition:opacity .22s,transform .22s;transform-origin:bottom right}',
+    '#cw-window.cw-hidden{opacity:0;transform:scale(.92) translateY(14px);pointer-events:none}',
 
     /* Header */
-    '.cw-header{background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 100%);',
-    'padding:24px 22px 22px;flex-shrink:0}',
-    '.cw-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}',
-    '.cw-header-brand{font-size:11px;font-weight:700;color:rgba(255,255,255,.65);',
-    'letter-spacing:1px;text-transform:uppercase}',
-    '.cw-close{background:rgba(255,255,255,.18);border:none;color:#fff;width:30px;height:30px;',
-    'border-radius:50%;cursor:pointer;font-size:14px;display:flex;align-items:center;',
-    'justify-content:center;transition:background .2s;line-height:1}',
-    '.cw-close:hover{background:rgba(255,255,255,.32)}',
-    '.cw-header-profile{display:flex;align-items:center;gap:14px}',
-    '.cw-avatar{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.2);',
-    'border:2.5px solid rgba(255,255,255,.5);display:flex;align-items:center;justify-content:center;',
-    'font-size:22px;font-weight:800;color:#fff;flex-shrink:0}',
-    '.cw-name{font-size:18px;font-weight:700;color:#fff;margin-bottom:5px;letter-spacing:-.3px}',
-    '.cw-status{display:flex;align-items:center;gap:6px;font-size:13px;color:rgba(255,255,255,.82)}',
-    '.cw-status-dot{width:8px;height:8px;border-radius:50%;background:#4ADE80;flex-shrink:0;',
-    'box-shadow:0 0 6px rgba(74,222,128,.7)}',
-
-    /* Chips */
-    '.cw-suggestions{padding:14px 16px 12px;display:flex;gap:8px;flex-wrap:wrap;',
-    'background:#fff;border-bottom:1px solid #EAEDF2;flex-shrink:0}',
-    '.cw-chip{font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:20px;',
-    'border:1.5px solid #C5CAE9;color:#5C6BC0;background:#F0F2FF;cursor:pointer;',
-    "transition:all .15s;font-family:'Pretendard',sans-serif;white-space:nowrap}",
-    '.cw-chip:hover{background:#5C6BC0;color:#fff;border-color:#5C6BC0}',
+    '.cw-header{background:#fff;border-bottom:1px solid #F0F0F5;',
+    'padding:16px 18px;display:flex;align-items:center;gap:12px;flex-shrink:0}',
+    '.cw-avatar{width:40px;height:40px;border-radius:50%;',
+    'background:linear-gradient(135deg,#8B5CF6,#4A90D9);',
+    'display:flex;align-items:center;justify-content:center;',
+    'font-size:16px;font-weight:800;color:#fff;flex-shrink:0}',
+    '.cw-header-info{flex:1}',
+    '.cw-name{font-size:15px;font-weight:700;color:#111827;margin-bottom:2px;letter-spacing:-.2px}',
+    '.cw-status{display:flex;align-items:center;gap:5px;font-size:12px;color:#6B7280}',
+    '.cw-status-dot{width:7px;height:7px;border-radius:50%;background:#10B981;flex-shrink:0}',
+    '.cw-close{background:none;border:none;color:#9CA3AF;width:32px;height:32px;border-radius:50%;',
+    'cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;',
+    'transition:background .15s,color .15s}',
+    '.cw-close:hover{background:#F3F4F6;color:#374151}',
 
     /* Messages */
-    '.cw-messages{flex:1;overflow-y:auto;padding:20px 18px;display:flex;',
-    'flex-direction:column;gap:14px;max-height:420px;min-height:120px;background:#F7F8FA}',
+    '.cw-messages{flex:1;overflow-y:auto;padding:20px 18px 12px;display:flex;',
+    'flex-direction:column;gap:16px;max-height:440px;min-height:120px;background:#fff}',
     '.cw-messages::-webkit-scrollbar{width:4px}',
     '.cw-messages::-webkit-scrollbar-track{background:transparent}',
-    '.cw-messages::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:2px}',
+    '.cw-messages::-webkit-scrollbar-thumb{background:#E5E7EB;border-radius:2px}',
     '.cw-msg-row{display:flex;flex-direction:column}',
     '.cw-msg-row.user{align-items:flex-end}',
     '.cw-msg-row.bot{align-items:flex-start}',
-    '.cw-bot-row{display:flex;align-items:flex-end;gap:10px}',
+    '.cw-bot-row{display:flex;align-items:flex-start;gap:10px}',
     '.cw-bot-icon{width:34px;height:34px;border-radius:50%;',
-    'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 100%);',
+    'background:linear-gradient(135deg,#8B5CF6,#4A90D9);',
     'display:flex;align-items:center;justify-content:center;',
-    'font-size:13px;font-weight:800;color:#fff;flex-shrink:0;margin-bottom:2px;',
-    'box-shadow:0 2px 8px rgba(74,144,217,.3)}',
-    '.cw-bubble{max-width:75%;padding:13px 16px;font-size:14px;line-height:1.65;word-break:break-word}',
-    '.cw-msg-row.user .cw-bubble{',
-    'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 100%);',
-    'color:#fff;border-radius:20px 20px 5px 20px;',
-    'box-shadow:0 3px 12px rgba(74,144,217,.3)}',
-    '.cw-msg-row.bot .cw-bubble{background:#fff;color:#1F2937;',
-    'border-radius:20px 20px 20px 5px;',
-    'box-shadow:0 2px 8px rgba(0,0,0,.07);max-width:calc(75% + 44px)}',
+    'font-size:13px;font-weight:800;color:#fff;flex-shrink:0;margin-top:2px}',
+    '.cw-bot-content{flex:1;display:flex;flex-direction:column;gap:8px}',
+    ".cw-bot-name{font-size:12px;font-weight:700;color:#6B7280;margin-bottom:2px;font-family:'Pretendard',sans-serif}",
+    '.cw-bubble{padding:13px 16px;font-size:14px;line-height:1.7;word-break:break-word}',
+    '.cw-msg-row.user .cw-bubble{background:#7C3AED;color:#fff;',
+    'border-radius:18px 18px 4px 18px;max-width:72%;',
+    'box-shadow:0 2px 10px rgba(124,58,237,.25)}',
+    '.cw-msg-row.bot .cw-bubble{background:#F9FAFB;color:#111827;',
+    'border-radius:4px 18px 18px 18px;border:1px solid #F0F0F5}',
+
+    /* Chips */
+    '.cw-chips-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}',
+    '.cw-chip{font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:20px;',
+    'border:1.5px solid #DDD6FE;color:#7C3AED;background:#F5F3FF;cursor:pointer;',
+    "transition:all .15s;font-family:'Pretendard',sans-serif;white-space:nowrap}",
+    '.cw-chip:hover{background:#7C3AED;color:#fff;border-color:#7C3AED}',
 
     /* Anchor */
-    '.cw-anchor-btn{margin-top:8px;margin-left:44px;display:inline-flex;align-items:center;gap:5px;',
-    'font-size:12.5px;font-weight:700;color:#5C6BC0;border:1.5px solid #C5CAE9;',
-    'background:#F0F2FF;padding:6px 14px;border-radius:20px;cursor:pointer;',
+    '.cw-anchor-btn{display:inline-flex;align-items:center;gap:5px;',
+    'font-size:12.5px;font-weight:700;color:#7C3AED;border:1.5px solid #DDD6FE;',
+    'background:#F5F3FF;padding:7px 14px;border-radius:20px;cursor:pointer;',
     "text-decoration:none;transition:all .15s;font-family:'Pretendard',sans-serif}",
-    '.cw-anchor-btn:hover{background:#5C6BC0;color:#fff;border-color:#5C6BC0}',
+    '.cw-anchor-btn:hover{background:#7C3AED;color:#fff;border-color:#7C3AED}',
 
     /* Loading */
-    '.cw-loading{display:flex;align-items:center;gap:6px;padding:14px 16px;',
-    'background:#fff;border-radius:20px 20px 20px 5px;',
-    'box-shadow:0 2px 8px rgba(0,0,0,.07);width:fit-content}',
-    '.cw-dot{width:7px;height:7px;border-radius:50%;background:#C0C7D4;',
+    '.cw-loading{display:flex;align-items:center;gap:5px;padding:13px 16px;',
+    'background:#F9FAFB;border:1px solid #F0F0F5;',
+    'border-radius:4px 18px 18px 18px;width:fit-content}',
+    '.cw-dot{width:6px;height:6px;border-radius:50%;background:#C4B5FD;',
     'animation:cwBounce 1.2s infinite ease-in-out}',
     '.cw-dot:nth-child(2){animation-delay:.2s}',
     '.cw-dot:nth-child(3){animation-delay:.4s}',
-    '@keyframes cwBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}',
+    '@keyframes cwBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}',
 
     /* Input */
-    '.cw-input-row{display:flex;align-items:center;gap:10px;padding:14px 16px;',
-    'background:#fff;border-top:1px solid #EAEDF2;flex-shrink:0}',
-    "#cw-input{flex:1;border:1.5px solid #E5E7EB;border-radius:26px;padding:11px 18px;",
-    "font-size:14px;font-family:'Pretendard',sans-serif;",
-    'outline:none;color:#1F2937;background:#F9FAFB;transition:border-color .2s,box-shadow .2s}',
+    '.cw-input-wrap{background:#fff;border-top:1px solid #F0F0F5;flex-shrink:0}',
+    '.cw-input-row{display:flex;align-items:center;gap:8px;padding:12px 14px}',
+    "#cw-input{flex:1;border:none;outline:none;font-size:14px;font-family:'Pretendard',sans-serif;",
+    'color:#111827;background:transparent;padding:4px 0}',
     '#cw-input::placeholder{color:#9CA3AF}',
-    '#cw-input:focus{border-color:#7B5EA7;background:#fff;box-shadow:0 0 0 3px rgba(123,94,167,.1)}',
-    '#cw-send{width:42px;height:42px;border-radius:50%;',
-    'background:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 100%);',
-    'border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;',
-    'flex-shrink:0;transition:opacity .2s,transform .15s;',
-    'box-shadow:0 3px 10px rgba(74,144,217,.4)}',
-    '#cw-send:hover{opacity:.88;transform:scale(1.07)}',
-    '#cw-send:disabled{opacity:.38;cursor:default;transform:none;box-shadow:none}',
+    '.cw-input-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}',
+    '.cw-icon-btn{background:none;border:none;cursor:pointer;color:#9CA3AF;padding:6px;',
+    'display:flex;align-items:center;justify-content:center;border-radius:50%;',
+    'transition:color .15s,background .15s}',
+    '.cw-icon-btn:hover{color:#6B7280;background:#F3F4F6}',
+    '#cw-send{width:36px;height:36px;border-radius:50%;background:#7C3AED;border:none;cursor:pointer;',
+    'display:flex;align-items:center;justify-content:center;flex-shrink:0;',
+    'transition:opacity .2s,transform .15s;box-shadow:0 2px 8px rgba(124,58,237,.35)}',
+    '#cw-send:hover{opacity:.88;transform:scale(1.06)}',
+    '#cw-send:disabled{opacity:.35;cursor:default;transform:none;box-shadow:none}',
     '#cw-send svg{color:#fff;display:block}',
+    ".cw-disclaimer{font-size:11px;color:#9CA3AF;text-align:center;",
+    "padding:0 16px 12px;line-height:1.5;font-family:'Pretendard',sans-serif}",
 
     '@keyframes cwPopIn{from{opacity:0;transform:scale(.85) translateY(10px)}to{opacity:1;transform:scale(1) translateY(0)}}',
     '@media(max-width:480px){',
-    '#cw-window{width:calc(100vw - 16px);right:8px;bottom:96px;border-radius:18px}',
-    '#cw-greeting{right:8px;max-width:calc(100vw - 16px)}',
-    '#cw-fab{right:16px;bottom:20px}}'
+    '#cw-window{width:calc(100vw - 16px);right:8px;bottom:96px;border-radius:16px}',
+    '#cw-greeting{right:8px}#cw-fab{right:16px;bottom:20px}}'
   ].join('');
 
   var styleEl = document.createElement('style');
@@ -159,13 +153,13 @@
   root.innerHTML = [
     '<div id="cw-greeting">',
     '  <div id="cw-greeting-body">',
-    '    <div id="cw-greeting-name">이동원 AI 어시스턴트</div>',
+    '    <div id="cw-greeting-label">이동원 AI 어시스턴트</div>',
     '    <div id="cw-greeting-text">👋 안녕하세요!<br>포트폴리오에 대해 궁금한 것을 물어보세요.</div>',
     '  </div>',
     '  <button id="cw-greeting-close" aria-label="닫기">&#x2715;</button>',
     '</div>',
     '<button id="cw-fab" aria-label="채팅 열기">',
-    '  <svg width="26" height="26" viewBox="0 0 24 24" fill="none"',
+    '  <svg width="24" height="24" viewBox="0 0 24 24" fill="none"',
     '       stroke="currentColor" stroke-width="2"',
     '       stroke-linecap="round" stroke-linejoin="round">',
     '    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
@@ -173,34 +167,39 @@
     '</button>',
     '<div id="cw-window" class="cw-hidden" role="dialog" aria-label="이동원 챗봇">',
     '  <div class="cw-header">',
-    '    <div class="cw-header-top">',
-    '      <span class="cw-header-brand">Portfolio Assistant</span>',
-    '      <button class="cw-close" aria-label="닫기">&#x2715;</button>',
+    '    <div class="cw-avatar">이</div>',
+    '    <div class="cw-header-info">',
+    '      <div class="cw-name">이동원</div>',
+    '      <div class="cw-status"><span class="cw-status-dot"></span>AI · 24시간 답변 가능</div>',
     '    </div>',
-    '    <div class="cw-header-profile">',
-    '      <div class="cw-avatar">이</div>',
-    '      <div>',
-    '        <div class="cw-name">이동원</div>',
-    '        <div class="cw-status"><span class="cw-status-dot"></span>지금 바로 답변 가능해요</div>',
-    '      </div>',
-    '    </div>',
-    '  </div>',
-    '  <div class="cw-suggestions">',
-    '    <button class="cw-chip">결제 경력이 얼마나 돼요?</button>',
-    '    <button class="cw-chip">가장 큰 성과는?</button>',
-    '    <button class="cw-chip">팀 리드 경험 있나요?</button>',
+    '    <button class="cw-close" aria-label="닫기">&#x2715;</button>',
     '  </div>',
     '  <div id="cw-messages" class="cw-messages"></div>',
-    '  <div class="cw-input-row">',
-    '    <input id="cw-input" type="text" placeholder="메시지를 입력하세요..." autocomplete="off" />',
-    '    <button id="cw-send" aria-label="전송">',
-    '      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"',
-    '           stroke="currentColor" stroke-width="2.5"',
-    '           stroke-linecap="round" stroke-linejoin="round">',
-    '        <line x1="22" y1="2" x2="11" y2="13"/>',
-    '        <polygon points="22 2 15 22 11 13 2 9 22 2"/>',
-    '      </svg>',
-    '    </button>',
+    '  <div class="cw-input-wrap">',
+    '    <div class="cw-input-row">',
+    '      <input id="cw-input" type="text" placeholder="AI에게 질문해 주세요." autocomplete="off" />',
+    '      <div class="cw-input-actions">',
+    '        <button class="cw-icon-btn" aria-label="이모지">',
+    '          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"',
+    '               stroke="currentColor" stroke-width="2"',
+    '               stroke-linecap="round" stroke-linejoin="round">',
+    '            <circle cx="12" cy="12" r="10"/>',
+    '            <path d="M8 13s1.5 2 4 2 4-2 4-2"/>',
+    '            <line x1="9" y1="9" x2="9.01" y2="9"/>',
+    '            <line x1="15" y1="9" x2="15.01" y2="9"/>',
+    '          </svg>',
+    '        </button>',
+    '        <button id="cw-send" aria-label="전송">',
+    '          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"',
+    '               stroke="currentColor" stroke-width="2.5"',
+    '               stroke-linecap="round" stroke-linejoin="round">',
+    '            <line x1="12" y1="19" x2="12" y2="5"/>',
+    '            <polyline points="5 12 12 5 19 12"/>',
+    '          </svg>',
+    '        </button>',
+    '      </div>',
+    '    </div>',
+    '    <div class="cw-disclaimer">AI는 한정된 데이터를 기반하니, 중요한 정보는 추가 확인을 권장해요.</div>',
     '  </div>',
     '</div>'
   ].join('\n');
@@ -213,27 +212,61 @@
   var messagesEl = document.getElementById('cw-messages');
   var inputEl = document.getElementById('cw-input');
   var sendBtn = document.getElementById('cw-send');
-  var chips = win.querySelectorAll('.cw-chip');
   var greeting = document.getElementById('cw-greeting');
   var greetClose = document.getElementById('cw-greeting-close');
 
-  var isOpen = false, isBusy = false;
+  var isOpen = false, isBusy = false, welcomed = false;
 
   function hideGreeting() { greeting.classList.add('cw-hidden'); }
   greetClose.addEventListener('click', function (e) { e.stopPropagation(); hideGreeting(); });
   setTimeout(hideGreeting, 8000);
 
+  function showWelcome() {
+    if (welcomed) return;
+    welcomed = true;
+    var row = document.createElement('div');
+    row.className = 'cw-msg-row bot';
+    var br = document.createElement('div');
+    br.className = 'cw-bot-row';
+    var icon = document.createElement('div');
+    icon.className = 'cw-bot-icon';
+    icon.textContent = '이';
+    var content = document.createElement('div');
+    content.className = 'cw-bot-content';
+    var nameEl = document.createElement('div');
+    nameEl.className = 'cw-bot-name';
+    nameEl.textContent = '이동원';
+    var bubble = document.createElement('div');
+    bubble.className = 'cw-bubble';
+    bubble.style.whiteSpace = 'pre-line';
+    bubble.textContent = WELCOME_TEXT;
+    var chipsRow = document.createElement('div');
+    chipsRow.className = 'cw-chips-row';
+    WELCOME_CHIPS.forEach(function (label) {
+      var chip = document.createElement('button');
+      chip.className = 'cw-chip';
+      chip.textContent = label;
+      chip.addEventListener('click', function () { inputEl.value = label; sendMessage(); });
+      chipsRow.appendChild(chip);
+    });
+    content.appendChild(nameEl);
+    content.appendChild(bubble);
+    content.appendChild(chipsRow);
+    br.appendChild(icon);
+    br.appendChild(content);
+    row.appendChild(br);
+    messagesEl.appendChild(row);
+    scrollBottom();
+  }
+
   function toggleWindow() {
     isOpen = !isOpen;
     win.classList.toggle('cw-hidden', !isOpen);
-    if (isOpen) { hideGreeting(); inputEl.focus(); }
+    if (isOpen) { hideGreeting(); showWelcome(); inputEl.focus(); }
   }
   fab.addEventListener('click', toggleWindow);
   closeBtn.addEventListener('click', toggleWindow);
 
-  chips.forEach(function (chip) {
-    chip.addEventListener('click', function () { inputEl.value = chip.textContent.trim(); sendMessage(); });
-  });
   inputEl.addEventListener('keydown', function (e) {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   });
@@ -260,14 +293,21 @@
     var icon = document.createElement('div');
     icon.className = 'cw-bot-icon';
     icon.textContent = '이';
-    var b = document.createElement('div');
-    b.className = 'cw-bubble';
+    var content = document.createElement('div');
+    content.className = 'cw-bot-content';
+    var nameEl = document.createElement('div');
+    nameEl.className = 'cw-bot-name';
+    nameEl.textContent = '이동원';
+    var bubble = document.createElement('div');
+    bubble.className = 'cw-bubble';
+    content.appendChild(nameEl);
+    content.appendChild(bubble);
     br.appendChild(icon);
-    br.appendChild(b);
+    br.appendChild(content);
     row.appendChild(br);
     messagesEl.appendChild(row);
     scrollBottom();
-    return { row: row, bubble: b };
+    return { container: content, bubble: bubble };
   }
 
   function showLoading() {
@@ -294,7 +334,9 @@
     if (el) el.remove();
   }
 
-  function appendAnchorBtn(row, href, label) {
+  function appendAnchorBtn(container, href, label) {
+    var chipsRow = document.createElement('div');
+    chipsRow.className = 'cw-chips-row';
     var btn = document.createElement('a');
     btn.className = 'cw-anchor-btn';
     btn.href = href;
@@ -303,11 +345,12 @@
       var t = document.querySelector(href);
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
-    row.appendChild(btn);
+    chipsRow.appendChild(btn);
+    container.appendChild(chipsRow);
   }
 
   function typeText(bubble, text, onDone) {
-    var i = 0, speed = Math.max(10, Math.min(25, Math.floor(1200 / text.length)));
+    var i = 0, speed = Math.max(8, Math.min(22, Math.floor(1200 / text.length)));
     bubble.textContent = '';
     (function tick() {
       if (i < text.length) { bubble.textContent += text[i++]; scrollBottom(); setTimeout(tick, speed); }
@@ -330,7 +373,7 @@
       hideLoading();
       var ref = makeBotRow();
       typeText(ref.bubble, (data.text || '').trim() || '답변을 가져오지 못했어요.', function () {
-        if (data.anchor) appendAnchorBtn(ref.row, data.anchor, data.anchor_label || '자세히 보기');
+        if (data.anchor) appendAnchorBtn(ref.container, data.anchor, data.anchor_label || '자세히 보기');
         isBusy = false; sendBtn.disabled = false;
       });
     })
