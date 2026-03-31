@@ -8,6 +8,7 @@
   var script     = document.currentScript;
   var API_BASE   = (script && script.getAttribute('data-api')) || 'https://adaptation-stretch-premises-ready.trycloudflare.com';
   var sectionRaw = (script && script.getAttribute('data-section-map')) || '{}';
+  var COMPANY    = (script && script.getAttribute('data-company')) || '';
   var SECTION_MAP = {};
   try { SECTION_MAP = JSON.parse(sectionRaw); } catch (e) {}
 
@@ -510,7 +511,7 @@
     fetch(API_BASE + '/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: query, session_id: SESSION_ID, sections: SECTION_MAP })
+      body: JSON.stringify({ query: query, session_id: SESSION_ID, sections: SECTION_MAP, company: COMPANY })
     })
     .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
     .then(function (data) {
