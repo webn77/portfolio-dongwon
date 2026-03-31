@@ -165,9 +165,12 @@ git commit -m "feat([회사명]): 포트폴리오 완성" && git push
 | 4-A 카피라이팅 | copywriting 스킬 | — | — | ✅ 4-B와 동시 |
 | 4-B 레이아웃 | presentation-design 스킬 | — | — | ✅ 4-A와 동시 |
 | 4-C HTML 빌드 | frontend-slides + web-coder | Sonnet 4.6 | 유료 | ⏸ 4-A,B 완료 후 |
-| 5-A 브라우저 테스트 | — | — | 무료 | ✅ 5-B와 동시 |
-| 5-B 비판자 검증 | Codex → Groq fallback | o3 → Llama | 무료 | ✅ 5-A와 동시 |
-| 6 챗봇+배포 | Claude Sonnet (나) | Sonnet 4.6 | 유료 | — |
+| 5-A 브라우저 테스트 | — | — | 무료 | ✅ 5-B,C와 동시 |
+| 5-B 텍스트 추출 | **Claude Haiku** | Haiku 4.5 | 저렴 | ✅ 5-A와 동시 |
+| 5-C 비판자 검증 | Codex → Groq fallback | o3 → Llama | 무료 | ⏸ 5-B 완료 후 |
+| 6-A proposals 요약 | **Claude Haiku** | Haiku 4.5 | 저렴 | ✅ 6-B와 동시 |
+| 6-B section-map 생성 | **Claude Haiku** | Haiku 4.5 | 저렴 | ✅ 6-A와 동시 |
+| 6-C git push + 배포 | **Claude Haiku** | Haiku 4.5 | 저렴 | ⏸ 6-A,B 완료 후 |
 
 ---
 
