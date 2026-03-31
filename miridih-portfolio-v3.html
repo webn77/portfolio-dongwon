@@ -1778,11 +1778,11 @@
           <!-- 01 PROBLEM -->
           <div style="margin:20px 0 28px">
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
-            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px"><strong>종이(실물)와 디지털을 하나의 잔액으로 묶는 시스템이 없었습니다.</strong> 사내에 지류 상품권 운영 경험이 전무한 상태에서 프로젝트에 투입됐고, 재고·이력·보안·정산을 아우르는 운영 표준 자체를 제로베이스로 만들어야 했습니다.</p>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">코나아이는 지역화폐 시스템을 운영하고 있었지만, <strong>지류(종이) 상품권에 특화된 운영 체계는 사내에 전무</strong>했습니다. 재고·이력·보안·정산을 아우르는 운영 표준을 제로베이스로 만들어야 했습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
               <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #dc2626">
                 <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.5px;margin-bottom:8px">PAIN 1 · 실물 재고 ≠ 시스템 수량</div>
-                <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">창고에 쌓인 종이 상품권과 시스템 등록 수량이 맞지 않으면 <strong>정산할 때마다 수작업 재확인</strong>. 번호 단위 추적 체계가 없어 어디서 오차가 생겼는지 알 수 없었습니다.</p>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">번호 단위 추적 체계는 있었지만, 창고·은행·소비자 단계별 수량을 연계하는 관리 시스템이 없어 수량 오차 발생 시 <strong>일일이 수작업으로 재확인</strong>해야 했습니다.</p>
               </div>
               <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #f97316">
                 <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.5px;margin-bottom:8px">PAIN 2 · 분실 사고 시 책임 소재 불명확</div>
@@ -1792,7 +1792,7 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
               <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #7c3aed">
                 <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.5px;margin-bottom:8px">PAIN 3 · 입고 즉시 사용 가능한 보안 공백</div>
-                <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">창고에 입고된 상품권이 <strong>활성화 전인데도 사용 가능한 상태</strong>. 내부 도용 리스크에 무방비였고, 폐기해야 할 상품권을 현장에서 즉시 처리할 수단도 없었습니다.</p>
+                <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">상품권 활성화·폐기를 현장에서 즉시 처리할 수단이 없어 <strong>수작업에 의존</strong>. 현장 운영 효율이 낮고 처리 지연이 반복됐습니다.</p>
               </div>
               <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #0891b2">
                 <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.5px;margin-bottom:8px">PAIN 4 · 운영 표준 자체가 없다</div>
@@ -2045,7 +2045,7 @@
 
           <!-- 03 SOLUTION -->
           <div style="margin-bottom:24px">
-            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 4가지 재설계</div>
+            <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">03 · SOLUTION · 3가지 재설계</div>
             <div style="display:flex;flex-direction:column;gap:10px">
               <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
                 <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">①</div>
@@ -2059,11 +2059,6 @@
               </div>
               <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
                 <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">③</div>
-                <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">운영 DB 직접 접근 차단 + 성능 안정화</div>
-                <p style="font-size:13px;color:var(--gray-600);line-height:1.65">운영팀이 운영 DB에 직접 쿼리하던 관행을 차단하고 전용 읽기 레이어를 구성. 성능 이슈와 데이터 무결성 문제를 동시에 해결했습니다.</p></div>
-              </div>
-              <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:14px">
-                <div style="width:28px;height:28px;min-width:28px;background:var(--gradient);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;color:#fff">④</div>
                 <div><div style="font-size:13px;font-weight:700;color:var(--gray-900);margin-bottom:3px">다중 매입사 정산 통합 UI</div>
                 <p style="font-size:13px;color:var(--gray-600);line-height:1.65">여러 매입사(카드사·지자체)별로 분산된 정산 정보를 하나의 화면에서 조회·처리 가능하도록 통합. 정산팀의 월별 결산 작업 시간을 크게 단축했습니다.</p></div>
               </div>
