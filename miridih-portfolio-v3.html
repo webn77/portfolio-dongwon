@@ -2217,7 +2217,19 @@
       <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:8px">ANALYSIS 03</div>
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">AI 기능은 있다 — 작업 흐름에 녹아드는가가 관건</div>
       <p style="font-size:12px;color:var(--gray-500);margin-bottom:16px">496만 명이 AI 기능을 활용 중. 기능이 없는 게 아니라 AI가 유저의 <strong style="color:var(--navy)">결제 흐름 안에 없다</strong>는 것입니다.</p>
-      <div style="position:relative;height:130px"><canvas id="chartAiGap"></canvas></div>
+      <div style="margin:8px 0 16px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px">
+          <span style="font-size:12px;font-weight:700;color:var(--gray-700)">AI 기능 경험률</span>
+          <span style="font-size:20px;font-weight:900;color:var(--purple)">31%</span>
+        </div>
+        <div style="background:rgba(26,39,68,.08);border-radius:20px;height:12px;overflow:hidden">
+          <div style="width:31%;height:100%;background:linear-gradient(90deg,var(--purple),#a78bfa);border-radius:20px;transition:width .8s ease"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:5px">
+          <span style="font-size:11px;color:var(--purple);font-weight:600">496만 명 AI 경험</span>
+          <span style="font-size:11px;color:var(--gray-400)">전체 1,600만 명</span>
+        </div>
+      </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px">
         <div style="text-align:center;padding:10px;background:rgba(74,144,217,.06);border-radius:8px">
           <div style="font-size:20px;font-weight:900;color:var(--blue)">496만</div>
@@ -2228,10 +2240,37 @@
           <div style="font-size:11px;color:var(--gray-400);margin-top:2px">멀티모델 AI 스택 (미리클 기술 구조)</div>
         </div>
       </div>
-      <div style="margin-top:12px;background:rgba(74,144,217,.04);border-radius:8px;padding:10px 14px;border:1px solid rgba(74,144,217,.12);font-size:12px;color:var(--gray-600);line-height:1.7">
-        2023.02 베타 → 496만 명 자발적 유입 → 2025.04 글로벌 정식 출시(미국·영국·유럽·일본). <strong style="color:var(--navy)">AI 사용은 성공했지만, AI로 만든 결과물이 결제로 이어지는 흐름이 없는 상태.</strong> 기능의 문제가 아니라 작업 흐름 설계의 문제.
+      <!-- AI 타임라인 -->
+      <div style="margin-top:14px;display:flex;flex-direction:column;gap:0">
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--purple);margin-top:3px"></div>
+            <div style="width:2px;flex:1;background:rgba(123,94,167,.2);margin:3px 0"></div>
+          </div>
+          <div style="padding-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--purple)">2023.02</div>
+            <div style="font-size:12px;color:var(--gray-700)">AI 기능 베타 출시 — 별도 마케팅 없이 496만 명 자발 유입</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0">
+            <div style="width:8px;height:8px;border-radius:50%;background:var(--blue);margin-top:3px"></div>
+            <div style="width:2px;flex:1;background:rgba(74,144,217,.2);margin:3px 0"></div>
+          </div>
+          <div style="padding-bottom:10px">
+            <div style="font-size:11px;font-weight:700;color:var(--blue)">2025.04</div>
+            <div style="font-size:12px;color:var(--gray-700)">미리클 글로벌 정식 출시 — 미국·영국·유럽·일본 동시 공개</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#dc2626;margin-top:3px"></div>
+          <div>
+            <div style="font-size:11px;font-weight:700;color:#dc2626">NOW</div>
+            <div style="font-size:12px;color:var(--gray-700)"><strong style="color:var(--navy)">AI 사용 성공 → 결제 흐름 연결은 미완성.</strong> 기능이 아닌 작업 흐름 설계의 문제.</div>
+          </div>
+        </div>
       </div>
-      <div style="margin-top:8px;font-size:11px;color:var(--gray-400)">* 미리디 공식 발표 (2025.04) · AI 스택: AWS Bedrock 기반 Claude 3.7 Sonnet + ChatGPT 이미지 생성</div>
+      <div style="margin-top:10px;font-size:11px;color:var(--gray-400)">* 미리디 공식 발표 (2025.04) · AI 스택: Claude 3.7 Sonnet + ChatGPT 이미지 (AWS Bedrock)</div>
     </div>
 
     <!-- 분석 4: 전환 퍼널 -->
@@ -2240,19 +2279,9 @@
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">전환 퍼널 — 어디서 이탈하는가</div>
       <p style="font-size:12px;color:var(--gray-500);margin-bottom:16px">단일 트리거 + 비즈하우스 별도 로그인이 전체 세그먼트의 경험을 끊어놓습니다.</p>
       <div style="position:relative;height:150px"><canvas id="chartFunnel"></canvas></div>
-      <div style="margin-top:14px;display:flex;flex-direction:column;gap:8px">
-        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:10px 14px;border:1px solid rgba(220,38,38,.1)">
-          <div style="font-size:12px;color:#dc2626;font-weight:600">이탈 지점 ①: 디자인 완성 → 인쇄 시도 시 비즈하우스 별도 가입 요구</div>
-          <div style="font-size:11px;color:var(--gray-500);margin-top:4px">미리캔버스와 동일 이메일로 별도 회원가입 후 수동 연동 필요 — 흐름 단절</div>
-        </div>
-        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:10px 14px;border:1px solid rgba(220,38,38,.1)">
-          <div style="font-size:12px;color:#dc2626;font-weight:600">이탈 지점 ②: 왕관 뱃지 단일 트리거 — 세그먼트 무관 동일 메시지</div>
-          <div style="font-size:11px;color:var(--gray-500);margin-top:4px">소상공인·크리에이터·학생 모두에게 같은 업그레이드 유도 → 전환 동기 불일치</div>
-        </div>
-        <div style="background:rgba(123,94,167,.04);border-radius:8px;padding:10px 14px;border:1px solid rgba(123,94,167,.12)">
-          <div style="font-size:12px;color:var(--purple);font-weight:600">"어도비 같은 플랫폼 생태계" 목표 vs 현재 단일 트리거 구조</div>
-          <div style="font-size:11px;color:var(--gray-500);margin-top:4px">강창석 대표: "궁극적으로 글로벌 산업표준이 되는 것을 지향한다" — 세그먼트별 전환 설계가 그 방향의 출발점</div>
-        </div>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
+        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(220,38,38,.1);font-size:12px;color:#dc2626;font-weight:600">이탈 ①: 디자인 완성 → 인쇄 시 비즈하우스 별도 가입 요구 (흐름 단절)</div>
+        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(220,38,38,.1);font-size:12px;color:#dc2626;font-weight:600">이탈 ②: 왕관 뱃지 단일 트리거 — 세그먼트 무관 동일 메시지 (전환 동기 불일치)</div>
       </div>
       <div style="margin-top:8px;font-size:11px;color:var(--gray-400)">* 비즈하우스 연동: 미리캔버스 고객센터 공식 가이드 · CEO 발언: 데일리팝 인터뷰</div>
     </div>
@@ -2748,13 +2777,6 @@ function _initChart(id) {
       options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.parsed.x+'%';}}} }, scales:{ x:{max:50, grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, callback:function(v){return v+'%';}}}, y:{grid:{display:false}, ticks:{font:{size:11}}} } }
     };
   }
-  else if (id === 'chartAiGap') {
-    cfg = {
-      type: 'bar',
-      data: { labels:['전체 가입자','주간 AI 활성'], datasets:[{ data:[100,0.022], backgroundColor:['rgba(26,39,68,.15)','rgba(232,124,160,.8)'], borderColor:['#1a2744','#E87CA0'], borderWidth:2, borderRadius:6 }] },
-      options: { responsive:true, maintainAspectRatio:false, animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){ return c.dataIndex===0?'1,600만명 (100%)':'3,500명 (0.02%)';}}} }, scales:{ y:{ max:110, grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, callback:function(v){return v+'%';}} }, x:{grid:{display:false}, ticks:{font:{size:11}}} } }
-    };
-  }
   else if (id === 'chartFunnel') {
     cfg = {
       type: 'bar',
@@ -2770,7 +2792,7 @@ function _initChart(id) {
 
 // IntersectionObserver: 뷰포트 진입 시 초기화
 (function() {
-  var ids = ['chartSegSignup','chartSegPay','chartUsage','chartAiGap','chartFunnel'];
+  var ids = ['chartSegSignup','chartSegPay','chartUsage','chartFunnel'];
   if (!window.IntersectionObserver) {
     // fallback: 지원 안 하면 즉시 전부 초기화
     ids.forEach(function(id) { _initChart(id); });
