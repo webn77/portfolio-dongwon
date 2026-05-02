@@ -3,29 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>이동원 포트폴리오 — 미리디 시니어 PM 지원</title>
+<title>이동원 포트폴리오 — {{POSITION}}</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --navy:#1a2744;
-    --blue:#4A90D9;
-    --purple:#7B5EA7;
-    --pink:#E87CA0;
-    --gradient:linear-gradient(135deg,#4A90D9 0%,#7B5EA7 60%,#E87CA0 100%);
+    :root {
+    --brand-primary:{{BRAND_PRIMARY}};
+    --brand-secondary:{{BRAND_SECONDARY}};
+    --brand-accent:{{BRAND_ACCENT}};
+    --gradient:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-secondary) 60%,var(--brand-accent) 100%);
     --gray-900:#111827;--gray-700:#374151;--gray-600:#4B5563;--gray-500:#6B7280;--gray-300:#D1D5DB;--gray-100:#F3F4F6;
     --white:#FFFFFF;
     --radius:16px;
     --shadow:0 10px 30px -8px rgba(26,39,68,.12);
+    /* aliases — 기존 코드 호환용 */
+    --navy:var(--brand-primary);
+    --blue:var(--brand-secondary);
+    --purple:var(--brand-accent);
+    --pink:var(--brand-accent);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth;scroll-padding-top:72px}
   body{font-family:'Pretendard','Apple SD Gothic Neo','Noto Sans KR',sans-serif;color:var(--gray-900);background:#F8FAFF;line-height:1.6}
   .page{max-width:960px;margin:0 auto;padding:0 24px}
-  .section{padding:60px 0}
+  .section{padding:80px 0}
   .section-tag{display:inline-block;background:var(--gradient);color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.5px}
   .section-title{font-size:32px;font-weight:800;line-height:1.3;margin-bottom:8px}
-  .section-sub{font-size:16px;color:var(--gray-500);margin-bottom:20px}
+  .section-sub{font-size:16px;color:var(--gray-500);margin-bottom:48px}
 
   /* NAV */
   .site-nav{position:fixed;top:0;width:100%;z-index:50;background:rgba(255,255,255,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 12px rgba(26,39,68,.08);border-bottom:1px solid rgba(255,255,255,.4)}
@@ -39,7 +43,7 @@
   /* COVER */
   #cover{
     background:linear-gradient(135deg,var(--navy) 0%,#253870 35%,var(--purple) 72%,var(--pink) 100%);
-    color:#fff;padding:90px 0 110px;
+    color:#fff;padding:120px 0 150px;
     clip-path:polygon(0 0,100% 0,100% 85%,0 100%);
     margin-bottom:-60px;position:relative;z-index:1;overflow:hidden;
   }
@@ -53,7 +57,7 @@
   .cover-stats{display:flex;gap:32px;flex-wrap:wrap}
   .cover-stat-val{font-size:36px;font-weight:900;line-height:1}
   .cover-stat-label{font-size:13px;opacity:.75;margin-top:4px}
-  .cover-note{margin-top:24px;font-size:13px;opacity:.45;font-style:italic}
+  .cover-note{margin-top:40px;font-size:13px;opacity:.45;font-style:italic}
 
   /* TIMELINE */
   #timeline{background:#fff;position:relative;z-index:0}
@@ -85,7 +89,7 @@
 
   /* WHY */
   #why{background:#fff}
-  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px}
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:48px}
   .why-card{background:var(--gray-100);border-radius:var(--radius);padding:28px;position:relative;overflow:hidden}
   .why-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--gradient)}
   .why-card h4{font-size:16px;font-weight:800;margin-bottom:8px}
@@ -133,12 +137,12 @@
   .bridge-box{background:#fff;border-radius:var(--radius);padding:32px;box-shadow:var(--shadow);margin-bottom:32px;border-left:4px solid var(--blue)}
   .bridge-box h3{font-size:20px;font-weight:800;margin-bottom:12px}
   .bridge-box p{font-size:15px;color:var(--gray-700);line-height:1.75}
-  .comp-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:28px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .comp-table{width:100%;border-collapse:collapse;font-size:14px;margin-bottom:48px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
   .comp-table th{background:var(--navy);color:#fff;padding:14px 18px;text-align:left;font-size:12px;font-weight:700;letter-spacing:.5px}
   .comp-table td{padding:14px 18px;border-bottom:1px solid var(--gray-100);background:#fff;color:var(--gray-700);line-height:1.55;vertical-align:top}
   .comp-table tr:last-child td{border-bottom:none}
   .comp-table .em{font-weight:700;color:var(--blue)}
-  .seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:28px}
+  .seg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px}
   .prop-card{background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border-top:3px solid var(--blue)}
   .prop-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px}
   .prop-icon{font-size:28px;flex-shrink:0;margin-top:2px}
@@ -162,37 +166,10 @@
   .roadmap-items li:last-child{border-bottom:none}
   .roadmap-items li::before{content:"• ";color:var(--purple);font-weight:700}
 
-  /* ── TYPOGRAPHY SYSTEM ─────────────────────────── */
-  /* H1: .section-title (이미 정의) — 32px/800/navy  */
-  /* H2: 섹션 내 소제목 */
-  .t-h2{font-size:20px;font-weight:800;color:var(--navy);line-height:1.3;margin-bottom:16px}
-  /* H3: 카드 제목 */
-  .t-h3{font-size:17px;font-weight:700;color:var(--navy);line-height:1.4}
-  /* Body */
-  .t-body{font-size:14px;color:var(--gray-700);line-height:1.7}
-  .t-body-sm{font-size:13px;color:var(--gray-600);line-height:1.65}
-  /* Label / Caption */
-  .t-label{font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.5px;text-transform:uppercase}
-  /* Metric */
-  .t-metric{font-weight:800;color:var(--blue)}
-  /* Impact 배지 */
-  .impact-badge{display:block;padding:8px 12px;border-radius:8px;font-size:12px;font-weight:700;line-height:1.5;margin-bottom:16px}
-  .impact-badge.blue{background:rgba(74,144,217,.07);color:var(--blue)}
-  .impact-badge.purple{background:rgba(123,94,167,.07);color:var(--purple)}
-  .impact-badge.navy{background:rgba(26,39,68,.06);color:var(--navy)}
-  .impact-badge.dark{background:rgba(74,144,217,.2);color:#7EC8E3}
-  /* Prop cell */
-  .prop-cell{background:rgba(74,144,217,.05);border-radius:8px;padding:14px}
-  .prop-cell.purple{background:rgba(123,94,167,.05)}
-  .prop-cell.navy{background:rgba(26,39,68,.04)}
-  .prop-cell-label{font-size:11px;font-weight:700;margin-bottom:6px}
-  .prop-cell-body{font-size:13px;color:var(--gray-700);line-height:1.65}
-  /* ────────────────────────────────────────────────── */
-
   /* CLOSING */
   #closing{
     background:linear-gradient(135deg,var(--navy) 0%,#253870 40%,var(--purple) 100%);
-    color:#fff;padding:70px 0 60px;
+    color:#fff;padding:100px 0 80px;
     clip-path:polygon(0 15%,100% 0,100% 100%,0 100%);
     margin-top:-40px;
     position:relative;overflow:hidden;
@@ -201,7 +178,7 @@
   #closing .glow-2{position:absolute;bottom:0;left:0;width:260px;height:260px;background:rgba(232,124,160,.2);filter:blur(100px);border-radius:50%;pointer-events:none}
   .closing-inner{max-width:720px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1}
   .closing-quote{font-size:24px;font-weight:800;line-height:1.75;margin-bottom:24px}
-  .closing-body{font-size:15px;color:rgba(255,255,255,.75);line-height:1.9;margin-bottom:28px;text-wrap:pretty}
+  .closing-body{font-size:15px;color:rgba(255,255,255,.75);line-height:1.9;margin-bottom:40px;text-wrap:pretty}
   .closing-sign{font-size:14px;color:rgba(255,255,255,.45)}
 
   footer{background:#0d1520;color:rgba(255,255,255,.35);text-align:center;padding:24px;font-size:13px}
@@ -237,9 +214,8 @@
     .str-grid,.case-body,.seg-grid,.roadmap-grid,.why-grid{grid-template-columns:1fr}
     .cover-name{font-size:40px}
     .cover-stats{gap:20px}
-    #cover{clip-path:polygon(0 0,100% 0,100% 93%,0 100%);padding:70px 0 80px;margin-bottom:-40px}
-    #closing{clip-path:polygon(0 8%,100% 0,100% 100%,0 100%);padding-top:60px;padding-bottom:48px}
-    .section{padding:44px 0}
+    #cover{clip-path:polygon(0 0,100% 0,100% 93%,0 100%);padding-bottom:100px;margin-bottom:-40px}
+    #closing{clip-path:polygon(0 8%,100% 0,100% 100%,0 100%);padding-top:80px}
     .site-nav-links{display:none}
     .acc-header-left{flex-direction:column;gap:8px}
     .comp-table{font-size:12px}
@@ -251,13 +227,13 @@
 <!-- NAV -->
 <nav class="site-nav">
   <div class="site-nav-inner">
-    <span class="site-nav-logo">이동원 · 미리디 PM 포트폴리오</span>
+    <span class="site-nav-logo">이동원 · {{COMPANY}} 포트폴리오</span>
     <ul class="site-nav-links">
       <li><a href="#cover">소개</a></li>
       <li><a href="#timeline">경력</a></li>
       <li><a href="#strengths">강점</a></li>
       <li><a href="#cases">케이스스터디</a></li>
-      <li><a href="#why-mireedi">왜 미리디</a></li>
+      <li><a href="#why-company">왜 {{COMPANY}}</a></li>
       <li><a href="#analysis">분석·제안</a></li>
       <li><a href="#closing">마무리</a></li>
     </ul>
@@ -266,30 +242,14 @@
 
 <!-- COVER -->
 <section id="cover">
-<div class="cover-inner">
-  <div class="cover-badge">미리디 시니어 프로덕트 매니저 지원</div>
-  <div class="cover-name">이동원</div>
-  <div class="cover-title">결제 인프라를 설계한 PM이,<br>미리디의 다음 성장을 함께 설계합니다.</div>
-  <div class="cover-desc">16년의 프로덕트 경험 · 8년의 핀테크/결제 전문성<br>데이터로 세그먼트를 찾고, 규제를 기능으로 구현하고,<br>워크플로우 도구와 AI로 팀의 속도를 높입니다.</div>
-  <div class="cover-stats">
-    <div>
-      <div class="cover-stat-val">16년</div>
-      <div class="cover-stat-label">프로덕트 경험</div>
-    </div>
-    <div>
-      <div class="cover-stat-val">8년</div>
-      <div class="cover-stat-label">핀테크/결제 도메인</div>
-    </div>
-    <div>
-      <div class="cover-stat-val">9개</div>
-      <div class="cover-stat-label">케이스스터디</div>
-    </div>
-    <div>
-      <div class="cover-stat-val">14조</div>
-      <div class="cover-stat-label">코나카드 거래액 플랫폼</div>
-    </div>
+  <div class="cover-inner">
+    <div class="cover-badge">{{COVER_BADGE}}</div>
+    <div class="cover-name">이동원</div>
+    <div class="cover-title">{{COVER_TITLE}}</div>
+    <div class="cover-desc">{{COVER_DESC}}</div>
+    <div class="cover-stats">{{COVER_STATS}}</div>
+    <div class="cover-note">{{COVER_NOTE}}</div>
   </div>
-</div>
 </section>
 
 <!-- TIMELINE -->
@@ -297,16 +257,17 @@
 <div class="page">
   <div class="section-tag">CAREER</div>
   <h2 class="section-title">16년의 여정 — 기획자에서 PM 리더로</h2>
-  <p class="section-sub">결제·핀테크 도메인에서 쌓아온 프로덕트 경험</p>
+  <p class="section-sub">스칼라데이터 플랫폼팀 총괄 PO로 EV충전·결제·데이터 플랫폼을 리드하며, B2B 데이터 플랫폼 상용화까지 연결한 프로덕트 경험</p>
   <div class="tl-wrap">
 
     <div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-period">2024 ~ 현재</div>
       <div class="tl-company">스칼라데이터</div>
-      <div class="tl-role">플랫폼팀 팀장 (총괄 PO) · EV충전 · 결제 · 데이터 그로스</div>
+      <div class="tl-role">스칼라데이터 플랫폼팀 총괄 PO · EV충전 · 결제 · 데이터 플랫폼</div>
       <div class="tl-pills">
         <span class="tl-pill">모두의충전 · 세그먼트 분리 → 매출 20%↑</span>
+        <span class="tl-pill">B2B 데이터 플랫폼 상용화</span>
         <span class="tl-pill">BMW Charging 앱 개편</span>
         <span class="tl-pill">환경부 공공급속충전기 UI 공공프로젝트 PM</span>
         <span class="tl-pill">AI정보과학 석사과정</span>
@@ -418,32 +379,13 @@
 </div>
 </section>
 
-<!-- WHY 미리디 -->
-<section id="why" class="section">
-<div class="page">
-  <div class="section-tag">PM PHILOSOPHY</div>
-  <h2 class="section-title">내가 생각하는 시니어 PM의 역할</h2>
-  <p class="section-sub">"좋은 PM을 만드는 것이, 좋은 제품을 만드는 가장 빠른 길입니다"</p>
-  <div class="why-grid">
-    <div class="why-card">
-      <h4>비즈니스 임팩트부터 정의하고 기능을 설계한다</h4>
-      <p>고객 페인포인트를 먼저 찾고, 비즈니스 임팩트를 정의한 뒤 기능을 설계합니다. PRD로 목표·범위·성공 기준을 명문화하고 KPI·우선순위를 팀 전체와 합의한 뒤 개발에 들어가 방향 없는 스펙 낭비를 막습니다.</p>
-    </div>
-    <div class="why-card">
-      <h4>팀이 스스로 판단하는 환경을 설계한다</h4>
-      <p>의사결정 기준·PRD 프레임·우선순위 템플릿을 팀이 바로 가져다 쓸 수 있는 도구로 만듭니다. 시니어에게 매번 물어보지 않아도 팀원 스스로 판단하고 실행할 수 있는 환경을 설계합니다.</p>
-    </div>
-    <div class="why-card">
-      <h4>팀의 목표와 소통을 하나로 만든다</h4>
-      <p>PO·디자이너·개발·사업부 사이의 커뮤니케이션을 직접 주도하고 연결합니다. 데이터 기반 KPI를 공통 언어로 삼아 "느낌"이 아닌 "숫자"로 방향을 합의하고, 팀 전체가 하나의 목표를 향해 실행하는 구조를 만듭니다.</p>
-    </div>
-    <div class="why-card">
-      <h4>실패를 자산으로 만드는 회고 문화</h4>
-      <p>완벽한 프로세스보다 회고를 통해 조직에 맞춰가는 것이 핵심입니다. 장애·이슈를 팀 학습의 기회로 전환하는 운영 체계를 설계하고, 매 주기마다 반복적으로 성장하는 팀을 만듭니다.</p>
-    </div>
+<!-- WHY {{COMPANY}} -->
+<section id="why-company" class="section">
+  <div class="page">
+    <!-- SECTION:why -->
+    {{WHY_SECTION}}
+    <!-- /SECTION:why -->
   </div>
-
-</div>
 </section>
 
 <!-- CASES -->
@@ -482,7 +424,7 @@
             <div>
               <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px">모두의충전 — 고객 세그먼트 분리 & 타임특가 설계</div>
               <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:6px">2024.05 ~ 2024.06</div>
-              <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">앱 가입자는 꾸준히 늘었지만 어떤 고객이 실제 매출을 만드는지 알 수 없었습니다. 결제 데이터를 기반으로 고객 세그먼트를 처음으로 분리하고, 핵심 타겟인 도심 직업 운전자에게 최적화된 타임특가를 설계해 충전 결제 매출 60억, 전년 대비 +20% 성장을 이끈 프로젝트입니다.</div>
+              <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">EV충전 인프라에서 발생하는 실시간 산업 데이터와 결제 데이터를 함께 해석해 고객 세그먼트를 처음으로 분리한 프로젝트입니다. 핵심 타겟인 도심 직업 운전자에게 최적화된 타임특가를 설계해 충전 결제 매출 60억, 전년 대비 +20% 성장을 이끌었습니다.</div>
             </div>
           </div>
 
@@ -491,12 +433,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">앱 가입자는 있었지만 누가 매출을 만드는지 알 수 없었다. 성별·연령 같은 인구통계 정보만 있을 뿐, 실제 충전 행동으로 고객을 분류한 적이 없었고 — 어떤 고객이 왜 다시 오는지 파악 자체가 불가능했습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 도심 택시·배달 운전자</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 도심 택시·배달 운전자</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">충전 대기 시간은 곧 수입 공백이라 빠른 충전이 최우선인데, 요금이 비싸면 경쟁 사업자 기기로 이동해야 한다. 저렴하고 빠른 충전이 가능한 시간과 위치를 알 방법이 없어 매번 비효율이 반복된다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 스칼라 서비스팀</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 스칼라 서비스팀</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">어떤 고객군이 실제 매출을 만드는지 행동 데이터가 없어 타겟 마케팅이 불가능했다. 충전 시간대별·위치별 수요 패턴을 몰라 요금 정책을 일괄 적용할 수밖에 없는 상태였습니다.</p>
               </div>
             </div>
@@ -653,8 +595,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">실제 비즈니스 기여 고객은 데이터를 봐야만 보인다. 고객 수가 많아도 충성도가 낮으면 매출로 이어지지 않는다. 세그먼트 분리 없이는 핵심 타겟에게 맞는 가격 정책을 설계할 수 없다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 1,600만 유저 중 실제 유료 전환을 이끄는 충성 세그먼트를 데이터로 발견하고, 세그먼트별 전환 트리거와 가격 정책을 설계하는 데 이 경험을 직접 적용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_1}}</p>
             </div>
           </div>
         </div>
@@ -697,12 +639,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">포인트 유효기간 정책이 없어 미사용 포인트가 장기 누적되고, 이를 기업 부채로 인식해야 하는 구조였습니다. 포인트를 적립하고 있지만 쓸 이유를 못 느끼는 고객이 많았고, 미사용 포인트는 기업 부채로 쌓였습니다. 포인트를 재결제의 동기로 연결하는 구조가 없었고, 현대 블루멤버스라는 외부 포인트 자산을 충전 결제로 끌어올 방법도 없었습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 충전 유저</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 충전 유저</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">포인트를 쌓아도 쓸 타이밍을 모릅니다. KT 포인트는 1,000원 단위 쿠폰 방식이라 번거롭고, 블루멤버스 포인트는 모두의충전에서 쓸 방법이 없었습니다. 결국 포인트는 쌓이지만 재결제로 이어지지 않습니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 스칼라 서비스팀</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 스칼라 서비스팀</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">미사용 포인트가 수억 원 규모로 누적되어 재무적으로 부채로 계상되는 구조. 포인트를 사용하지 않는 비활성 유저가 늘어날수록 재방문율이 낮아지는 악순환이 지속됐습니다.</p>
               </div>
             </div>
@@ -718,11 +660,11 @@
                   <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:10px">결제 적립·이벤트 지급 포인트</div>
                   <div style="display:flex;flex-direction:column;gap:8px">
                     <div>
-                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>미사용 누적</span><span style="font-weight:700;color:var(--navy)">72%</span></div>
-                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:72%;background:var(--navy);border-radius:4px"></div></div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>미사용 누적</span><span style="font-weight:700;color:#dc2626">72%</span></div>
+                      <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:72%;background:#dc2626;border-radius:4px"></div></div>
                     </div>
                     <div>
-                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>6개월 내 미사용</span><span style="font-weight:700;color:var(--blue)">58%</span></div>
+                      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--gray-500);margin-bottom:3px"><span>6개월 내 미사용</span><span style="font-weight:700;color:#f97316">58%</span></div>
                       <div style="height:8px;background:var(--gray-100);border-radius:4px;overflow:hidden"><div style="height:100%;width:58%;background:#f97316;border-radius:4px"></div></div>
                     </div>
                   </div>
@@ -753,8 +695,8 @@
             <!-- 유효기간 이원화 -->
             <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:8px">① 유효기간 이원화</div>
             <div style="background:var(--gray-100);border-radius:10px;padding:16px;display:flex;gap:12px;margin-bottom:14px">
-              <div style="flex:1;background:#fff;border-radius:8px;padding:14px;border-top:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:6px">결제 적립·이벤트 지급</div>
+              <div style="flex:1;background:#fff;border-radius:8px;padding:14px;border-top:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;margin-bottom:6px">결제 적립·이벤트 지급</div>
                 <div style="font-size:22px;font-weight:900;color:var(--gray-900);margin-bottom:4px">90일</div>
                 <div style="font-size:12px;color:var(--gray-500);line-height:1.5">단기 소멸로<br>재결제 트리거 유도</div>
               </div>
@@ -804,13 +746,13 @@
                 </div>
                 <div style="flex:0 0 16px;height:2px;background:var(--gradient);margin:0 4px"></div>
                 <div style="background:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:12px;color:var(--gray-700);border:1px solid var(--gray-100);flex:1">
-                  <div style="font-weight:700;color:var(--blue);margin-bottom:4px">D-7</div>
+                  <div style="font-weight:700;color:#f97316;margin-bottom:4px">D-7</div>
                   <div style="font-size:11px;font-weight:600;color:var(--gray-700);margin-bottom:2px">임박 알림</div>
                   <div style="font-size:10px;color:var(--gray-500)">일주일 남음<br>지금 충전 시 즉시 사용</div>
                 </div>
                 <div style="flex:0 0 16px;height:2px;background:var(--gradient);margin:0 4px"></div>
                 <div style="background:#fff;border-radius:8px;padding:10px 14px;text-align:center;font-size:12px;color:var(--gray-700);border:1px solid var(--gray-100);flex:1">
-                  <div style="font-weight:700;color:var(--navy);margin-bottom:4px">D-1</div>
+                  <div style="font-weight:700;color:#dc2626;margin-bottom:4px">D-1</div>
                   <div style="font-size:11px;font-weight:600;color:var(--gray-700);margin-bottom:2px">최종 경고</div>
                   <div style="font-size:10px;color:var(--gray-500)">내일 소멸<br>지금 충전하면 마지막 기회</div>
                 </div>
@@ -826,8 +768,8 @@
             <!-- 모두전환 기능 -->
             <div style="font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:8px">③ '모두전환' 기능 — KT + 블루멤버스 일괄 전환으로 재결제 자산 확대</div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:14px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px">AS-IS · 기존 KT 방식</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:14px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;margin-bottom:6px">AS-IS · 기존 KT 방식</div>
                 <p style="font-size:12px;color:var(--gray-700);line-height:1.7">1,000원 단위 쿠폰 버튼 클릭 → 쿠폰 다운로드 → 코드 복사 → KT 앱 이동 → 코드 입력 (매번 반복, 이탈 높음) / 블루멤버스: 전환 기능 없음</p>
               </div>
               <div style="background:rgba(74,144,217,.06);border-radius:10px;padding:14px;border-left:3px solid var(--blue)">
@@ -858,7 +800,7 @@
                   <span style="font-size:13px;font-weight:800;color:#16a34a">약 2억↓ 감소</span>
                 </div>
                 <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden;margin-bottom:4px">
-                  <div style="height:100%;width:100%;background:var(--navy);opacity:.5;border-radius:6px"></div>
+                  <div style="height:100%;width:100%;background:#dc2626;opacity:.5;border-radius:6px"></div>
                 </div>
                 <div style="height:10px;background:var(--gray-100);border-radius:6px;overflow:hidden">
                   <div style="height:100%;width:60%;background:#16a34a;border-radius:6px"></div>
@@ -899,8 +841,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">포인트는 재방문이 아닌 재결제의 동기로 설계해야 한다. 유효기간 알림톡은 위협이 아니라 '지금 충전하면 바로 쓸 수 있다'는 메시지여야 했다. 기존 KT 전환 사용자 데이터를 분석해 블루멤버스를 통합한 것처럼, 기존 서비스의 사용 패턴이 신규 설계의 가장 강력한 근거가 된다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 무료→유료 전환 퍼널에서 '제약 기반 동기 설계' 직접 적용 가능. AI 크레딧·무료 템플릿 한도 소진 시점을 재방문·전환 트리거로 설계하는 데 이 경험을 활용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_2}}</p>
             </div>
           </div>
         </div>
@@ -941,12 +883,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">차지비 계정과 BMW 충전카드 인증이 분리되어 회원가입 이탈이 높았고, 실물 충전카드 신청·재발급·결제수단 변경을 앱 안에서 처리할 수 없었습니다. BMW 브랜드 요구사항·사용자 편의성·운영 효율성을 동시에 충족해야 하는 3중 제약이 있었습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">CUSTOMER · BMW 차주</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">CUSTOMER · BMW 차주</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">차지비 앱 계정과 BMW 충전카드 인증을 따로 해야 한다. 충전카드를 분실하거나 결제수단을 바꾸려면 고객센터에 전화해야 하는 번거로움이 있다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">STAKEHOLDER · BMW × 차지비 × 운영팀</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">STAKEHOLDER · BMW × 차지비 × 운영팀</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">BMW는 프리미엄 브랜드 경험을, 차지비는 운영 효율성을, 유저는 편의성을 각각 요구. 3자 요구사항을 하나의 앱에서 충돌 없이 조율해야 했습니다.</p>
               </div>
             </div>
@@ -1063,8 +1005,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">오프라인 현장 사용 환경을 먼저 상상해야 한다. 프리미엄 브랜드 파트너십에서는 브랜드 정체성과 사용성이 동시에 설계되어야 하며, 이해관계자 요구사항을 사전에 명확히 정리하지 않으면 반복 수정이 발생한다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 Enterprise 고객사 맞춤형 화이트라벨 서비스·파트너 브랜드 협업 시 이해관계자 요구사항 조율 경험 직접 활용 가능. 비즈하우스 파트너사 온보딩 설계에도 연결됩니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_3}}</p>
             </div>
           </div>
         </div>
@@ -1096,21 +1038,21 @@
             <div>
               <div style="font-size:13px;font-weight:800;color:var(--navy);margin-bottom:3px">모두의충전 × 환경부 — 공공급속충전기 UI 표준화 국가 사업 PM</div>
               <div style="font-size:11px;font-weight:600;color:var(--blue);margin-bottom:6px">2025.03 ~ 2025.12</div>
-              <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">환경부·한국환경공단 발주, 4개 제조사(SK 시그넷·채비·이브이시스·클린일렉스) 공공 급속충전기 화면 UI를 하나의 표준으로 통합하는 국가 사업. 전임 PM이 3개월 진행하던 프로젝트를 인수해 연말 감리까지 완수했습니다.</div>
+              <div style="font-size:12.5px;color:var(--gray-600);line-height:1.7">환경부·한국환경공단 발주, 4개 제조사(SK 시그넷·채비·이브이시스·클린일렉스)의 공공 급속충전기 화면 UI와 운영 소스를 하나의 표준으로 통합한 국가 사업입니다. 실시간 산업 데이터 처리를 전제로 한 인프라 표준화 과제를 맡아, 전임 PM이 3개월 진행하던 프로젝트를 인수해 연말 감리까지 완수했습니다.</div>
             </div>
           </div>
 
           <!-- 01 PROBLEM -->
           <div style="margin:20px 0 28px">
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
-            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">제조사마다 해상도·통신 방식·배포 프로세스가 달라 4개로 분산된 소스코드를 하나로 통합해야 했습니다. 전임 PM 프로젝트 인수 후 12월 감리까지 마감 기한이 정해져 있었고, 환경부·환경공단·4개 제조사 등 6개 이해관계자를 동시에 조율해야 했습니다.</p>
+            <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">제조사마다 해상도·통신 방식·배포 프로세스가 달라, 실시간 산업 데이터 처리를 감당하는 4개 분산 소스를 하나로 통합해야 했습니다. 전임 PM 프로젝트 인수 후 12월 감리까지 마감 기한이 정해져 있었고, 환경부·환경공단·4개 제조사 등 6개 이해관계자를 동시에 조율해야 했습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">TECHNICAL · 기술 복잡도</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">TECHNICAL · 기술 복잡도</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">제조사 4개 × 모델 9개 = 해상도/통신/배포가 모두 다름. 소스코드 4개가 제조사별로 따로 관리되어 변경사항 반영 시마다 4개를 각각 수정해야 했습니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">PROJECT · 인수 + 기한 압박</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">PROJECT · 인수 + 기한 압박</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">3개월간 진행된 프로젝트를 중간에 인수. 국가 사업 감리라는 외부 마감이 정해진 상태에서 기술 부채와 이해관계자 조율을 동시에 해결해야 했습니다.</p>
               </div>
             </div>
@@ -1123,19 +1065,19 @@
             <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
               <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center">
                 <div>
-                  <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:8px">AS-IS · 제조사별 4개 분산</div>
+                  <div style="font-size:11px;font-weight:700;color:#dc2626;margin-bottom:8px">AS-IS · 제조사별 4개 분산</div>
                   <div style="display:flex;flex-direction:column;gap:5px">
-                    <div style="background:rgba(26,39,68,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
-                      <span>SK시그넷</span><span style="font-size:10px;color:var(--navy);font-weight:600">독립 소스</span>
+                    <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
+                      <span>SK시그넷</span><span style="font-size:10px;color:#dc2626;font-weight:600">독립 소스</span>
                     </div>
-                    <div style="background:rgba(26,39,68,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
-                      <span>채비</span><span style="font-size:10px;color:var(--navy);font-weight:600">독립 소스</span>
+                    <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
+                      <span>채비</span><span style="font-size:10px;color:#dc2626;font-weight:600">독립 소스</span>
                     </div>
-                    <div style="background:rgba(26,39,68,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
-                      <span>이브이시스</span><span style="font-size:10px;color:var(--navy);font-weight:600">독립 소스</span>
+                    <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
+                      <span>이브이시스</span><span style="font-size:10px;color:#dc2626;font-weight:600">독립 소스</span>
                     </div>
-                    <div style="background:rgba(26,39,68,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
-                      <span>클린일렉스</span><span style="font-size:10px;color:var(--navy);font-weight:600">독립 소스</span>
+                    <div style="background:rgba(220,38,38,.08);border-radius:6px;padding:9px 12px;font-size:12px;color:var(--gray-700);display:flex;justify-content:space-between;align-items:center">
+                      <span>클린일렉스</span><span style="font-size:10px;color:#dc2626;font-weight:600">독립 소스</span>
                     </div>
                   </div>
                 </div>
@@ -1218,8 +1160,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">현장에 직접 나가야만 보이는 것들이 있다. 복잡한 이해관계자 환경에서는 기술 문제보다 의사결정 정렬이 먼저다. 표준화의 핵심은 공통 원인을 찾아서 그것만 해결하는 것.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">환경부·환경공단·4개 제조사라는 복잡한 이해관계자 구조에서 각자의 요구를 조율하고 표준을 합의시킨 경험. 미리디 파트너사·인쇄사·법인 고객 등 다중 이해관계자가 얽힌 비즈하우스 운영에 그대로 적용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_4}}</p>
             </div>
           </div>
         </div>
@@ -1260,12 +1202,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:14px">B2B 기업이 고객·임직원에게 선물을 보낼 때 기존 시장의 답은 <strong>SMS 문자 전송</strong>이었습니다. 감사의 마음을 담기에는 성의가 부족했고, 컬리 브랜드가 가진 프리미엄 이미지와도 어울리지 않았습니다. B2C 고객은 물론 B2B도 동일한 고품질 경험을 원한다는 것이 출발점이었습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · B2B 기업 담당자</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · B2B 기업 담당자</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">명절·기념일에 고객·임직원에게 선물을 보내고 싶은데, 기존 방식은 URL이 담긴 SMS 문자 한 통. 감사 인사를 전하기에는 너무 건조하고 성의가 없어 보인다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 컬리페이</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">PAIN POINT · 컬리페이</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">직접 상품권을 발행·관리하지 않으면 B2B 기업에게 알림톡 경험을 제공할 수 없다. 외부 솔루션에 의존하면 브랜드 경험과 법적 요건(표준약관)을 동시에 통제하기 어렵다.</p>
               </div>
             </div>
@@ -1278,8 +1220,8 @@
             <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:start">
               <!-- AS-IS -->
               <div>
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
-                  <span style="background:var(--navy);color:#fff;border-radius:4px;padding:2px 7px;font-size:10px">AS-IS</span> 기존 B2B 선물 방식
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.5px;margin-bottom:10px;display:flex;align-items:center;gap:6px">
+                  <span style="background:#dc2626;color:#fff;border-radius:4px;padding:2px 7px;font-size:10px">AS-IS</span> 기존 B2B 선물 방식
                 </div>
                 <!-- SMS 목업 -->
                 <div style="background:#1c1c1e;border-radius:16px;padding:16px 14px;margin-bottom:10px">
@@ -1291,10 +1233,10 @@
                   <div style="font-size:10px;color:#636366;text-align:right;margin-top:6px">오후 2:30</div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:5px">
-                  <div style="font-size:12px;color:var(--navy);display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>건조한 문자 — 선물받는 느낌 없음</span></div>
-                  <div style="font-size:12px;color:var(--navy);display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>외부 플랫폼 의존 → 컬리 브랜드 소멸</span></div>
-                  <div style="font-size:12px;color:var(--navy);display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>번호 생성·상태 관리 통제 불가</span></div>
-                  <div style="font-size:12px;color:var(--navy);display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>표준약관 준수 여부 불명확</span></div>
+                  <div style="font-size:12px;color:#dc2626;display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>건조한 문자 — 선물받는 느낌 없음</span></div>
+                  <div style="font-size:12px;color:#dc2626;display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>외부 플랫폼 의존 → 컬리 브랜드 소멸</span></div>
+                  <div style="font-size:12px;color:#dc2626;display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>번호 생성·상태 관리 통제 불가</span></div>
+                  <div style="font-size:12px;color:#dc2626;display:flex;align-items:flex-start;gap:5px"><span>✗</span><span>표준약관 준수 여부 불명확</span></div>
                 </div>
               </div>
               <!-- 화살표 -->
@@ -1432,8 +1374,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">B2B도 결국 '사람이 사람에게 보내는 선물'이라는 관점에서 접근하니 답이 나왔다. 경험의 질이 브랜드 가치를 결정하며, 이를 통제하려면 발행·관리 인프라를 직접 소유해야 한다. 초기 설계가 단순한 기능 구현을 넘어 별도 서비스로 확장되는 기반이 됐다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 유료 전환 퍼널 최적화에 직접 연결. 선물하기·B2B 유통 구조 설계 경험과 법적 요건 내재화 노하우를 비즈하우스 법인 고객 확대 및 크레딧 시스템 설계에 활용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_5}}</p>
             </div>
           </div>
         </div>
@@ -1473,12 +1415,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">모바일 상품권 성공 이후, 오프라인에서도 동일한 선물 경험을 제공하고 싶었습니다. 기존 실물 상품권은 직접 전달해야만 했지만, 직접 전달하지 않아도 브랜드 경험이 살아있는 선물을 만들고 싶었습니다. 단, 카드 제작비 + 투봉 인편배송 비용이 발생하는 상황에서도 고객 경험을 양보할 수 없었습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">PAIN · 받는 사람</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">PAIN · 받는 사람</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">기존 실물 상품권은 직접 전달해야 해서 선물하기 번거로움. 받는 사람 입장에서도 앱 잔액과 따로 관리되면 불편하고 특별함이 없다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">CONSTRAINT · 비용 구조</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">CONSTRAINT · 비용 구조</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">카드 제작비 + 투봉 포장 + 인편배송 비용이 고정 발생. 이 비용을 부담하면서도 수익이 나고, 고객 경험도 살아있어야 했습니다.</p>
               </div>
             </div>
@@ -1590,8 +1532,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">온라인과 오프라인을 하나의 시스템으로 연결할 때 고객 신뢰가 높아진다. 내부에 없는 역량은 제휴로 빠르게 확보하고, 고객 경험의 핵심 고리만 직접 설계하면 된다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 비즈하우스의 디자인→인쇄→배송 원스톱 경험 설계에 직접 연결. 디지털 결과물과 실물 배송을 하나의 플로우로 통합하는 설계 경험을 그대로 활용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_6}}</p>
             </div>
           </div>
         </div>
@@ -1632,22 +1574,22 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">경기지역화폐는 <strong>1개 앱에서 31개 지자체가 서로 다른 정책으로 운영</strong>됐고, 그 외 지자체들은 각각 별도 앱으로 정책을 운영했습니다. 캐시백 비율·충전 한도·사용처·소멸 조건이 지자체마다 제각각이었고, 재난지원금처럼 수백만 건을 한 번에 지급해야 하는 상황에서는 단 하나의 오지급도 용납되지 않았습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;margin-bottom:8px">PAIN 1 · 지자체마다 정책이 전부 다르다</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.5px;margin-bottom:8px">PAIN 1 · 지자체마다 정책이 전부 다르다</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">캐시백 6% vs 10%, 월 충전 한도 30만 vs 50만, 포인트 사용 순서도 제각각. 경기도 31개 지자체는 1개 앱으로, 다른 지자체는 별도 앱으로 — <strong>유연하게 설정 가능한 구조</strong>가 필수였습니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:8px">PAIN 2 · 공무원은 업무 방식을 바꾸기 싫다</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.5px;margin-bottom:8px">PAIN 2 · 공무원은 업무 방식을 바꾸기 싫다</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">기존에 엑셀로 처리하던 포인트 지급 작업. <strong>"통합한다고 내 방식이 바뀌어야 하나?"</strong> — 현장 저항이 온보딩 최대 변수.</p>
               </div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--purple)">
-                <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.5px;margin-bottom:8px">PAIN 3 · 오지급 한 건이 민원 폭발로 직결</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #7c3aed">
+                <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.5px;margin-bottom:8px">PAIN 3 · 오지급 한 건이 민원 폭발로 직결</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">재난지원금 200만 건을 일괄 지급하는 상황에서 담당자 엑셀 실수 한 번이 <strong>대규모 민원·수작업 정정</strong>으로 이어지는 구조.</p>
               </div>
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:8px">PAIN 4 · 정책 변경마다 개발팀 의존</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #0891b2">
+                <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.5px;margin-bottom:8px">PAIN 4 · 정책 변경마다 개발팀 의존</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">지자체가 캐시백 비율을 바꿀 때마다 개발 티켓 → 배포 대기. <strong>운영팀이 스스로 설정을 바꿀 수 없는</strong> 경직된 구조.</p>
               </div>
             </div>
@@ -1766,8 +1708,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">대규모 공공 프로젝트는 휴먼 에러 방지를 위한 2중·3중 검증 설계가 안정성을 결정한다. 다양한 정책을 수용하는 시스템은 '고정값'이 아니라 '변수'로 설계해야 확장성이 생긴다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리캔버스 1,600만 유저 규모의 플랫폼 안정성 설계 경험에 직접 연결. 미리디 Enterprise 다수 고객사별 정책 관리 구조, 비즈하우스 파트너 정산 시스템 설계에도 활용 가능합니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_7}}</p>
             </div>
           </div>
         </div>
@@ -1808,22 +1750,22 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">코나아이는 지역화폐 시스템을 운영하고 있었지만, <strong>지류(종이) 상품권에 특화된 운영 체계는 사내에 전무</strong>했습니다. 재고·이력·보안·정산을 아우르는 운영 표준을 제로베이스로 만들어야 했습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.5px;margin-bottom:8px">PAIN 1 · 실물 재고 ≠ 시스템 수량</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.5px;margin-bottom:8px">PAIN 1 · 실물 재고 ≠ 시스템 수량</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">번호 단위 추적 체계는 있었지만, 창고·은행·소비자 단계별 수량을 연계하는 관리 시스템이 없어 수량 오차 발생 시 <strong>일일이 수작업으로 재확인</strong>해야 했습니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:8px">PAIN 2 · 분실 사고 시 책임 소재 불명확</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.5px;margin-bottom:8px">PAIN 2 · 분실 사고 시 책임 소재 불명확</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">어떤 상품권이 지금 어느 단계(창고·은행·소비자)에 있는지 <strong>이력 추적이 불가</strong>. 분실 사고가 생겨도 담당자 구간 특정 자체가 안 되는 구조.</p>
               </div>
             </div>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--purple)">
-                <div style="font-size:11px;font-weight:700;color:var(--purple);letter-spacing:.5px;margin-bottom:8px">PAIN 3 · 입고 즉시 사용 가능한 보안 공백</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #7c3aed">
+                <div style="font-size:11px;font-weight:700;color:#7c3aed;letter-spacing:.5px;margin-bottom:8px">PAIN 3 · 입고 즉시 사용 가능한 보안 공백</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">상품권 활성화·폐기를 현장에서 즉시 처리할 수단이 없어 <strong>수작업에 의존</strong>. 현장 운영 효율이 낮고 처리 지연이 반복됐습니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.05);border-radius:10px;padding:16px 18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.5px;margin-bottom:8px">PAIN 4 · 운영 표준 자체가 없다</div>
+              <div style="background:rgba(220,38,38,.05);border-radius:10px;padding:16px 18px;border-left:3px solid #0891b2">
+                <div style="font-size:11px;font-weight:700;color:#0891b2;letter-spacing:.5px;margin-bottom:8px">PAIN 4 · 운영 표준 자체가 없다</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.75;margin:0">사내에 지류 상품권 경험자가 없어 <strong>어떤 프로세스로 관리해야 하는지 기준이 전무</strong>. 온·오프라인 잔액을 통합하는 설계를 처음부터 정립해야 했습니다.</p>
               </div>
             </div>
@@ -1834,111 +1776,78 @@
             <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.8px;text-transform:uppercase;margin-bottom:4px">02 · ANALYSIS · 지류 상품권 유통 구조</div>
             <div style="font-size:12px;color:var(--gray-500);margin-bottom:14px">지자체 발주 → 대표은행 → 단위은행 → 소비자 → 가맹점 → 환전·정산의 다단계 구조를 제로베이스로 파악</div>
 
-            <!-- 유통 흐름 다이어그램 (SVG) -->
-            <div style="background:#fff;border-radius:12px;padding:16px 12px 12px;border:1px solid var(--gray-100)">
-              <svg viewBox="0 0 760 295" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:'Pretendard','Apple SD Gothic Neo',sans-serif">
-                <defs>
-                  <marker id="a-navy" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#1a2744"/></marker>
-                  <marker id="a-blue" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#4A90D9"/></marker>
-                  <marker id="a-navy-r" markerWidth="7" markerHeight="5" refX="1" refY="2.5" orient="auto"><polygon points="7 0,0 2.5,7 5" fill="#1a2744"/></marker>
-                  <marker id="a-gray" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#6B7280"/></marker>
-                  <marker id="a-purple" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto"><polygon points="0 0,7 2.5,0 5" fill="#7B5EA7"/></marker>
-                  <marker id="a-purple-r" markerWidth="7" markerHeight="5" refX="1" refY="2.5" orient="auto"><polygon points="7 0,0 2.5,7 5" fill="#7B5EA7"/></marker>
-                </defs>
+            <!-- 유통 흐름 다이어그램 -->
+            <div style="background:#fff;border-radius:12px;padding:18px;border:1px solid var(--gray-100);margin-bottom:12px">
+              <!-- 입고 레이어 -->
+              <div style="font-size:10px;font-weight:700;color:var(--gray-400);letter-spacing:.6px;margin-bottom:8px">① 입고</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:16px">
+                <div style="background:rgba(26,39,68,.06);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--navy);white-space:nowrap">🏛 지자체<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(KA)</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">지자체 입고</div>
+                  <div style="height:2px;width:36px;background:var(--navy);border-radius:1px"></div>
+                  <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--navy)"></div>
+                </div>
+                <div style="background:rgba(74,144,217,.08);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">🏦 대표 은행<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(RC)</span></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">이송</div>
+                  <div style="height:2px;width:36px;background:var(--blue);border-radius:1px"></div>
+                  <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--blue)"></div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:4px">
+                  <div style="background:rgba(74,144,217,.06);border-radius:6px;padding:6px 10px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC) 상단</div>
+                  <div style="background:rgba(74,144,217,.06);border-radius:6px;padding:6px 10px;text-align:center;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC) 하단</div>
+                </div>
+                <div style="margin-left:auto;background:rgba(123,94,167,.06);border-radius:8px;padding:8px 12px;text-align:center;font-size:11px;font-weight:700;color:var(--purple);white-space:nowrap">📋 정산 주체<br><span style="font-size:10px;font-weight:400;color:var(--gray-500)">(KA)</span></div>
+              </div>
 
-                <!-- ── NODES ── -->
-                <!-- 지자체 (KA) -->
-                <rect x="10" y="110" width="80" height="52" rx="8" fill="rgba(26,39,68,.06)" stroke="#1a2744" stroke-width="1.5"/>
-                <text x="50" y="131" text-anchor="middle" font-size="11" font-weight="700" fill="#1a2744">🏛 지자체</text>
-                <text x="50" y="148" text-anchor="middle" font-size="10" fill="#6B7280">(KA)</text>
+              <!-- 판매·사용 레이어 -->
+              <div style="font-size:10px;font-weight:700;color:var(--gray-400);letter-spacing:.6px;margin-bottom:8px">② 판매 · 사용 · 환전</div>
+              <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+                <div style="background:rgba(74,144,217,.06);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">단위 은행 (RC)</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">판매 / 판매 취소</div>
+                  <div style="height:2px;width:48px;background:#6B7280"></div>
+                </div>
+                <div style="background:var(--gray-100);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--gray-700);white-space:nowrap">개인 / 법인</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px">
+                  <div style="font-size:9px;color:var(--gray-400)">사용</div>
+                  <div style="height:2px;width:28px;background:#6B7280"></div>
+                </div>
+                <div style="background:rgba(22,163,74,.06);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:#16a34a;white-space:nowrap;border:1px solid rgba(22,163,74,.15)">🏪 가맹점</div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:1px;margin-left:4px">
+                  <div style="font-size:9px;color:var(--blue);font-weight:600">환전 →</div>
+                  <div style="height:2px;width:36px;background:var(--blue)"></div>
+                </div>
+                <div style="background:rgba(74,144,217,.08);border-radius:8px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--blue);white-space:nowrap">대표 은행 (RC)</div>
+              </div>
+            </div>
 
-                <!-- 대표 은행 (RC) -->
-                <rect x="145" y="110" width="92" height="52" rx="8" fill="rgba(74,144,217,.08)" stroke="#4A90D9" stroke-width="1.5"/>
-                <text x="191" y="131" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">🏦 대표 은행</text>
-                <text x="191" y="148" text-anchor="middle" font-size="10" fill="#6B7280">(RC)</text>
-
-                <!-- 정산 주체 (KA) -->
-                <rect x="148" y="28" width="86" height="48" rx="8" fill="rgba(123,94,167,.06)" stroke="#7B5EA7" stroke-width="1.5"/>
-                <text x="191" y="48" text-anchor="middle" font-size="11" font-weight="700" fill="#7B5EA7">📋 정산 주체</text>
-                <text x="191" y="64" text-anchor="middle" font-size="10" fill="#6B7280">(KA)</text>
-
-                <!-- 단위 은행 상단 (RC) -->
-                <rect x="300" y="62" width="90" height="46" rx="8" fill="rgba(74,144,217,.06)" stroke="#4A90D9" stroke-width="1.5"/>
-                <text x="345" y="82" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">단위 은행</text>
-                <text x="345" y="97" text-anchor="middle" font-size="10" fill="#6B7280">(RC)</text>
-
-                <!-- 단위 은행 하단 (RC) -->
-                <rect x="300" y="165" width="90" height="46" rx="8" fill="rgba(74,144,217,.06)" stroke="#4A90D9" stroke-width="1.5"/>
-                <text x="345" y="185" text-anchor="middle" font-size="11" font-weight="700" fill="#4A90D9">단위 은행</text>
-                <text x="345" y="200" text-anchor="middle" font-size="10" fill="#6B7280">(RC)</text>
-
-                <!-- 개인/법인 상단 -->
-                <rect x="455" y="62" width="78" height="46" rx="8" fill="rgba(26,39,68,.04)" stroke="#D1D5DB" stroke-width="1.5"/>
-                <text x="494" y="89" text-anchor="middle" font-size="11" font-weight="700" fill="#374151">개인 / 법인</text>
-
-                <!-- 개인/법인 하단 -->
-                <rect x="455" y="165" width="78" height="46" rx="8" fill="rgba(26,39,68,.04)" stroke="#D1D5DB" stroke-width="1.5"/>
-                <text x="494" y="192" text-anchor="middle" font-size="11" font-weight="700" fill="#374151">개인 / 법인</text>
-
-                <!-- 가맹점 상단 -->
-                <rect x="598" y="62" width="68" height="46" rx="8" fill="rgba(74,144,217,.07)" stroke="#4A90D9" stroke-width="1.5"/>
-                <text x="632" y="89" text-anchor="middle" font-size="11" font-weight="700" fill="#1a2744">🏪 가맹점</text>
-
-                <!-- 가맹점 하단 -->
-                <rect x="598" y="165" width="68" height="46" rx="8" fill="rgba(74,144,217,.07)" stroke="#4A90D9" stroke-width="1.5"/>
-                <text x="632" y="192" text-anchor="middle" font-size="11" font-weight="700" fill="#1a2744">🏪 가맹점</text>
-
-                <!-- ── ARROWS ── -->
-
-                <!-- 지자체 → 대표 은행 (지자체 입고) -->
-                <line x1="91" y1="136" x2="143" y2="136" stroke="#1a2744" stroke-width="1.5" marker-end="url(#a-navy)"/>
-                <text x="117" y="130" text-anchor="middle" font-size="9" fill="#6B7280">지자체 입고</text>
-
-                <!-- 정산 주체 ↔ 대표 은행 (점선) -->
-                <line x1="191" y1="76" x2="191" y2="109" stroke="#7B5EA7" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#a-purple)"/>
-
-                <!-- 대표 은행 → 단위 은행 상단 (이송) -->
-                <line x1="237" y1="124" x2="298" y2="90" stroke="#4A90D9" stroke-width="1.5" marker-end="url(#a-blue)"/>
-                <text x="264" y="100" text-anchor="middle" font-size="9" fill="#4A90D9">이송</text>
-
-                <!-- 대표 은행 → 단위 은행 하단 (이송) -->
-                <line x1="237" y1="149" x2="298" y2="183" stroke="#4A90D9" stroke-width="1.5" marker-end="url(#a-blue)"/>
-                <text x="264" y="178" text-anchor="middle" font-size="9" fill="#4A90D9">이송</text>
-
-                <!-- 단위 은행 상단 → 개인/법인 상단 (판매) -->
-                <line x1="391" y1="82" x2="453" y2="82" stroke="#1a2744" stroke-width="1.5" marker-end="url(#a-navy)"/>
-                <!-- 개인/법인 상단 → 단위 은행 상단 (판매 취소) -->
-                <line x1="453" y1="95" x2="391" y2="95" stroke="#6B7280" stroke-width="1.2" marker-end="url(#a-navy-r)" stroke-dasharray="5,3"/>
-                <text x="422" y="76" text-anchor="middle" font-size="9" fill="#1a2744">판매</text>
-                <text x="422" y="107" text-anchor="middle" font-size="9" fill="#6B7280">판매 취소</text>
-
-                <!-- 개인/법인 상단 → 가맹점 상단 (사용) -->
-                <line x1="534" y1="85" x2="596" y2="85" stroke="#6B7280" stroke-width="1.5" marker-end="url(#a-gray)"/>
-                <text x="565" y="79" text-anchor="middle" font-size="9" fill="#6B7280">사용</text>
-
-                <!-- 단위 은행 하단 → 개인/법인 하단 (판매) -->
-                <line x1="391" y1="185" x2="453" y2="185" stroke="#1a2744" stroke-width="1.5" marker-end="url(#a-navy)"/>
-                <!-- 개인/법인 하단 → 단위 은행 하단 (판매 취소) -->
-                <line x1="453" y1="198" x2="391" y2="198" stroke="#6B7280" stroke-width="1.2" marker-end="url(#a-navy-r)" stroke-dasharray="5,3"/>
-                <text x="422" y="179" text-anchor="middle" font-size="9" fill="#1a2744">판매</text>
-                <text x="422" y="210" text-anchor="middle" font-size="9" fill="#6B7280">판매 취소</text>
-
-                <!-- 개인/법인 하단 → 가맹점 하단 (사용) -->
-                <line x1="534" y1="188" x2="596" y2="188" stroke="#6B7280" stroke-width="1.5" marker-end="url(#a-gray)"/>
-                <text x="565" y="182" text-anchor="middle" font-size="9" fill="#6B7280">사용</text>
-
-                <!-- 환전 상단 arc: 가맹점 상단 → 단위 은행 상단 (상단 호) -->
-                <path d="M 632 62 C 632 12, 345 12, 345 61" stroke="#4A90D9" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-                <text x="490" y="9" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90D9">환전</text>
-
-                <!-- 환전 하단 arc: 가맹점 하단 → 대표 은행 (하단 호) -->
-                <path d="M 632 211 C 632 278, 191 278, 191 163" stroke="#4A90D9" stroke-width="1.5" fill="none" marker-end="url(#a-blue)"/>
-                <text x="410" y="291" text-anchor="middle" font-size="9" font-weight="600" fill="#4A90D9">환전</text>
-
-                <!-- 판매/판매 취소 하단 arc: 개인/법인 하단 → 대표 은행 -->
-                <path d="M 455 205 C 360 250, 240 250, 191 163" stroke="#6B7280" stroke-width="1.2" fill="none" stroke-dasharray="5,3" marker-end="url(#a-navy-r)"/>
-                <text x="310" y="261" text-anchor="middle" font-size="9" fill="#6B7280">판매 / 판매 취소</text>
-              </svg>
+            <!-- 번호 체계 -->
+            <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
+              <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:10px">상품권 번호 체계 — 20자리 일련번호</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr 1fr 2fr 1fr;gap:4px;margin-bottom:8px">
+                <div style="background:rgba(26,39,68,.06);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--navy)">1~5</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">지역</div>
+                </div>
+                <div style="background:rgba(74,144,217,.07);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--blue)">6~7</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">연도</div>
+                </div>
+                <div style="background:rgba(123,94,167,.07);border-radius:6px;padding:8px;text-align:center">
+                  <div style="font-size:10px;font-weight:700;color:var(--purple)">8~11</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">권종</div>
+                </div>
+                <div style="background:rgba(22,163,74,.07);border-radius:6px;padding:8px;text-align:center;border:1px solid rgba(22,163,74,.15)">
+                  <div style="font-size:10px;font-weight:700;color:#16a34a">12~19</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">일렬 번호</div>
+                </div>
+                <div style="background:rgba(239,68,68,.06);border-radius:6px;padding:8px;text-align:center;border:1px solid rgba(239,68,68,.12)">
+                  <div style="font-size:10px;font-weight:700;color:#dc2626">20</div>
+                  <div style="font-size:10px;color:var(--gray-500);margin-top:2px">CD</div>
+                </div>
+              </div>
+              <div style="font-size:11px;color:var(--gray-400)">번호 단위 이력 추적 → 입고·활성화·유통·폐기 전 상태를 고유 번호로 실시간 관리</div>
             </div>
           </div>
 
@@ -2023,8 +1932,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">현장 시스템은 반드시 현장에서 만들어야 한다. 경험이 없을 때 가장 먼저 해야 할 것은 현장에 나가는 것. 실물 자산은 '상태'가 아니라 '이력'으로 관리해야 신뢰할 수 있다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 비즈하우스 실물 인쇄 상품의 주문·재고·배송 운영 고도화에 직접 연결. 오프라인 자산 관리를 디지털 시스템으로 전환한 경험을 인쇄 파트너 정산·재고 관리에 활용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_8}}</p>
             </div>
           </div>
         </div>
@@ -2065,12 +1974,12 @@
             <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:12px">01 · PROBLEM</div>
             <p style="font-size:14px;color:var(--gray-700);line-height:1.7;margin-bottom:16px">백오피스에 기능을 추가하는 데 너무 오랜 시간이 걸렸습니다. 비즈니스가 빠르게 늘어나면서 새 기능 요청이 쌓였지만, 기존 구조로는 빠르게 대응할 수가 없었습니다. 개발 대기가 길어질수록 운영팀의 수작업도 늘어나는 악순환이 반복됐습니다.</p>
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--navy)">
-                <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.6px;margin-bottom:10px">INTERNAL TEAM · 운영·정산팀</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #dc2626">
+                <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.6px;margin-bottom:10px">INTERNAL TEAM · 운영·정산팀</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">데이터 추출이 필요할 때마다 개발팀에 요청 → 개발팀도, 운영팀도 비효율. 정산·통계·배송 기능이 파편화되어 부서 간 연계 작업 시 수작업이 반복됩니다.</p>
               </div>
-              <div style="background:rgba(26,39,68,.04);border-radius:10px;padding:18px;border-left:3px solid var(--blue)">
-                <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:10px">DEVELOPMENT · 기능 추가 병목</div>
+              <div style="background:rgba(220,38,38,.04);border-radius:10px;padding:18px;border-left:3px solid #f97316">
+                <div style="font-size:11px;font-weight:700;color:#f97316;letter-spacing:.6px;margin-bottom:10px">DEVELOPMENT · 기능 추가 병목</div>
                 <p style="font-size:13px;color:var(--gray-700);line-height:1.8">새 기능 요청마다 구조 파악부터 다시 해야 해서 개발 리드타임이 길어집니다. 운영 DB에 직접 접근하는 관행으로 성능 이슈도 반복 발생했습니다.</p>
               </div>
             </div>
@@ -2157,8 +2066,8 @@
               <p style="font-size:13px;color:var(--gray-700);line-height:1.75">많은 기능 개선보다 확장성에 초점을 두고 만들어야 한다. 기술 부채는 일찍 해결할수록 좋다. 내부 시스템 설계도 결국 사용자 인터뷰에서 시작해야 진짜 Pain Point를 잡을 수 있다.</p>
             </div>
             <div style="padding:16px 18px;background:#EEF4FF;border-radius:10px;border-left:3px solid var(--blue)">
-              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">MIRIDIH APPLY · 미리디 적용 포인트</div>
-              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">미리디 내부 운영 어드민·비즈하우스 파트너 포털 고도화에 직접 연결. 파편화된 운영 시스템을 통합하고 비개발자도 독립적으로 운영할 수 있는 구조를 설계한 경험을 그대로 활용할 수 있습니다.</p>
+              <div style="font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.6px;margin-bottom:8px">{{COMPANY_UPPER}} APPLY · {{COMPANY}} 적용 포인트</div>
+              <p style="font-size:13px;color:var(--gray-700);line-height:1.75">{{CS_APPLY_9}}</p>
             </div>
           </div>
         </div>
@@ -2171,7 +2080,7 @@
 
 
 <!-- WHY MIREEDI -->
-<section id="why-mireedi" style="background:linear-gradient(135deg,var(--navy) 0%,#253870 40%,var(--purple) 80%,var(--pink) 100%);color:#fff;padding:64px 0 72px;position:relative;overflow:hidden">
+<section id="why-mireedi" style="background:linear-gradient(135deg,var(--navy) 0%,#253870 40%,var(--purple) 80%,var(--pink) 100%);color:#fff;padding:100px 0 110px;position:relative;overflow:hidden">
   <div style="position:absolute;top:-80px;right:-80px;width:420px;height:420px;background:rgba(232,124,160,.18);filter:blur(90px);border-radius:50%;pointer-events:none"></div>
   <div style="position:absolute;bottom:-60px;left:-60px;width:320px;height:320px;background:rgba(74,144,217,.15);filter:blur(80px);border-radius:50%;pointer-events:none"></div>
 <div class="page" style="position:relative;z-index:1">
@@ -2179,12 +2088,12 @@
   <div style="display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 16px;font-size:12px;font-weight:700;letter-spacing:1px;margin-bottom:24px;backdrop-filter:blur(8px)">WHY MIREEDI</div>
 
   <!-- 핵심 문장 -->
-  <div style="font-size:44px;font-weight:900;line-height:1.2;margin-bottom:20px;letter-spacing:-.5px">
+  <div style="font-size:44px;font-weight:900;line-height:1.2;margin-bottom:32px;letter-spacing:-.5px">
     AI로 만들고,<br>바로 인쇄하고,<br>내일 받는다.
   </div>
 
   <!-- stats -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:24px;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15)">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-bottom:40px;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.15)">
     <div style="padding:20px 0;border-right:1px solid rgba(255,255,255,.15)">
       <div style="font-size:30px;font-weight:900;color:#fff;line-height:1">1,600만</div>
       <div style="font-size:12px;opacity:.5;margin-top:6px">가입자 · 국내 최대 디자인 플랫폼</div>
@@ -2202,7 +2111,7 @@
   <!-- 텍스트 단락 -->
   <p style="font-size:15px;opacity:.85;line-height:1.9;margin-bottom:16px">AI 크리에이터는 이미지를 만들고, SNS에 올리고, 실물 굿즈로 인쇄해서 팬에게 건넵니다. 이 흐름을 하나의 앱에서 완결할 수 있는 플랫폼이 미리디입니다. 캐릭터·K팝·일러스트 등 다양한 스타일의 AI 이미지 생성이 이미 서비스 안에 있습니다.</p>
 
-  <p style="font-size:15px;opacity:.85;line-height:1.9;margin-bottom:20px">결제 고객층이 소상공인에 집중된 지금, 1,600만 가입자 안의 크리에이터 세그먼트를 결제 고객으로 끌어올 수 있는 구조가 보입니다. 이 문제를 저는 두 번 풀어봤습니다. 미리디에서 세 번째로, 더 크게 풀고 싶습니다.</p>
+  <p style="font-size:15px;opacity:.85;line-height:1.9;margin-bottom:32px">결제 고객층이 소상공인에 집중된 지금, 1,600만 가입자 안의 크리에이터 세그먼트를 결제 고객으로 끌어올 수 있는 구조가 보입니다. 이 문제를 저는 두 번 풀어봤습니다. 미리디에서 세 번째로, 더 크게 풀고 싶습니다.</p>
 
   <!-- 경험 2줄 — 텍스트만 -->
   <div style="border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;flex-direction:column;gap:16px">
@@ -2233,7 +2142,7 @@
 
     <!-- 분석 1: 도넛 차트 -->
     <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.8px;margin-bottom:8px">ANALYSIS 01</div>
+      <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:8px">ANALYSIS 01</div>
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">가입 고객층 ≠ 결제 고객층</div>
       <p style="font-size:12px;color:var(--gray-500);margin-bottom:16px">가입자 절반이 학생인데 결제는 소상공인이 합니다. 이 간극이 <strong style="color:var(--navy)">0.6% 전환율</strong>의 본질입니다.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
@@ -2255,7 +2164,7 @@
           </div>
         </div>
       </div>
-      <div style="margin-top:14px;background:rgba(26,39,68,.05);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--navy);border:1px solid rgba(26,39,68,.12);line-height:1.8">
+      <div style="margin-top:14px;background:rgba(220,38,38,.05);border-radius:8px;padding:12px 14px;font-size:12px;color:#dc2626;border:1px solid rgba(220,38,38,.12);line-height:1.8">
         왕관 뱃지 하나로 46% 학생 + 34% 직장인을 전환하려는 구조 → 전환율이 낮은 건 결과가 아니라 예고된 수치.<br>
         <span style="color:var(--navy);font-weight:700">왕관 뱃지에 반응하는 고객은 "빠르게 만들고 싶은" 고객이 아니라, "더 아름답게 만들고 싶은" 고객입니다.</span> 세그먼트가 다르면 트리거도 달라야 합니다.
       </div>
@@ -2263,10 +2172,10 @@
 
     <!-- 분석 2 -->
     <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.8px;margin-bottom:8px">ANALYSIS 02</div>
+      <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:8px">ANALYSIS 02</div>
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:12px">가장 많이 쓰는 기능은 PPT 제작</div>
-      <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:16px;border:1px solid rgba(26,39,68,.1);margin-bottom:16px">
-        <div style="font-size:13px;color:var(--gray-700);line-height:1.7">많은 유저에게 미리캔버스는 <strong style="color:var(--navy)">"무료 PPT 툴"</strong>로 인식됩니다.<br>파워포인트 대용으로 쓰다가 이탈하는 패턴 반복.</div>
+      <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:16px;border:1px solid rgba(220,38,38,.1);margin-bottom:16px">
+        <div style="font-size:13px;color:var(--gray-700);line-height:1.7">많은 유저에게 미리캔버스는 <strong style="color:#dc2626">"무료 PPT 툴"</strong>로 인식됩니다.<br>파워포인트 대용으로 쓰다가 이탈하는 패턴 반복.</div>
       </div>
       <!-- 사용 목적 바 차트 -->
       <div style="position:relative;height:150px"><canvas id="chartUsage"></canvas></div>
@@ -2275,7 +2184,7 @@
 
     <!-- 분석 3: AI 활성 유저 갭 -->
     <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.8px;margin-bottom:8px">ANALYSIS 03</div>
+      <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:8px">ANALYSIS 03</div>
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">AI 기능은 있다 — 작업 흐름에 녹아드는가가 관건</div>
       <p style="font-size:12px;color:var(--gray-500);margin-bottom:16px">496만 명이 AI 기능을 활용 중. 기능이 없는 게 아니라 AI가 유저의 <strong style="color:var(--navy)">결제 흐름 안에 없다</strong>는 것입니다.</p>
       <div style="margin:8px 0 16px">
@@ -2324,9 +2233,9 @@
           </div>
         </div>
         <div style="display:flex;gap:10px;align-items:flex-start">
-          <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--navy);margin-top:3px"></div>
+          <div style="flex-shrink:0;width:8px;height:8px;border-radius:50%;background:#dc2626;margin-top:3px"></div>
           <div>
-            <div style="font-size:11px;font-weight:700;color:var(--navy)">NOW</div>
+            <div style="font-size:11px;font-weight:700;color:#dc2626">NOW</div>
             <div style="font-size:12px;color:var(--gray-700)"><strong style="color:var(--navy)">AI 사용 성공 → 결제 흐름 연결은 미완성.</strong> 기능이 아닌 작업 흐름 설계의 문제.</div>
           </div>
         </div>
@@ -2336,13 +2245,13 @@
 
     <!-- 분석 4: 전환 퍼널 -->
     <div style="background:#fff;border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)">
-      <div style="font-size:11px;font-weight:700;color:var(--navy);letter-spacing:.8px;margin-bottom:8px">ANALYSIS 04</div>
+      <div style="font-size:11px;font-weight:700;color:#dc2626;letter-spacing:.8px;margin-bottom:8px">ANALYSIS 04</div>
       <div style="font-size:16px;font-weight:800;color:var(--navy);margin-bottom:4px">전환 퍼널 — 어디서 이탈하는가</div>
       <p style="font-size:12px;color:var(--gray-500);margin-bottom:16px">단일 트리거 + 비즈하우스 별도 로그인이 전체 세그먼트의 경험을 끊어놓습니다.</p>
       <div style="position:relative;height:150px"><canvas id="chartFunnel"></canvas></div>
       <div style="margin-top:12px;display:flex;flex-direction:column;gap:6px">
-        <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(26,39,68,.1);font-size:12px;color:var(--navy);font-weight:600">이탈 ①: 디자인 완성 → 인쇄 시 비즈하우스 별도 가입 요구 (흐름 단절)</div>
-        <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(26,39,68,.1);font-size:12px;color:var(--navy);font-weight:600">이탈 ②: 왕관 뱃지 단일 트리거 — 세그먼트 무관 동일 메시지 (전환 동기 불일치)</div>
+        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(220,38,38,.1);font-size:12px;color:#dc2626;font-weight:600">이탈 ①: 디자인 완성 → 인쇄 시 비즈하우스 별도 가입 요구 (흐름 단절)</div>
+        <div style="background:rgba(220,38,38,.04);border-radius:8px;padding:8px 12px;border:1px solid rgba(220,38,38,.1);font-size:12px;color:#dc2626;font-weight:600">이탈 ②: 왕관 뱃지 단일 트리거 — 세그먼트 무관 동일 메시지 (전환 동기 불일치)</div>
       </div>
       <div style="margin-top:8px;font-size:11px;color:var(--gray-400)">* 비즈하우스 연동: 미리캔버스 고객센터 공식 가이드 · CEO 발언: 데일리팝 인터뷰</div>
     </div>
@@ -2353,624 +2262,25 @@
 </section>
 
 <!-- PROPOSAL -->
-<section id="proposal" class="section" style="background:#fff">
-<div class="page">
-
-  <div class="section-tag">PROPOSAL</div>
-  <h2 class="section-title">미리디 제안</h2>
-  <p class="section-sub">핵심 목표 — 결제 고객층을 소상공인 → 소상공인 + 크리에이터로 확장한다</p>
-
-  <!-- 제안 오버뷰 카드 -->
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px">
-    <div style="background:rgba(74,144,217,.06);border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">⚡ Quick Win</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">① AI→인쇄→배송 연결</div>
-      <div style="font-size:11px;color:var(--gray-500)">전환율 +15~20%</div>
-    </div>
-    <div style="background:rgba(74,144,217,.06);border:1.5px solid rgba(74,144,217,.2);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--blue);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">⚡ Quick Win</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">② 세그먼트별 전환 트리거</div>
-      <div style="font-size:11px;color:var(--gray-500)">ARPU 1.8~2.5× 상승</div>
-    </div>
-    <div style="background:rgba(123,94,167,.06);border:1.5px solid rgba(123,94,167,.2);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--purple);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">📈 Mid-term</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">③ 크리에이터 갤러리 피드</div>
-      <div style="font-size:11px;color:var(--gray-500)">영감→시도→전환 루프</div>
-    </div>
-    <div style="background:rgba(123,94,167,.06);border:1.5px solid rgba(123,94,167,.2);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--purple);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">📈 Mid-term</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">④ 요금제 세분화</div>
-      <div style="font-size:11px;color:var(--gray-500)">시즌 패스·번들로 ARPU↑</div>
-    </div>
-    <div style="background:rgba(26,39,68,.04);border:1.5px solid rgba(26,39,68,.12);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--navy);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">🔮 Long-term</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">⑤ AI 에이전트 디자인 시스템</div>
-      <div style="font-size:11px;color:var(--gray-500)">B2B Enterprise 확장</div>
-    </div>
-    <div style="background:rgba(26,39,68,.04);border:1.5px solid rgba(26,39,68,.12);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px">
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="background:var(--navy);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px">🔮 Long-term</span>
-      </div>
-      <div style="font-size:13px;font-weight:700;color:var(--navy)">⑥ AI 주도 업무 흐름</div>
-      <div style="font-size:11px;color:var(--gray-500)">팀 생산성 × 3 목표</div>
-    </div>
+<section id="proposal" class="section">
+  <div class="page">
+    <span class="section-tag">PROPOSAL</span>
+    <h2 class="section-title">{{PROPOSAL_TITLE}}</h2>
+    <p class="section-sub">{{PROPOSAL_SUB}}</p>
+    <!-- SECTION:proposal -->
+    {{PROPOSAL_SECTION}}
+    <!-- /SECTION:proposal -->
   </div>
-
-  <!-- 세그먼트 동기 — 비주얼 저니 카드 -->
-  <div style="margin-bottom:32px">
-    <div class="t-h2" style="padding:0 2px">실제로 누가 결제해야 하는가 — 세그먼트별 동기와 여정이 전혀 다릅니다</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
-
-      <!-- 소상공인 -->
-      <div style="border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(74,144,217,.18);border:1.5px solid rgba(74,144,217,.2)">
-        <div style="background:linear-gradient(135deg,var(--navy),var(--blue));padding:18px 20px 14px">
-          <div style="font-size:28px;margin-bottom:6px">🏪</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">소상공인</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:2px">빠르게 만들어서 인쇄</div>
-        </div>
-        <div style="background:#fff;padding:16px 18px">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(74,144,217,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--blue);flex-shrink:0">1</div>
-              <div style="font-size:12px;color:var(--gray-700)">포스터·메뉴판 디자인 완성</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(74,144,217,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(74,144,217,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--blue);flex-shrink:0">2</div>
-              <div style="font-size:12px;color:var(--gray-700)">인쇄 원클릭 — 별도 로그인 없이</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(74,144,217,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0">3</div>
-              <div style="font-size:12px;font-weight:700;color:var(--blue)">내일 가게에서 수령 🎉</div>
-            </div>
-          </div>
-          <div style="margin-top:12px;background:rgba(74,144,217,.08);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--blue);font-weight:600">트리거: 브랜드키트 완성 → 인쇄 Pro 업셀</div>
-        </div>
-      </div>
-
-      <!-- K팝 팬 -->
-      <div style="border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(232,124,160,.18);border:1.5px solid rgba(232,124,160,.2)">
-        <div style="background:linear-gradient(135deg,#be185d,#E87CA0);padding:18px 20px 14px">
-          <div style="font-size:28px;margin-bottom:6px">🎤</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">K팝 팬 크리에이터</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:2px">실물 굿즈로 만들어 나눠주기</div>
-        </div>
-        <div style="background:#fff;padding:16px 18px">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(232,124,160,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink);flex-shrink:0">1</div>
-              <div style="font-size:12px;color:var(--gray-700)">AI 배경제거로 포토카드 원본 완성</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(232,124,160,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(232,124,160,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--pink);flex-shrink:0">2</div>
-              <div style="font-size:12px;color:var(--gray-700)">포토카드 규격 자동 맞춤 → 소량 인쇄</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(232,124,160,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:var(--pink);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0">3</div>
-              <div style="font-size:12px;font-weight:700;color:var(--pink)">팬미팅서 직접 나눠주기 💜</div>
-            </div>
-          </div>
-          <div style="margin-top:12px;background:rgba(232,124,160,.08);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--pink);font-weight:600">트리거: AI 크레딧 소진 → "오늘 완성하려면 Pro"</div>
-        </div>
-      </div>
-
-      <!-- AI 크리에이터 -->
-      <div style="border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(123,94,167,.18);border:1.5px solid rgba(123,94,167,.2)">
-        <div style="background:linear-gradient(135deg,#5b21b6,#7B5EA7);padding:18px 20px 14px">
-          <div style="font-size:28px;margin-bottom:6px">🤖</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">AI 크리에이터</div>
-          <div style="font-size:11px;color:rgba(255,255,255,.75);margin-top:2px">내가 만든 결과물의 임팩트 극대화</div>
-        </div>
-        <div style="background:#fff;padding:16px 18px">
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(123,94,167,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--purple);flex-shrink:0">1</div>
-              <div style="font-size:12px;color:var(--gray-700)">미리클로 AI 아트 생성</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(123,94,167,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:rgba(123,94,167,.12);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--purple);flex-shrink:0">2</div>
-              <div style="font-size:12px;color:var(--gray-700)">포스터·엽서·굿즈 규격 선택 → 인쇄</div>
-            </div>
-            <div style="margin-left:13px;width:1px;height:10px;background:rgba(123,94,167,.3)"></div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <div style="width:26px;height:26px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0">3</div>
-              <div style="font-size:12px;font-weight:700;color:var(--purple)">SNS 공유 + 실물 임팩트 동시에 🚀</div>
-            </div>
-          </div>
-          <div style="margin-top:12px;background:rgba(123,94,167,.08);border-radius:8px;padding:8px 10px;font-size:11px;color:var(--purple);font-weight:600">트리거: AI 크레딧 소진 → 결과물 임팩트 극대화</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 크리에이터 세그먼트 재정의 -->
-  <div class="section-tag">CREATOR SEGMENT</div>
-  <h3 class="t-h2" style="margin:10px 0 20px">크리에이터 세그먼트 재정의</h3>
-
-  <div class="seg-grid" style="grid-template-columns:1fr 1fr;margin-bottom:24px">
-    <!-- K팝 굿즈 크리에이터 -->
-    <div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(232,124,160,.2)">
-      <div style="position:relative;overflow:hidden;height:200px">
-        <img src="images/persona-kpop-creator.png" alt="K팝 굿즈 크리에이터 페르소나"
-             style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
-        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,39,68,.7) 0%,transparent 100%);padding:14px 16px">
-          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.8px;margin-bottom:2px">SEGMENT 01 · 학생(46%) 재정의</div>
-          <div style="font-size:15px;font-weight:800;color:#fff">🎤 K팝 굿즈 크리에이터</div>
-        </div>
-      </div>
-      <div style="padding:16px 18px">
-        <p style="font-size:12px;color:var(--gray-500);margin-bottom:12px;line-height:1.6">팬덤 굿즈를 직접 만드는 크리에이터 — 파일이 아닌 실물이 목적</p>
-        <ul class="prop-items">
-          <li>생일카페 현수막, 포토카드, 팬북 제작</li>
-          <li>AI 배경제거 크레딧 소진 → 인쇄 첫 주문 경험</li>
-        </ul>
-        <div style="margin-top:12px;background:rgba(232,124,160,.07);color:var(--pink);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700">결제 트리거: AI 크레딧 소진 + 인쇄 첫 주문</div>
-      </div>
-    </div>
-    <!-- AI 크리에이터 -->
-    <div style="background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;border:1px solid rgba(123,94,167,.2)">
-      <div style="position:relative;overflow:hidden;height:200px">
-        <img src="images/persona-ai-creator.png" alt="AI 크리에이터 페르소나"
-             style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block">
-        <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(to top,rgba(26,39,68,.7) 0%,transparent 100%);padding:14px 16px">
-          <div style="font-size:10px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.8px;margin-bottom:2px">SEGMENT 02 · 완전히 새로운 세그먼트</div>
-          <div style="font-size:15px;font-weight:800;color:#fff">🤖 AI 크리에이터</div>
-        </div>
-      </div>
-      <div style="padding:16px 18px">
-        <p style="font-size:12px;color:var(--gray-500);margin-bottom:12px;line-height:1.6">생성형 AI로 창작하는 사람들 — 아트를 실물 굿즈로 완결</p>
-        <ul class="prop-items">
-          <li>미리클 AI 아트를 포스터·엽서·굿즈로 인쇄해 판매·공유</li>
-          <li>AI 이미지 생성 크레딧 소진 → 결과물 임팩트 극대화 욕구</li>
-        </ul>
-        <div style="margin-top:12px;background:rgba(123,94,167,.07);color:var(--purple);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:700">결제 트리거: AI 크레딧 소진 + 임팩트 극대화</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 제안 1~5 -->
-  <div style="display:flex;flex-direction:column;gap:16px">
-
-    <!-- 제안 1 -->
-    <div style="background:linear-gradient(135deg,rgba(74,144,217,.04) 0%,rgba(123,94,167,.04) 100%);border-radius:var(--radius);padding:32px;box-shadow:0 16px 40px -8px rgba(74,144,217,.18);border:1.5px solid rgba(74,144,217,.25);position:relative;overflow:hidden">
-      <div style="position:absolute;top:0;right:0;width:180px;height:180px;background:radial-gradient(circle,rgba(74,144,217,.08) 0%,transparent 70%);pointer-events:none"></div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:var(--blue);color:#fff;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900;flex-shrink:0">1</div>
-        <div style="font-size:18px;font-weight:800;color:var(--navy)">AI 제작 → 인쇄 → 배송 연결 경험 — 전체 세그먼트 공통 트리거</div>
-        <span style="margin-left:auto;background:var(--blue);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">⚡ Quick Win</span>
-      </div>
-      <div class="impact-badge blue">기대 임팩트: SSO 통합으로 이탈 제거 → 유료 전환율 +15~20% | 인쇄 첫 주문 경험 → LTV 2× 이상</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
-        <div style="background:rgba(74,144,217,.05);border-radius:8px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:var(--blue);margin-bottom:8px">K팝 팬</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.8">AI 배경제거<br>→ 포토카드 규격 자동<br>→ 소량 인쇄 → 배송</div>
-        </div>
-        <div style="background:rgba(123,94,167,.05);border-radius:8px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:8px">AI 크리에이터</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.8">AI 이미지 생성<br>→ 굿즈 규격 선택<br>→ 주문 → 배송</div>
-        </div>
-        <div style="background:rgba(22,163,74,.05);border-radius:8px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:#16a34a;margin-bottom:8px">소상공인</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.8">포스터 완성<br>→ 인쇄 원클릭<br>→ 내일 수령</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 제안 2 -->
-    <div style="background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--purple)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:var(--purple);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0">2</div>
-        <div style="font-size:17px;font-weight:800;color:var(--navy)">세그먼트별 전환 트리거 분리</div>
-        <span style="margin-left:auto;background:var(--blue);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">⚡ Quick Win</span>
-      </div>
-      <div class="impact-badge purple">기대 임팩트: 세그먼트별 맞춤 메시지 → ARPU 1.8~2.5× | 업셀 CTR +30%↑</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
-        <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:10px;align-items:center;font-size:13px">
-          <div style="font-weight:700;color:var(--pink)">K팝 팬</div>
-          <div style="color:var(--gray-600)">AI 크레딧 소진</div>
-          <div style="color:var(--navy);font-weight:600">"오늘 완성하려면 Pro"</div>
-        </div>
-        <div style="height:1px;background:var(--gray-100)"></div>
-        <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:10px;align-items:center;font-size:13px">
-          <div style="font-weight:700;color:var(--purple)">AI 크리에이터</div>
-          <div style="color:var(--gray-600)">이미지 생성 후 인쇄 연결</div>
-          <div style="color:var(--navy);font-weight:600">"결과물을 실물로"</div>
-        </div>
-        <div style="height:1px;background:var(--gray-100)"></div>
-        <div style="display:grid;grid-template-columns:120px 1fr 1fr;gap:10px;align-items:center;font-size:13px">
-          <div style="font-weight:700;color:var(--blue)">소상공인</div>
-          <div style="color:var(--gray-600)">브랜드키트 첫 세팅 완료</div>
-          <div style="color:var(--navy);font-weight:600">Pro 업셀 + 30일 트라이얼</div>
-        </div>
-        </div>
-        <!-- 세그먼트 ARPU 비교 차트 -->
-        <div>
-          <div style="font-size:11px;font-weight:700;color:var(--gray-500);margin-bottom:8px;letter-spacing:.5px">세그먼트별 기대 ARPU (현재 대비)</div>
-          <div style="position:relative;height:130px"><canvas id="chartArpu"></canvas></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 제안 3 -->
-    <div style="background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--purple)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:var(--purple);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0">3</div>
-        <div style="font-size:17px;font-weight:800;color:var(--navy)">크리에이터 갤러리 피드</div>
-        <span style="margin-left:auto;background:var(--purple);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">📈 Mid-term</span>
-      </div>
-      <div class="impact-badge purple">기대 임팩트: 영감→시도→크레딧 소진→전환 루프 | 크리에이터 DAU +25%↑</div>
-      <p style="font-size:13px;color:var(--gray-600);line-height:1.75;margin-bottom:16px">지금은 내 작업만 보입니다. 업종·용도별 실제 사용자 결과물 피드가 생기면 영감 → 직접 시도 → 크레딧 소진 → 전환 루프가 만들어집니다.</p>
-
-      <!-- 갤러리 피드 CSS 목업 -->
-      <div style="background:#f8f9fb;border-radius:12px;padding:16px;border:1px solid var(--gray-100)">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <div style="font-size:11px;font-weight:700;color:var(--gray-500);letter-spacing:.5px">CREATOR GALLERY</div>
-          <div style="display:flex;gap:6px">
-            <div style="background:#fff;border:1px solid var(--gray-100);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--gray-600);font-weight:600">전체</div>
-            <div style="background:rgba(232,124,160,.12);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--pink);font-weight:700">K팝</div>
-            <div style="background:rgba(123,94,167,.12);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--purple);font-weight:700">AI</div>
-            <div style="background:rgba(74,144,217,.12);border-radius:20px;padding:3px 10px;font-size:10px;color:var(--blue);font-weight:700">소상공인</div>
-          </div>
-        </div>
-        <!-- 피드 그리드 -->
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-
-          <!-- 카드 1: K팝 포토카드 — AI 배경제거 결과물 -->
-          <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-            <div style="height:100px;position:relative;overflow:hidden">
-              <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;display:block"/>
-            </div>
-            <div style="padding:8px 10px">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <div style="background:rgba(232,124,160,.12);border-radius:20px;padding:2px 7px;font-size:9px;color:var(--pink);font-weight:700">K팝</div>
-                <div style="font-size:10px;color:var(--gray-400)">♥ 284</div>
-              </div>
-              <div style="font-size:10px;color:var(--gray-700);font-weight:600;line-height:1.4">생일카페 포토카드<br>A4 소량인쇄</div>
-            </div>
-          </div>
-
-          <!-- 카드 2: AI 아트 포스터 — 미리클 생성 결과물 -->
-          <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-            <div style="height:100px;position:relative;overflow:hidden">
-              <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;display:block"/>
-            </div>
-            <div style="padding:8px 10px">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <div style="background:rgba(123,94,167,.12);border-radius:20px;padding:2px 7px;font-size:9px;color:var(--purple);font-weight:700">AI</div>
-                <div style="font-size:10px;color:var(--gray-400)">♥ 517</div>
-              </div>
-              <div style="font-size:10px;color:var(--gray-700);font-weight:600;line-height:1.4">미리클 AI아트<br>포스터 출력</div>
-            </div>
-          </div>
-
-          <!-- 카드 3: 소상공인 카페 메뉴판 -->
-          <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-            <div style="height:100px;position:relative;overflow:hidden">
-              <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;display:block"/>
-            </div>
-            <div style="padding:8px 10px">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <div style="background:rgba(74,144,217,.12);border-radius:20px;padding:2px 7px;font-size:9px;color:var(--blue);font-weight:700">소상공인</div>
-                <div style="font-size:10px;color:var(--gray-400)">♥ 192</div>
-              </div>
-              <div style="font-size:10px;color:var(--gray-700);font-weight:600;line-height:1.4">카페 메뉴판<br>당일 인쇄 수령</div>
-            </div>
-          </div>
-
-          <!-- 카드 4: K팝 팬미팅 굿즈 세트 -->
-          <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)">
-            <div style="height:100px;position:relative;overflow:hidden">
-              <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;display:block"/>
-            </div>
-            <div style="padding:8px 10px">
-              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-                <div style="background:rgba(232,124,160,.12);border-radius:20px;padding:2px 7px;font-size:9px;color:var(--pink);font-weight:700">K팝</div>
-                <div style="font-size:10px;color:var(--gray-400)">♥ 1.2k</div>
-              </div>
-              <div style="font-size:10px;color:var(--gray-700);font-weight:600;line-height:1.4">팬미팅 현수막<br>굿즈 세트</div>
-            </div>
-          </div>
-
-        </div>
-        <!-- 하단 CTA 예시 -->
-        <div style="margin-top:10px;background:#fff;border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border:1px dashed rgba(232,124,160,.4)">
-          <div style="font-size:11px;color:var(--gray-600)">🎤 <b>이 포토카드처럼 만들어보기</b> — 템플릿 바로 열기</div>
-          <div style="background:var(--pink);color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:4px 12px;flex-shrink:0">따라 만들기</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 제안 4 -->
-    <div style="background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--navy)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:var(--navy);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0">4</div>
-        <div style="font-size:17px;font-weight:800;color:var(--navy)">요금제 세분화</div>
-        <span style="margin-left:auto;background:var(--purple);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">📈 Mid-term</span>
-      </div>
-      <div class="impact-badge navy">기대 임팩트: 시즌 단기 패스 도입 → 비결제 크리에이터 첫 결제 유도 | ARPU +40%↑</div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:10px">
-        <div style="background:rgba(232,124,160,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px">시즌 단기 패스</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.65">7일 / 30일 — K팝 콘서트 시즌, 생일카페 준비 기간</div>
-        </div>
-        <div style="background:rgba(123,94,167,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:var(--purple);margin-bottom:6px">AI 크리에이터 번들</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.65">이미지 생성 크레딧 + 인쇄 할인 묶음</div>
-        </div>
-        <div style="background:rgba(74,144,217,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:var(--blue);margin-bottom:6px">소상공인 Pro</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.65">인쇄 크레딧 포함</div>
-        </div>
-        <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:var(--navy);margin-bottom:6px">B2B Enterprise</div>
-          <div style="font-size:12px;color:var(--gray-700);line-height:1.65">브랜드키트 + HR 연동 (중장기 확장)</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 제안 5 -->
-    <div style="background:#fff;border-radius:var(--radius);padding:28px;box-shadow:var(--shadow);border-left:4px solid var(--blue)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0">5</div>
-        <div style="font-size:17px;font-weight:800;color:var(--navy)">미리클 × AI 에이전트 디자인 시스템</div>
-        <span style="margin-left:auto;background:var(--navy);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0">🔮 Long-term</span>
-      </div>
-      <div class="impact-badge blue">기대 임팩트: B2B Enterprise 시장 진입 | Figma Design System 대체 포지셔닝</div>
-      <p style="font-size:13px;color:var(--gray-600);line-height:1.75;margin-bottom:20px">브랜드 가이드라인을 등록하면 AI 에이전트가 스타일을 학습 — 자연어 한 줄로 브랜드 일관성 있는 디자인을 즉시 생성합니다.</p>
-
-      <!-- 플로우 -->
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap">
-        <div style="background:rgba(74,144,217,.08);border-radius:10px;padding:12px 16px;text-align:center;min-width:112px;flex:1">
-          <div style="font-size:20px;margin-bottom:4px">🎨</div>
-          <div style="font-size:11px;font-weight:700;color:var(--blue)">브랜드 등록</div>
-          <div style="font-size:10px;color:var(--gray-500);margin-top:2px">컬러·폰트·로고</div>
-        </div>
-        <div style="color:var(--gray-300);font-size:18px">→</div>
-        <div style="background:rgba(123,94,167,.08);border-radius:10px;padding:12px 16px;text-align:center;min-width:112px;flex:1">
-          <div style="font-size:20px;margin-bottom:4px">🤖</div>
-          <div style="font-size:11px;font-weight:700;color:var(--purple)">AI 학습</div>
-          <div style="font-size:10px;color:var(--gray-500);margin-top:2px">스타일 규칙 내재화</div>
-        </div>
-        <div style="color:var(--gray-300);font-size:18px">→</div>
-        <div style="background:rgba(74,144,217,.08);border-radius:10px;padding:12px 16px;text-align:center;min-width:112px;flex:1">
-          <div style="font-size:20px;margin-bottom:4px">💬</div>
-          <div style="font-size:11px;font-weight:700;color:var(--blue)">자연어 요청</div>
-          <div style="font-size:10px;color:var(--gray-500);margin-top:2px">"신년 포스터 만들어줘"</div>
-        </div>
-        <div style="color:var(--gray-300);font-size:18px">→</div>
-        <div style="background:linear-gradient(135deg,rgba(74,144,217,.1),rgba(123,94,167,.1));border-radius:10px;padding:12px 16px;text-align:center;min-width:112px;flex:1;border:1.5px solid rgba(123,94,167,.2)">
-          <div style="font-size:20px;margin-bottom:4px">✨</div>
-          <div style="font-size:11px;font-weight:700;color:var(--navy)">브랜드 맞춤 생성</div>
-          <div style="font-size:10px;color:var(--gray-500);margin-top:2px">즉시 완성 + 인쇄</div>
-        </div>
-      </div>
-
-      <!-- B2B + 크리에이터 -->
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <div style="background:rgba(26,39,68,.04);border-radius:8px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:var(--navy);margin-bottom:6px">B2B Enterprise</div>
-          <div style="font-size:12px;color:var(--gray-600);line-height:1.65">HR팀이 신입사원 웰컴킷 요청 → 자동 생성<br>마케팅팀의 시즌 캠페인 → 브랜드 톤 통일</div>
-        </div>
-        <div style="background:rgba(123,94,167,.05);border-radius:8px;padding:14px">
-          <div style="font-size:11px;font-weight:700;color:var(--purple);margin-bottom:6px">크리에이터 확장</div>
-          <div style="font-size:12px;color:var(--gray-600);line-height:1.65">팬 아티스트가 "내 굿즈 스타일"을 시스템으로 저장<br>일관된 굿즈 경험으로 팬덤 락인</div>
-        </div>
-      </div>
-      <div style="margin-top:12px;background:rgba(74,144,217,.06);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--blue);font-weight:600">Figma의 Design System + AI가 합쳐지는 방향 — 미리캔버스가 선점할 수 있는 가장 빠른 영역입니다.</div>
-    </div>
-
-    <!-- 제안 6 -->
-    <div style="background:var(--navy);border-radius:var(--radius);padding:28px 32px;box-shadow:var(--shadow)">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="background:linear-gradient(135deg,var(--blue),var(--purple));color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;flex-shrink:0">6</div>
-        <div style="font-size:17px;font-weight:800;color:#fff">AI 주도 업무 흐름</div>
-        <span style="margin-left:auto;background:rgba(255,255,255,.2);color:#fff;font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0;border:1px solid rgba(255,255,255,.3)">🔮 Long-term</span>
-      </div>
-      <div class="impact-badge dark">기대 임팩트: 반복 업무 80% 자동화 → PM 전략 집중 시간 3× 확보</div>
-      <p style="font-size:13px;color:rgba(255,255,255,.6);margin-bottom:20px">AI를 활용하는 조직이 아니라, AI가 운영하는 조직을 만듭니다.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">① 반복 작업 에이전트 자동화</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">VOC 분류, 템플릿 태깅, 보고서 취합</div>
-        </div>
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">② 팀 지식 위키 + RAG</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">누구나 빠르게 찾는 조직 지식베이스</div>
-        </div>
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">③ 업무 대시보드 자동화</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">진행 현황 실시간 공유, 보고서 작성 시간 제거</div>
-        </div>
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">④ 내부 템플릿 통일화</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">기획서·디자인·회의록 포맷 표준화</div>
-        </div>
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">⑤ AI 개발 운영 이관</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">홍보 랜딩페이지, 내부 툴 등 핵심 외 개발</div>
-        </div>
-        <div style="background:rgba(255,255,255,.05);border-radius:8px;padding:14px">
-          <div style="font-size:12px;font-weight:700;color:#7EC8E3;margin-bottom:4px">⑥ 자동 키메트릭스</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.6);line-height:1.6">현재·미래 목표 수시 체크</div>
-        </div>
-      </div>
-      <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:18px">
-        <div style="font-size:11px;font-weight:700;color:#FDE68A;letter-spacing:.5px;margin-bottom:10px">이 제안은 이론이 아닙니다 — 현재 직접 구축해 운영 중입니다</div>
-        <div style="display:flex;flex-wrap:wrap;gap:8px">
-          <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.75)">AI 오케스트레이터 (역할별 에이전트 자동 분배)</div>
-          <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.75)">멀티 에이전트 (Gemini·Claude·Groq 역할 분리)</div>
-          <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.75)">RAG 기반 지식 검색</div>
-          <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.75)">자동화 파이프라인 무인 운영</div>
-          <div style="background:rgba(255,255,255,.07);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.75)">업무 대시보드 자동 기록</div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-</div>
 </section>
-
-<!-- ROADMAP -->
-<section id="roadmap" class="section" style="background:var(--gray-100)">
-<div class="page">
-
-  <div class="section-tag">ROADMAP</div>
-  <h2 class="section-title">로드맵 — 내 경험이 곧 실행 순서입니다</h2>
-  <p class="section-sub">진단 → 핵심 플로우 완성 → 플랫폼 확장. 과거에 풀었던 문제 순서가 미리디의 실행 순서입니다</p>
-
-  <!-- 3단계 로드맵 -->
-  <div class="roadmap-grid">
-    <div class="roadmap-card">
-      <div class="roadmap-period" style="color:var(--blue)">단기 · 0 ~ 3개월</div>
-      <div class="roadmap-title">데이터 진단 + 전환 마찰 제거</div>
-      <ul class="roadmap-items">
-        <li>무료→유료 전환 마찰 구간 정량 진단</li>
-        <li>결제 고객 세그먼트 재정의 — 소상공인 외 신규 층 발굴</li>
-        <li>AI 기능 활용 패턴 분석 · 전환 트리거 데이터화</li>
-        <li>AI 제작 → 인쇄 연결 마찰 구간 제거 (SSO 통합)</li>
-      </ul>
-    </div>
-    <div class="roadmap-card">
-      <div class="roadmap-period" style="color:var(--purple)">중기 · 3 ~ 12개월</div>
-      <div class="roadmap-title">세그먼트 MVP + 핵심 플로우 완성</div>
-      <ul class="roadmap-items">
-        <li>K팝 팬 포토카드 패키지 — 신규 세그먼트 PMF 검증</li>
-        <li>크리에이터 갤러리 → 영감 → 크레딧 소진 → 전환 루프 설계</li>
-        <li>세그먼트별 요금제 분리 (시즌 패스 / AI 번들 / Pro)</li>
-        <li>AI 에이전트 디자인 시스템 MVP — 브랜드 등록 → 자연어 → 즉시 생성</li>
-      </ul>
-    </div>
-    <div class="roadmap-card">
-      <div class="roadmap-period" style="color:var(--pink)">장기 · 1년+</div>
-      <div class="roadmap-title">플랫폼 확장 + B2B 생태계</div>
-      <ul class="roadmap-items">
-        <li>AI 디자인 시스템 → B2B Enterprise (브랜드키트 + 조직 연동)</li>
-        <li>크리에이터 생태계 — 결과물 공유 · 굿즈 판매 · 팬덤 락인</li>
-        <li>결제 고객: 소상공인 → 크리에이터 → Enterprise 3트랙 병행</li>
-        <li>미리클 AI 제작 + 비즈하우스 인쇄 = 완결된 플랫폼 포지셔닝</li>
-      </ul>
-    </div>
-  </div>
-
-
-</div>
-</section>
-
-<script>
-// ── 미리디 분석 차트 ──────────────────────────────────────────
-// 스크립트가 body 최하단 → DOM 즉시 사용 가능
-// IntersectionObserver로 뷰포트 진입 시에만 렌더 (성능 최적화)
-
-var _miriCharts = {};
-
-function _initChart(id) {
-  if (_miriCharts[id]) return;
-  var el = document.getElementById(id);
-  if (!el) return;
-
-  var cfg = null;
-
-  if (id === 'chartSegSignup') {
-    cfg = {
-      type: 'doughnut',
-      data: { labels: ['학생','직장인','기타'], datasets: [{ data:[46,34,20], backgroundColor:['#1a2744','#4A90D9','#D1D5DB'], borderWidth:0, hoverOffset:4 }] },
-      options: { responsive:true, maintainAspectRatio:false, cutout:'65%', animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'%';}}} } }
-    };
-  }
-  else if (id === 'chartSegPay') {
-    cfg = {
-      type: 'doughnut',
-      data: { labels: ['소상공인','기타'], datasets: [{ data:[72,28], backgroundColor:['#4A90D9','#D1D5DB'], borderWidth:0, hoverOffset:4 }] },
-      options: { responsive:true, maintainAspectRatio:false, cutout:'65%', animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.label+': '+c.parsed+'%';}}} } }
-    };
-  }
-  else if (id === 'chartUsage') {
-    cfg = {
-      type: 'bar',
-      data: { labels:['PPT/발표','소셜 포스터','인쇄물','AI 생성','기타'], datasets:[{ data:[41,25,18,9,7], backgroundColor:['#1a2744','#4A90D9','#7B5EA7','#E87CA0','#D1D5DB'], borderRadius:5, borderSkipped:false }] },
-      options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){return c.parsed.x+'%';}}} }, scales:{ x:{max:50, grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, callback:function(v){return v+'%';}}}, y:{grid:{display:false}, ticks:{font:{size:11}}} } }
-    };
-  }
-  else if (id === 'chartArpu') {
-    cfg = { type: 'bar', data: {
-      labels: ['소상공인 현재', '소상공인 Pro', 'K팝 팬 현재', 'K팝 팬 시즌패스', 'AI 크리에이터 현재', 'AI 크리에이터 번들'],
-      datasets: [{ data: [100, 175, 60, 140, 50, 130],
-        backgroundColor: ['rgba(74,144,217,.3)','rgba(74,144,217,.9)','rgba(123,94,167,.3)','rgba(123,94,167,.9)','rgba(26,39,68,.25)','rgba(26,39,68,.8)'],
-        borderRadius: 4, borderSkipped: false }]
-    }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
-      tooltip: { callbacks: { label: function(c) { return 'ARPU ' + c.raw + ' (현재=100 기준)'; } } } },
-      scales: { y: { beginAtZero: true, max: 200, ticks: { font: { size: 10 }, callback: function(v) { return v; } }, grid: { color: 'rgba(0,0,0,.05)' } },
-        x: { ticks: { font: { size: 9 }, maxRotation: 0 }, grid: { display: false } } } } };
-  }
-  else if (id === 'chartFunnel') {
-    cfg = {
-      type: 'bar',
-      data: { labels:['가입자','월간 활성','AI 체험','결제'], datasets:[{ data:[100,35,5,0.6], backgroundColor:['#1a2744','#4A90D9','#7B5EA7','#E87CA0'], borderRadius:5, borderSkipped:false }] },
-      options: { responsive:true, maintainAspectRatio:false, animation:{duration:700}, plugins:{ legend:{display:false}, tooltip:{callbacks:{label:function(c){ var l=['16,000,000명 (100%)','약 560만명 (35%)','약 80만명 (5%)','약 96,000명 (0.6%)']; return l[c.dataIndex]||'';}}} }, scales:{ y:{max:110, grid:{color:'rgba(0,0,0,.04)'}, ticks:{font:{size:10}, callback:function(v){return v+'%';}}}, x:{grid:{display:false}, ticks:{font:{size:11}}} } }
-    };
-  }
-  if (cfg) {
-    try { _miriCharts[id] = new Chart(el, cfg); }
-    catch(e) { console.warn('Chart init failed:', id, e); }
-  }
-}
-
-// IntersectionObserver: 뷰포트 진입 시 초기화
-(function() {
-  var ids = ['chartSegSignup','chartSegPay','chartUsage','chartFunnel','chartArpu'];
-  if (!window.IntersectionObserver) {
-    // fallback: 지원 안 하면 즉시 전부 초기화
-    ids.forEach(function(id) { _initChart(id); });
-    return;
-  }
-  var obs = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) { _initChart(entry.target.id); obs.unobserve(entry.target); }
-    });
-  }, { threshold: 0.05 });
-  ids.forEach(function(id) {
-    var el = document.getElementById(id);
-    if (el) obs.observe(el);
-  });
-})();
-</script>
 
 <!-- CLOSING -->
 <section id="closing">
   <div class="glow-1"></div>
   <div class="glow-2"></div>
   <div class="closing-inner">
-    <div class="closing-quote">
-      "미리디는 AI 제작부터 실물 인쇄·배송까지<br>
-      국내에서 가장 완결된 흐름을 가진 플랫폼입니다.<br>
-      그 경험을 K팝 팬덤이 전 세계로 퍼뜨릴 수 있습니다."
-    </div>
-    <div class="closing-body">
-      소상공인에게는 '현수막 디자인부터 내일 수령까지',<br>
-      AI 크리에이터에게는 '내가 만든 AI 아트를 실물로',<br>
-      K팝 팬에게는 '포토카드 3분 완성·내일 배송 — 그리고 전 세계 팬과 공유'.<br><br>
-      한국에서 크리에이터 세그먼트를 결제 고객으로 전환하고,<br>
-      K팝 팬덤의 글로벌 네트워크를 타고 미리디를 세계로 —<br>
-      저는 이 흐름을 설계하고 실행하는 PM이 되겠습니다.
-    </div>
-    <div class="closing-sign">이동원 · 시니어 프로덕트 매니저 지원 · 2026.03</div>
+    <p class="closing-quote">{{CLOSING_QUOTE}}</p>
+    <p class="closing-body">{{CLOSING_BODY}}</p>
+    <p class="closing-sign">{{CLOSING_SIGN}}</p>
   </div>
 </section>
 
@@ -3121,10 +2431,10 @@ document.addEventListener('keydown', function(e) {
 
 
 <!-- 이동원 AI 챗봇 위젯 -->
-<script src="./chat-widget.js?v=2.0.0"
+<script src="chat-widget.js"
         data-api="https://dongwon-chatbot.webn77.workers.dev"
         data-company="miridih"
-        data-section-map='{"career":"#timeline","projects":"#cases","strengths":"#strengths","philosophy":"#why","motivation":"#why-mireedi","intro":"#cover"}'></script>
+        data-section-map='{"career":"#timeline","projects":"#cases","strengths":"#strengths","philosophy":"#why","motivation":"#why-mireedi","intro":"#cover"}' data-test="true"></script>
 
 </body>
 </html>
